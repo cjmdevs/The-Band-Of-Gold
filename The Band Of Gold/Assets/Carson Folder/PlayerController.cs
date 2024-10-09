@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
-
     private Animator myAnimator;
     private SpriteRenderer mySpriteRender;
+
 
     private void Awake() {
         playerControls = new PlayerControls();
@@ -45,12 +45,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AdjustPlayerFacingDirection() {
-        // Flip the player sprite based on horizontal movement
-        if (movement.x > 0) {
-            mySpriteRender.flipX = false;  // Facing right
-        }
-        else if (movement.x < 0) {
-            mySpriteRender.flipX = true;   // Facing left
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+
+        if (mousePos.x < playerScreenPoint.x) {
+            mySpriteRender.flipX = true;
+        } else {
+            mySpriteRender.flipX = false;
         }
     }
 }
