@@ -46,8 +46,6 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.LoadData(gameData);
         }
-
-        Debug.Log("Loaded death count = " + gameData.deathCount);
     }   
 
     public void SaveGame()
@@ -66,10 +64,10 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
     }
 
-    private List<IDataPersistence> FindAllPersistenceObjects()
+    private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistencesObjects = FindObjectOfType<MonoBehaviour>()
-            .OfType<DataPersistence>();
+        IEnumerable<IDataPersistence> dataPersistencesObjects = FindObjectsOfType<MonoBehaviour>()
+            .OfType<IDataPersistence>();
 
             return new List<IDataPersistence>(dataPersistenceObjects);
     }
