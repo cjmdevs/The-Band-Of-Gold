@@ -14,8 +14,8 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
         values.Clear();
         foreach (KeyValuePair<TKey, TValue> pauir in this)
         {
-            //keys.Add(pair.Key);
-            //values.Add(ParticleCollisionEvent.Value);
+            keys.Add(pair.Key);
+            values.Add(ParticleCollisionEvent.Value);
         }
     }   
 
