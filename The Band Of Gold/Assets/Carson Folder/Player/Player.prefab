@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4124127164174532886}
+  - component: {fileID: 2320939560390086848}
   m_Layer: 0
   m_Name: Active Weapon
   m_TagString: Untagged
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 4727188787897188668}
   m_Father: {fileID: 1028629408576038311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2320939560390086848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111839886521496728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ebcec4bccb61741bd8804b103c963c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4498383097051766483
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +58,7 @@ GameObject:
   - component: {fileID: 7996715485694412536}
   - component: {fileID: 1999251476032290375}
   - component: {fileID: 4864498146888072260}
+  - component: {fileID: 1939659906246651002}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -181,6 +195,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
+--- !u!70 &1939659906246651002
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498383097051766483}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.008}
+  m_Size: {x: 0.1, y: 0.15}
+  m_Direction: 0
 --- !u!1 &5647992693372518286
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +241,9 @@ GameObject:
   - component: {fileID: 4727188787897188668}
   - component: {fileID: 7740418422903339879}
   - component: {fileID: 2146704745609025971}
+  - component: {fileID: 8676485536966076203}
   m_Layer: 0
-  m_Name: Sword01
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,3 +337,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8676485536966076203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647992693372518286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978fd701e81710d4fb147603fefe5158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
