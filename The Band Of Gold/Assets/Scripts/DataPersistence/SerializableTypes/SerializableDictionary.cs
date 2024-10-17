@@ -8,20 +8,31 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 
     [SerializeField] private List<TKey> keys = new List<TKey>();
     [SerializeField] private List<TValue> values = new List<TValue>();
+
+    // save the dictionary to lists
     public void OnBeforeSerialize()
     {
         keys.Clear();
         values.Clear();
-        foreach (KeyValuePair<TKey, TValue> pauir in this)
+        foreach (KeyValuePair<TKey, TValue> pair in this)
         {
             keys.Add(pair.Key);
-            values.Add(ParticleCollisionEvent.Value);
+            values.Add(pair.Value);
         }
     }   
 
     public void OnAfterDeserialize()
     {
+        this.Clear();   
 
+        Debug.LogError("Tried to deserialize a SerializableDictionary, but the amount of keys (" 
+            + keys.Count + ") does not match the number of values (" + values.Count
+            + ") which indicates that something went wrong");
+        
+        for (int i = 0; i < keys.Count; i++)
+        {
+            this.Add(keys[i], values[i]);
+        }
     } 
 
 }
