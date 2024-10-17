@@ -8,11 +8,14 @@ public class FileDataHandler
 {
    private string dataDirPath = "";
    private string dataFilename = "";
+   private bool useEncryption = false;
+   private readonly string encryptionCodeWord = "word";
 
-   public FileDataHandler(string dataDirPath, string dataFilename)
+   public FileDataHandler(string dataDirPath, string dataFilename, bool useEncryption)
    {
     this.dataDirPath = dataDirPath;
     this.dataFilename = dataFilename;
+    this.useEncryption = useEncryption;
    }
 
    public GameData Load()
@@ -24,7 +27,24 @@ public class FileDataHandler
     {
         try
         {
+            // load the serialize data from the file
+            string dataToLoad = "";
+            using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    dataToLoad = reader.ReadToEnd();
+                }
+            }
 
+            // optioinally decrypt the data
+            if (useEncryption)
+            {
+                dataToLoad = EncryptDecrypt(dataToLoad);
+            }
+
+            // deserailize the data from Json back into the C# object
+            loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
         }
         catch (Exception e)
         {
@@ -46,6 +66,12 @@ public class FileDataHandler
         // serialize the C# game data object into Json
         string dataToStore = JsonUtility.ToJson(data, true);
 
+        // optionally encrypt the data
+        if (useEncryption)
+        {
+            dataToStore = EncryptDecrypt(dataToStore);
+        }
+
         // write the serialize data to the file
         using (FileStream stream = new FileStream(fullPath, FileMode.Create))
         {
@@ -61,4 +87,14 @@ public class FileDataHandler
     }
    }
 
+    // the beliw is a simple implementation of XOR encryption
+    private string EncryptDecrypt(string data)
+    {
+        string modifiedData = "";
+        for (int i = 0; i < data.Length; i++)
+        {
+            modifiedData += (char) (data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
+        }
+        return modifiedData;
+    }
 }
