@@ -37,12 +37,16 @@ public class Sword : MonoBehaviour
 
     private void Attack() {
         myAnimator.SetTrigger("Attack");
+        weaponCollider.gameObject.SetActive(true);
 
         slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
         slashAnim.transform.parent = this.transform.parent;
     }
+    public void DoneAttackingAnimEvent() {
+        weaponCollider.gameObject.SetActive(false);
+    }
 
-    public void SwingUpFlipAnim() {
+    public void SwingUpFlipAnimEvent() {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 0);
 
         if (playerController.FacingLeft) { 
@@ -50,7 +54,7 @@ public class Sword : MonoBehaviour
         }
     }
 
-    public void SwingDownFlipAnim() {
+    public void SwingDownFlipAnimEvent() {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         if (playerController.FacingLeft)
