@@ -9,7 +9,14 @@ public class MainMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueGameButton;
-    [SerializeField] private Button quitGameButton;
+
+    private void Start()
+    {
+        if (!DataPersistenceManager.instance.HasGameData())
+        {
+            continueGameButton.interactable = false;
+        }
+    }
     public void OnNewGameClicked()
     {
         DisableMenuButtons();
@@ -28,15 +35,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("TitleScene");
     }
 
-    public void OnQuitGameClicked()
-    {
-        DisableMenuButtons();
-    }
-
     private void DisableMenuButtons()
     {
         newGameButton.interactable = false;
         continueGameButton.interactable = false;
-        quitGameButton.interactable = false;
     }
 }
