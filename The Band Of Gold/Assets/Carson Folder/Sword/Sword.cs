@@ -7,12 +7,14 @@ public class Sword : MonoBehaviour
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private Transform weaponCollider;
+    [SerializeField] private float swordAttackCD = .5f;
 
     private PlayerControls playerControls;
     private Animator myAnimator;
     private PlayerController playerController;
     private ActiveWeapon activeWeapon;
 
+    private bool attackButtonDown, isAttacking = false;
     private GameObject slashAnim;
 
     private void Awake() {
@@ -28,19 +30,34 @@ public class Sword : MonoBehaviour
 
     void Start()
     {
-        playerControls.Combat.Attack.started += _ => Attack();
+        playerControls.Combat.Attack.started += _ => StartAttacking();
+        playerControls.Combat.Attack.started += _ => StopAttacking();
+
     }
 
     private void Update() {
         MouseFollowWithOffset();
+        Attack();
+    }
+
+    private void StartAttacking() {
+        attackButtonDown = true;
+
+    }
+
+    private void StopAttacking() {
+        attackButtonDown = false;
     }
 
     private void Attack() {
-        myAnimator.SetTrigger("Attack");
-        weaponCollider.gameObject.SetActive(true);
-
-        slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
-        slashAnim.transform.parent = this.transform.parent;
+        if (attackButtonDown && !isAttacking) {
+            isAttacking = true;
+            myAnimator.SetTrigger("Attack");
+            weaponCollider.gameObject.SetActive(true);
+            slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
+            slashAnim.transform.parent = this.transform.parent;
+            StartCoroutine(AttackCDRoutine());
+        }
     }
     public void DoneAttackingAnimEvent() {
         weaponCollider.gameObject.SetActive(false);
@@ -61,6 +78,11 @@ public class Sword : MonoBehaviour
         {
             slashAnim.GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+
+    private IEnumerator AttackCDRoutine() {
+        yield return new WaitForSeconds(swordAttackCD);
+        isAttacking = false;
     }
 
     private void MouseFollowWithOffset() {
