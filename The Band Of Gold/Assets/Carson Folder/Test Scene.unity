@@ -203,8 +203,8 @@ PolygonCollider2D:
     - - {x: 0.047405582, y: 0.14113426}
       - {x: 0.074445665, y: -0.0067450404}
       - {x: 0.053833872, y: -0.039371505}
-      - {x: 0.07129953, y: -0.049964204}
-      - {x: 0.2060668, y: -0.041126836}
+      - {x: 0.056527644, y: -0.07528744}
+      - {x: 0.21239759, y: -0.0675052}
       - {x: 0.190526, y: 0.10848882}
   m_UseDelaunayMesh: 0
 --- !u!114 &397041012
@@ -230,11 +230,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2742459143294346721, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.5298014
+      value: 2.18
       objectReference: {fileID: 0}
     - target: {fileID: 2742459143294346721, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6122377
+      value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 2742459143294346721, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       propertyPath: m_LocalPosition.z
@@ -529,6 +529,7 @@ MonoBehaviour:
   slashAnimPrefab: {fileID: 3484058472395316854, guid: c97f775f82c4de444a1e59dae2d1165c, type: 3}
   slashAnimSpawnPoint: {fileID: 1088816314}
   weaponCollider: {fileID: 397041010}
+  swordAttackCD: 0.5
 --- !u!212 &1290725679003991489
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -843,7 +844,7 @@ Transform:
   m_GameObject: {fileID: 4967362872854141045}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.13, y: 2.89, z: 0}
+  m_LocalPosition: {x: 0.61, y: 0.68, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
