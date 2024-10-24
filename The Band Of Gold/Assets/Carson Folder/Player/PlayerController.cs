@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
-    public bool FacingLeft {get {return facingLeft;} set {facingLeft = value; } }
+    public bool FacingLeft {get {return facingLeft;} }
     public static PlayerController Instance;
     [SerializeField] private float moveSpeed = 1f;
-
+    [SerializeField] private float dashSpeed = 4f;
+    [SerializeField] private TrailRenderer myTrailRenderer;
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRender;
+    private float startingMoveSpeed;
 
     private bool facingLeft = false;
+    private bool isDashing = false;
 
 
     private void Awake() {
@@ -25,6 +28,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         mySpriteRender = GetComponent<SpriteRenderer>();
     }
 
+    private void Start() {
+        playerControls.Combat.Dash.performed += _ => Dash();
+
+        startingMoveSpeed = moveSpeed;
+    }
     private void OnEnable() {
         playerControls.Enable();
     }
@@ -65,10 +73,28 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (mousePos.x < playerScreenPoint.x) {
             mySpriteRender.flipX = true;
-            FacingLeft = true;
+            facingLeft = true;
         } else {
             mySpriteRender.flipX = false;
             facingLeft = false;
         }
+    }
+    private void Dash() {
+        if (!isDashing) {
+            isDashing = true;
+            moveSpeed *= dashSpeed;
+            myTrailRenderer.emitting = true;
+            StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    private IEnumerator EndDashRoutine() {
+        float dashTime = .2f;
+        float dashCD = .25f;
+        yield return new WaitForSeconds(dashTime);
+        moveSpeed = startingMoveSpeed;
+        myTrailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCD);
+        isDashing = false;
     }
 }
