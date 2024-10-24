@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveSlot : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private GameObject hasDataContent;
     [SerializeField] private TextMeshProUGUI percentageCompleteText;
     [SerializeField] private TextMeshProUGUI deathCountText;
+
+    private Button saveSlotbutton;
+
+    private void Awake()
+    {
+        saveSlotbutton = this.GetComponent<Button>();
+    }
 
     public void SetData(GameData data)
     {
@@ -36,5 +44,10 @@ public class SaveSlot : MonoBehaviour
     public string GetProfileId()
     {
         return this.profileId;
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        saveSlotbutton.interactable = interactable;
     }
 }
