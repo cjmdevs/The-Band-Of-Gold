@@ -514,22 +514,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &210534491455119757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3810989555729004840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978fd701e81710d4fb147603fefe5158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slashAnimPrefab: {fileID: 3484058472395316854, guid: c97f775f82c4de444a1e59dae2d1165c, type: 3}
-  slashAnimSpawnPoint: {fileID: 1088816314}
-  weaponCollider: {fileID: 397041010}
-  swordAttackCD: 0.5
 --- !u!212 &1290725679003991489
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -620,7 +604,7 @@ GameObject:
   - component: {fileID: 4258347551097964442}
   - component: {fileID: 1290725679003991489}
   - component: {fileID: 7442278883562413845}
-  - component: {fileID: 210534491455119757}
+  - component: {fileID: 7442278883562413846}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -783,6 +767,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7442278883562413846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810989555729004840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978fd701e81710d4fb147603fefe5158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slashAnimPrefab: {fileID: 3484058472395316854, guid: c97f775f82c4de444a1e59dae2d1165c, type: 3}
+  slashAnimSpawnPoint: {fileID: 1088816314}
+  weaponCollider: {fileID: 397041010}
+  swordAttackCD: 0.5
 --- !u!212 &7509500213634905068
 SpriteRenderer:
   m_ObjectHideFlags: 0
