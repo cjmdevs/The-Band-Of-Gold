@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bd9d7de6e1d46e583fa7f72b9a1cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstSelected: {fileID: 1830707986}
   saveSlotsMenu: {fileID: 1437483517}
   newGameButton: {fileID: 1830707988}
   continueGameButton: {fileID: 780527914}
@@ -1782,7 +1783,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3562377406149fab10639964ef8942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstSelected: {fileID: 1215091893}
   mainMenu: {fileID: 185271514}
+  backButton: {fileID: 1066613863}
 --- !u!1 &1625125276
 GameObject:
   m_ObjectHideFlags: 0
