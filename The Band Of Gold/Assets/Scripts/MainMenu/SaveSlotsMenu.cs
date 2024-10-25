@@ -40,11 +40,6 @@ public class SaveSlotsMenu : Menu
         this.DeactivateMenu();
     }
 
-    private void Start()
-    {
-        ActivateMenu();
-    }
-
     public void ActivateMenu()
     {
         // set this menu active
