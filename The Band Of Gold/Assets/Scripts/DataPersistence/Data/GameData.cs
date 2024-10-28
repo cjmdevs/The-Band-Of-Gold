@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class GameData
 {
+    public long lastUpdated;
     public int deathCount;
     public Vector3 playerPosition;
 

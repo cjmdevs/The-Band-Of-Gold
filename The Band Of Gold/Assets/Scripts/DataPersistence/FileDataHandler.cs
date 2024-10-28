@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Data;
 
 public class FileDataHandler
 {
@@ -20,6 +21,11 @@ public class FileDataHandler
 
    public GameData Load(string profileId)
    {
+    // base case - if the profileId is null, return right away
+    if (profileId == null)
+    {
+        return null;
+    }
     // use Path.Combine to account for different OS's having different path seperators
     string fullPath = Path.Combine(dataDirPath, profileId, dataFilename);
     GameData loadedData = null;
@@ -56,6 +62,11 @@ public class FileDataHandler
 
    public void Save(GameData data, string profileId)
    {
+    // base case - if the profileId is null, return right away
+    if (profileId == null)
+    {
+        return;
+    }
     // use Path.Combine to account for different OS's having different path seperators
     string fullPath = Path.Combine(dataDirPath, profileId, dataFilename);
     try
@@ -124,6 +135,41 @@ public class FileDataHandler
     return profileDictionary;
    }
 
+   public string GetMostRecentlyUpdatedProfileId()
+   {
+    string mostRecentProfileId = null;
+
+    Dictionary<string, GameData> profilesGameData = LoadAllProfiles();
+    foreach (KeyValuePair<string, GameData> pair in profilesGameData)
+    {
+        string profileId = pair.Key;
+        GameData gameData = pair.Value;
+
+        // skip this entry id the gamedata is null
+        if (gameData == null)
+        {
+            continue;
+        }
+
+        // if this is the first data we've come across that exists, it's the most recent so far
+        if (mostRecentProfileId == null)
+        {
+            mostRecentProfileId = profileId;
+        }
+        // otherwise, compare to see which date is the most recent
+        else
+        {
+            DateTime mostRecentDateTime = DateTime.FromBinary(profilesGameData[mostRecentProfileId].lastUpdated);
+            DateTime newDateTime = DateTime.FromBinary(gameData.lastUpdated);
+            // the greatest DateTime value is the most recent
+            if (newDateTime > mostRecentDateTime)
+            {
+                mostRecentProfileId = profileId;
+            }
+        }
+        return mostRecentProfileId;
+    }
+   }
 
     // the below is a simple implementation of XOR encryption
     private string EncryptDecrypt(string data)
