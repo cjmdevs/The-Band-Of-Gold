@@ -36,7 +36,9 @@ public class SaveSlotsMenu : Menu
 
         }
        
-        // Load the scene - which will in turn save the game because of OnSceneUnloaded() in the DataPersistenceManager
+        // save the game anytime before Loading a new scene
+        DataPersistenceManager.instance.SaveGame();
+        // Load the scene
         SceneManager.LoadSceneAsync("Test Scene");
     }
 

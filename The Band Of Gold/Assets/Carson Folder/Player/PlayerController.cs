@@ -97,4 +97,9 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         yield return new WaitForSeconds(dashCD);
         isDashing = false;
     }
+
+    public void SaveData(GameData data)
+    {
+        throw new System.NotImplementedException();
+    }
 }

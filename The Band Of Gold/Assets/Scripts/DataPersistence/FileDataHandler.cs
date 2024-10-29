@@ -167,8 +167,8 @@ public class FileDataHandler
                 mostRecentProfileId = profileId;
             }
         }
-        return mostRecentProfileId;
     }
+    return mostRecentProfileId;
    }
 
     // the below is a simple implementation of XOR encryption
