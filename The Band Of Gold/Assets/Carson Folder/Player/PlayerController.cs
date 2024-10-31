@@ -40,6 +40,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
+        playerAttributesSO.vitality = data.playerAttributesData.vitality
     }
 
     public void SaveData(ref GameData data)
