@@ -79,6 +79,10 @@ public class SaveSlotsMenu : Menu
                 }
             }
         }
+
+        // set the first selected button
+        Button firstSelectedButton = firstSelected.GetComponent<Button>();
+        this.SetFirstSelected (firstSelectedButton);
     }
 
     public void DeactivateMenu()

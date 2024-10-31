@@ -145,10 +145,10 @@ public class DataPersistenceManager : MonoBehaviour
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistencesObjects = FindObjectsOfType<MonoBehaviour>()
+        IEnumerable<IDataPersistence> dataPersistencesObjects = FindObjectsOfType<MonoBehaviour>(true)
             .OfType<IDataPersistence>();
 
-            return new List<IDataPersistence>(dataPersistenceObjects);
+        return new List<IDataPersistence>(dataPersistenceObjects);
     }
 
     public bool HasGameData()
