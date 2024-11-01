@@ -14,6 +14,9 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private GameObject hasDataContent;
     [SerializeField] private TextMeshProUGUI percentageCompleteText;
     [SerializeField] private TextMeshProUGUI deathCountText;
+    
+    [Header("Remove Data Button")]
+    [SerializeField] private Button removeButton;
 
     private Button saveSlotbutton;
 
@@ -29,12 +32,14 @@ public class SaveSlot : MonoBehaviour
         {
             noDataConntent.SetActive(true);
             hasDataContent.SetActive(false);
+            removeButton.gameObject.SetActive(false);
         }
         // there is data for this profileId
         else
         {
             noDataConntent.SetActive(false);
             hasDataContent.SetActive(true);
+            removeButton.gameObject.SetActive(true);
 
             percentageCompleteText.text = data.GetPercentageComplete() + "% COMPLETE";
             deathCountText.text = "DEATH COUNT: " + data.deathCount;
@@ -49,5 +54,6 @@ public class SaveSlot : MonoBehaviour
     public void SetInteractable(bool interactable)
     {
         saveSlotbutton.interactable = interactable;
+        removeButton.interactable = interactable;
     }
 }

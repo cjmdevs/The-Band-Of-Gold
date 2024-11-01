@@ -42,6 +42,12 @@ public class SaveSlotsMenu : Menu
         SceneManager.LoadSceneAsync("Test Scene");
     }
 
+    public void OnRemoveClicked(SaveSlot saveSlot)
+    {
+        DataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
+        ActivateMenu(isLoadingGame);
+    }
+
     public void OnBackClicked()
     {
         mainMenu.ActivateMenu();
