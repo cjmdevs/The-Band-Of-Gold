@@ -59,6 +59,7 @@ public class MainMenu : Menu
     public void ActivateMenu()
     {
         this.gameObject.SetActive(true);
+        DisableButtonsDependingOnData();
     }
 
     public void DeactivateMenu()
