@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class SaveSlotsMenu : Menu
 
     [Header("Menu Buttons")]
     [SerializeField] private Button backButton;
+    [Header("Confirmation Popup")]
+    [SerializeField] private ConfirmationPopupMenu confirmationPopupMenu;
 
     private SaveSlot[] saveSlots;
 
@@ -26,16 +29,40 @@ public class SaveSlotsMenu : Menu
         //disable all buttons
         DisableMenuButtons();
 
-        // update the selected profile id to be used for data persistence
-        DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-
-        if (!isLoadingGame)
+        // case - Loading game
+        if (isLoadingGame)
         {
-            // create a new game - which will initialize our data to a clean slate
-            DataPersistenceManager.instance.NewGame();
-
+            DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
+            SaveGameAndLoadScene();
         }
-       
+        // case - new game, but the save slot has data
+        else if (saveSlot.hasData)
+        {
+            confirmationPopupMenu.ActivateMenu(
+                "Starting a New Game with this slot will override the currently saved data. Are you sure?",
+                // functioni to execute if we select 'yes'
+                () => {
+                    DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
+                    DataPersistenceManager.instance.NewGame();
+                    SaveGameAndLoadScene();
+                },
+                // function to execute if we select 'cancel'
+                () => {
+                    this.ActivateMenu(isLoadingGame);
+                }
+            );
+        }
+        // case - new game, and the save slot has no game data
+        else
+        {
+            DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
+            DataPersistenceManager.instance.NewGame();
+            SaveGameAndLoadScene();
+        }
+    }
+
+    private void SaveGameAndLoadScene()
+    {
         // save the game anytime before Loading a new scene
         DataPersistenceManager.instance.SaveGame();
         // Load the scene
@@ -44,8 +71,21 @@ public class SaveSlotsMenu : Menu
 
     public void OnRemoveClicked(SaveSlot saveSlot)
     {
-        DataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
-        ActivateMenu(isLoadingGame);
+        DisableMenuButtons();
+
+        confirmationPopupMenu.ActivateMenu(
+            "Are you sure you want to delete this saved data?",
+            // function too execute if we select 'yes'
+            () => {
+                DataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
+                ActivateMenu(isLoadingGame);
+            },            
+            // function to execute if we select 'remove'
+            () => {
+                ActivateMenu(isLoadingGame);
+            }
+        );
+        
     }
 
     public void OnBackClicked()
@@ -64,6 +104,9 @@ public class SaveSlotsMenu : Menu
 
         // Load all of the profiles that exist
         Dictionary<string, GameData> profilesGameData = DataPersistenceManager.instance.GetAllProfilesGameData();
+
+        // ensure the back button is enabled when we activate the menu
+        backButton.interactable = true;
 
         // Loop through eaach saave slot in the UI and set the content appropriately
         GameObject firstSelected = backButton.gameObject;

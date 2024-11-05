@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-public class ConformationPopupMenu : Menu
+public class ConfirmationPopupMenu : Menu
 {
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI displayText;
@@ -37,6 +37,6 @@ public class ConformationPopupMenu : Menu
 
     private void DeactivateMenu()
     {
-        
+        this.gameObject.SetActive(false);
     }
 }
