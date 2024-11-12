@@ -10,9 +10,11 @@ public class MainMenu : Menu
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
 
     [Header("Menu Buttons")]
-    [SerializeField] private Button newGameButton;
-    [SerializeField] private Button continueGameButton;
-    [SerializeField] private Button loadGameButton;
+    [SerializeField] private Button NewGameButton;
+    [SerializeField] private Button ContinueGameButton;
+    [SerializeField] private Button LoadGameButton;
+    [SerializeField] private Button OptionButton;
+
 
     private void Start()
     {
@@ -23,8 +25,8 @@ public class MainMenu : Menu
     {
         if (!DataPersistenceManager.instance.HasGameData())
         {
-            continueGameButton.interactable = false;
-            loadGameButton.interactable = false;
+            ContinueGameButton.interactable = false;
+            LoadGameButton.interactable = false;
         }
     }
 
@@ -50,10 +52,15 @@ public class MainMenu : Menu
         SceneManager.LoadSceneAsync("Test Scene");
     }
 
+    public void OnOptionButtonClicked()
+    {
+        
+    }
+
     private void DisableMenuButtons()
     {
-        newGameButton.interactable = false;
-        continueGameButton.interactable = false;
+        NewGameButton.interactable = false;
+        ContinueGameButton.interactable = false;
     }
 
     public void ActivateMenu()
