@@ -19,6 +19,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private bool facingLeft = false;
     private bool isDashing = false;
 
+    public CoinManager cm;
+
     protected override void Awake() {
 
         base.Awake();
@@ -85,6 +87,15 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
             moveSpeed *= dashSpeed;
             myTrailRenderer.emitting = true;
             StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+            cm.coinCount++;
         }
     }
 
