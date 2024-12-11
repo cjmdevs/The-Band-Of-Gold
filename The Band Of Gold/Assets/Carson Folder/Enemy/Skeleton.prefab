@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -7263662868951274935}
   - component: {fileID: 6079960738759796697}
   - component: {fileID: 1285323494556850528}
+  - component: {fileID: -2809537786907967016}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Enemy
@@ -243,3 +244,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteFlashMat: {fileID: 2100000, guid: ad1c7e1614e9f424589f10eeba5e81ae, type: 2}
   restoreDefaultMatTime: 0.2
+--- !u!114 &-2809537786907967016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541640644396396384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f408c1f4c93c74f08a7b45fdb3f80691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
