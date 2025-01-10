@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+            Debug.Log("Player Died");
         }
     }
 }
