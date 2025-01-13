@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  attackRange: 2
   rb: {fileID: 1281630728}
 --- !u!50 &1281630728
 Rigidbody2D:

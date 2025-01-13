@@ -10,7 +10,7 @@ public class enemy_movement : MonoBehaviour
     public float speed;
     private EnemyState enemyState;
 
-
+    public float attackRange = 2;
     public Rigidbody2D rb;
     private Transform player;
     private int facingDirection = -1;
@@ -27,13 +27,24 @@ public class enemy_movement : MonoBehaviour
     void Update()
     {
         if(enemyState == EnemyState.Chasing){
-            if(player.position.x > transform.position.x && facingDirection == -1 || player.position.x < transform.position.x && facingDirection == 1){
-                Flip();
-            }
-            Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = direction * speed;
+            Chase();
+        }
+        else if(enemyState == EnemyState.Attacking){
+            rb.velocity = Vector2.zero;
         }
        
+    }
+
+    void Chase(){
+        if(Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+        {
+            ChangeState(EnemyState.Attacking);
+        }
+        else if(player.position.x > transform.position.x && facingDirection == -1 || player.position.x < transform.position.x && facingDirection == 1){
+            Flip();
+        }
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.velocity = direction * speed;
     }
 
     void Flip()
@@ -68,6 +79,9 @@ public class enemy_movement : MonoBehaviour
         else if (enemyState == EnemyState.Chasing){
             anim.SetBool("isChasing", false);
         }
+        else if (enemyState == EnemyState.Attacking){
+            anim.SetBool("isAttacking", false);
+        }
 
         enemyState = newState;
 
@@ -79,10 +93,18 @@ public class enemy_movement : MonoBehaviour
         else if (enemyState == EnemyState.Chasing){
             anim.SetBool("isChasing", true);
         }
+        else if (enemyState == EnemyState.Attacking){
+            anim.SetBool("isAttacking", true);
+        }
+    }
+    public void Attack()
+    {
+        Debug.Log("Attacking Player");
     }
 }
 
 public enum EnemyState{
     Idle,
     Chasing,
+    Attacking
 }
