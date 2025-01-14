@@ -19,6 +19,6 @@ public class GameManagerScript : MonoBehaviour
 
     public void gameOver()
     {
-        gameOverUI.SetActive(true);
+        gameOverUI.SetActive(true); 
     }
 }
