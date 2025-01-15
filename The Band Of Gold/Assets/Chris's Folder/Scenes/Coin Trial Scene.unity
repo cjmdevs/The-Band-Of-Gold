@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81439ecece3f14a6d84697add7743f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverUI: {fileID: 391963584}
 --- !u!1 &160088552
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +267,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1821658687}
+    - target: {fileID: 3839721767440085633, guid: 6efb9dda344b84f4b84f922ea8125525, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 106592083}
     - target: {fileID: 4221361707545970161, guid: 6efb9dda344b84f4b84f922ea8125525, type: 3}
       propertyPath: m_Name
       value: Player
@@ -426,7 +431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &391963585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -507,6 +512,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pHealth: {fileID: 1234425222}
   damage: 5
+--- !u!114 &427819894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427819870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f408c1f4c93c74f08a7b45fdb3f80691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1234425221}
+  speed: 3
+  distanceBetween: 6
 --- !u!1 &494957718
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +642,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1424904761}
+    - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1424904773}
   m_SourcePrefab: {fileID: 100100000, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
 --- !u!1 &568058912
 GameObject:
@@ -1052,6 +1075,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1982646439}
+    - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1982646451}
   m_SourcePrefab: {fileID: 100100000, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
 --- !u!1 &1081836369
 GameObject:
@@ -1135,7 +1161,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1081836372}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 106592083}
+        m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
+        m_MethodName: retry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1081836372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,6 +1464,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1341563955}
+    - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1341563967}
   m_SourcePrefab: {fileID: 100100000, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
 --- !u!1 &1341563943 stripped
 GameObject:
@@ -1446,6 +1487,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pHealth: {fileID: 1234425222}
   damage: 5
+--- !u!114 &1341563967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341563943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f408c1f4c93c74f08a7b45fdb3f80691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1234425221}
+  speed: 3
+  distanceBetween: 6
 --- !u!1 &1342712427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 19649713142365569, guid: 66dfd4d36dc144a30937f5315c129c00, type: 3}
@@ -1483,6 +1539,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pHealth: {fileID: 1234425222}
   damage: 5
+--- !u!114 &1424904773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424904749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f408c1f4c93c74f08a7b45fdb3f80691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1234425221}
+  speed: 3
+  distanceBetween: 6
 --- !u!1 &1463442905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,6 +2118,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pHealth: {fileID: 1234425222}
   damage: 5
+--- !u!114 &1982646451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982646427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f408c1f4c93c74f08a7b45fdb3f80691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1234425221}
+  speed: 3
+  distanceBetween: 6
 --- !u!4 &306919353399574127
 Transform:
   m_ObjectHideFlags: 0
@@ -2752,6 +2838,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
       insertIndex: -1
       addedObject: {fileID: 427819882}
+    - targetCorrespondingSourceObject: {fileID: 8541640644396396384, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 427819894}
   m_SourcePrefab: {fileID: 100100000, guid: e0caf94b88084a243b43ca9f3b9f6026, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
