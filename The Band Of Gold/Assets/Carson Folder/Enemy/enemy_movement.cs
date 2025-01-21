@@ -122,8 +122,9 @@ public class enemy_movement : MonoBehaviour
         Debug.Log("Entering Chasing State");
     }
     else if (enemyState == EnemyState.Attacking){
-        Debug.Log("Attacking Player");
         anim.SetBool("isAttacking", true);
+        Debug.Log("Attacking Player");
+
     }
 }
 
