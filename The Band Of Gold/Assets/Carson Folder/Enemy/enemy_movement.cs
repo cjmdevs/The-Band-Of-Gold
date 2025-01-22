@@ -35,9 +35,11 @@ public class enemy_movement : MonoBehaviour
     void Update()
     {
         CheckForPlayer();
+
         if(attackCooldownTimer > 0){
             attackCooldownTimer -= Time.deltaTime;
         }
+
         if(enemyState == EnemyState.Chasing){
             Chase();
         }
@@ -124,6 +126,7 @@ public class enemy_movement : MonoBehaviour
     else if (enemyState == EnemyState.Attacking){
         anim.SetBool("isAttacking", true);
         Debug.Log("Attacking Player");
+        Debug.Log("Animator isAttacking: " + anim.GetBool("isAttacking"));
 
     }
 }
