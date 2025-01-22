@@ -14,7 +14,7 @@ public class enemy_combat : MonoBehaviour
 
 
 
-    public void Attack(){
+    public void EnemyAttack(){
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
 
         if(hits.Length > 0)
