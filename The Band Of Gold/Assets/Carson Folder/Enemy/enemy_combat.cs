@@ -5,30 +5,14 @@ using UnityEngine;
 public class enemy_combat : MonoBehaviour
 {
     
-    public int damage = 1;
+    public int damage = 1; // damage enemy will do
+    public float KnockbackForce; // amount of knockback enemy does
+    public float stunTime; // amount of time player is stunned for
     public Transform attackPoint;
     public float weaponRange;
     public LayerMask playerLayer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-damage);
-        }
-    }
 
     public void Attack(){
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
@@ -36,6 +20,7 @@ public class enemy_combat : MonoBehaviour
         if(hits.Length > 0)
         {
             hits[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
+            hits[0].GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
             Debug.Log("Attack");
         }
     }

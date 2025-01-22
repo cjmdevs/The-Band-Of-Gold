@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword : MonoBehaviour
-{
+{   
+
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private Transform weaponCollider;
@@ -57,6 +58,7 @@ public class Sword : MonoBehaviour
             StartCoroutine(AttackCDRoutine());
             
         }
+
     }
 
     private IEnumerator AttackCDRoutine() {

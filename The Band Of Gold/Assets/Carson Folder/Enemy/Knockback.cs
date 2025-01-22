@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    public bool GettingKnockedBack {get; private set;}
-
-    [SerializeField] private float knockBackTime = .2f;
-
     private Rigidbody2D rb;
+    private enemy_movement enemyMovement;
 
-    private void Awake() {
-        rb = GetComponent<Rigidbody2D>(); 
+    private void Start() {
+        rb = GetComponent<Rigidbody2D>();
+        enemyMovement = GetComponent<enemy_movement>();
+    }
+    public void EnemyKnockback(Transform playerTransform, float knockbackForce, float knockbackTime, float stunTime)
+    {
+        enemyMovement.ChangeState(EnemyState.Knockback);
+        StartCoroutine(StunTimer(knockbackTime, stunTime));
+        Vector2 direction = (transform.position - playerTransform.position).normalized;
+        rb.velocity = direction * knockbackForce;
+        Debug.Log("Knockback");
     }
 
-    public void GetKnockedBack(Transform damageSource, float knockBackThrust) {
-        GettingKnockedBack= true;
-        Vector2 difference = (transform.position - damageSource.position).normalized * knockBackThrust * rb.mass;
-        rb.AddForce(difference, ForceMode2D.Impulse);
-        StartCoroutine(KnockRoutine());
-    }
-
-    private IEnumerator KnockRoutine() {
-        yield return new WaitForSeconds(knockBackTime);
+    IEnumerator StunTimer(float knockbackTime, float stunTime)
+    {
+        yield return new WaitForSeconds(knockbackTime);
         rb.velocity = Vector2.zero;
-        GettingKnockedBack = false;
+        yield return new WaitForSeconds(stunTime);
+        enemyMovement.ChangeState(EnemyState.Idle);
     }
 }

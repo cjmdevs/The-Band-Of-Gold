@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class enemy_movement : MonoBehaviour
 {   
+    [Header("Enemy Stats")]
+    public float speed; // speed of the enemy
+    public float playerDetectRange = 5; // range at which the enemy can detect the player dont need capsule collidor I believe
+    public float attackRange = 2; // range at which the enemy can attack the player
+    public float attackCooldown = 2; // time before the enemy can attack again
 
-    public float speed;
-    public float playerDetectRange = 5;
-    public Transform detectionPoint;
-    public LayerMask playerLayer;
-    public float attackRange = 2;
-    public float attackCooldown = 2;
+    public Transform detectionPoint; 
+    public LayerMask playerLayer; 
 
 
     private EnemyState enemyState;
@@ -34,19 +35,24 @@ public class enemy_movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForPlayer();
+        if(enemyState != EnemyState.Knockback){
 
-        if(attackCooldownTimer > 0){
-            attackCooldownTimer -= Time.deltaTime;
-        }
+        
 
-        if(enemyState == EnemyState.Chasing){
-            Chase();
+            CheckForPlayer();
+
+            if(attackCooldownTimer > 0){
+                attackCooldownTimer -= Time.deltaTime;
+            }
+
+            if(enemyState == EnemyState.Chasing){
+                Chase();
+            }
+            else if(enemyState == EnemyState.Attacking){
+                rb.velocity = Vector2.zero;
+            }
+        
         }
-        else if(enemyState == EnemyState.Attacking){
-            rb.velocity = Vector2.zero;
-        }
-       
     }
 
     void Chase(){
@@ -67,7 +73,9 @@ public class enemy_movement : MonoBehaviour
 
     private void CheckForPlayer()
     {
+        
         Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectRange, playerLayer);
+
 
         if(hits.Length > 0)
         {
@@ -81,22 +89,26 @@ public class enemy_movement : MonoBehaviour
                 ChangeState(EnemyState.Attacking);
 
             }
-            else if(Vector2.Distance(transform.position, player.position) > attackRange)
+            else if(Vector2.Distance(transform.position, player.position) > attackRange && enemyState != EnemyState.Attacking)
             {
 
                 ChangeState(EnemyState.Chasing);
             }
+        }
         else
         {
             ChangeState(EnemyState.Idle);
             rb.velocity = Vector2.zero;
+
+
         }
+        
             
-        }   
+         
     }
         
 
-    void ChangeState(EnemyState newState){
+    public void ChangeState(EnemyState newState){
     //exit current animation
     if(enemyState == EnemyState.Idle){
         anim.SetBool("isIdle", false);
@@ -125,16 +137,23 @@ public class enemy_movement : MonoBehaviour
     }
     else if (enemyState == EnemyState.Attacking){
         anim.SetBool("isAttacking", true);
-        Debug.Log("Attacking Player");
-        Debug.Log("Animator isAttacking: " + anim.GetBool("isAttacking"));
+        //Debug.Log("Attacking Player");
+        //Debug.Log("Animator isAttacking: " + anim.GetBool("isAttacking"));
+    }
+
+}
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
 
     }
 }
 
-}
 
 public enum EnemyState{
     Idle,
     Chasing,
-    Attacking
+    Attacking,
+    Knockback
 }

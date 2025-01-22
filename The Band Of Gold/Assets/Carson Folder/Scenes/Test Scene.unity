@@ -1079,8 +1079,8 @@ GameObject:
   - component: {fileID: 1281630726}
   - component: {fileID: 1281630725}
   - component: {fileID: 1281630734}
+  - component: {fileID: 1281630735}
   - component: {fileID: 1281630733}
-  - component: {fileID: 1281630732}
   m_Layer: 0
   m_Name: Orc
   m_TagString: Untagged
@@ -1102,7 +1102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   deathVFXPrefab: {fileID: 132740611625135121, guid: d3fcdb8bef01742acb2fa0dee25295bf, type: 3}
-  knockBackThrust: 15
 --- !u!114 &1281630726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,13 +1129,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  playerDetectRange: 5
+  playerDetectRange: 6
+  attackRange: 1.2
+  attackCooldown: 1.5
   detectionPoint: {fileID: 220097225}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 1.5
-  attackCooldown: 2
 --- !u!50 &1281630728
 Rigidbody2D:
   serializedVersion: 4
@@ -1254,41 +1253,6 @@ Transform:
   - {fileID: 220097225}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1281630732
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281630724}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.4554663, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.642448
 --- !u!70 &1281630733
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1337,11 +1301,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  KnockbackForce: 5
+  stunTime: 0.5
   attackPoint: {fileID: 1487318950}
-  weaponRange: 1.5
+  weaponRange: 1.4
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1281630735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281630724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce31fc9f142f95b42acf165a5721aaad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1403745261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 19649713142365569, guid: 66dfd4d36dc144a30937f5315c129c00, type: 3}
@@ -2207,7 +2185,7 @@ Transform:
   m_GameObject: {fileID: 5708248329068598162}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.61167866, y: 0.59244, z: -10}
+  m_LocalPosition: {x: 0.61, y: 0.41, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2371,8 +2349,9 @@ PolygonCollider2D:
       - {x: 0.074445665, y: -0.0067450404}
       - {x: 0.053833872, y: -0.039371505}
       - {x: 0.056527644, y: -0.07528744}
-      - {x: 0.21239759, y: -0.0675052}
-      - {x: 0.190526, y: 0.10848882}
+      - {x: 0.19238508, y: -0.11038914}
+      - {x: 0.2554048, y: 0.09523952}
+      - {x: 0.17051348, y: 0.25715315}
   m_UseDelaunayMesh: 0
 --- !u!60 &2864599377863445601
 PolygonCollider2D:
@@ -2603,6 +2582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15229fe73671a43ac92ca33c07aef549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackForce: 10
+  knockbackTime: 0.15
+  stunTime: 0.5
   damageAmount: 1
 --- !u!70 &4174120268731826994
 CapsuleCollider2D:
@@ -3006,7 +2988,7 @@ MonoBehaviour:
   slashAnimPrefab: {fileID: 3484058472395316854, guid: c97f775f82c4de444a1e59dae2d1165c, type: 3}
   slashAnimSpawnPoint: {fileID: 7564762671411470653}
   weaponCollider: {fileID: 4381643383812219775}
-  swordAttackCD: 0.5
+  swordAttackCD: 1
 --- !u!4 &7564762671411470653
 Transform:
   m_ObjectHideFlags: 0

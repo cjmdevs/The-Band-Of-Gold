@@ -15,7 +15,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private Animator myAnimator;
     private SpriteRenderer mySpriteRender;
     private float startingMoveSpeed;
-
+    private bool isKnockedBack;
     private bool facingLeft = false;
     private bool isDashing = false;
 
@@ -66,7 +66,10 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     }
 
     private void Move() {
-        rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+        if (isKnockedBack == false) {
+            rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+        }
+        
     }
 
     private void AdjustPlayerFacingDirection() {
@@ -113,4 +116,19 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     {
         throw new System.NotImplementedException();
     }
+
+    public void Knockback(Transform enemy, float force, float stunTime)
+    {
+        isKnockedBack = true;
+        Vector2 direction = (transform.position - enemy.position).normalized;
+        rb.velocity = direction * force;
+        StartCoroutine(KnockbackRoutine(stunTime));
+    }
+
+    IEnumerator KnockbackRoutine(float stunTime) {
+        yield return new WaitForSeconds(stunTime);
+        rb.velocity = Vector2.zero;
+        isKnockedBack = false;
+    }
 }
+
