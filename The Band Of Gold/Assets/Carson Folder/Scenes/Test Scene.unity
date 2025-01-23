@@ -3625,6 +3625,7 @@ MonoBehaviour:
   moveSpeed: 4
   dashSpeed: 4
   myTrailRenderer: {fileID: 1061405691259535860}
+  weaponCollider: {fileID: 4381643383812219775}
   cm: {fileID: 0}
 --- !u!114 &679272187720999395
 MonoBehaviour:
@@ -3788,7 +3789,7 @@ Transform:
   m_GameObject: {fileID: 5708248329068598162}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49448386, y: 0.59282, z: -10}
+  m_LocalPosition: {x: 0.61167866, y: 0.59244, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4273,7 +4274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ebcec4bccb61741bd8804b103c963c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentActiveWeapon: {fileID: 0}
 --- !u!1 &4985723382129305760
 GameObject:
   m_ObjectHideFlags: 0
