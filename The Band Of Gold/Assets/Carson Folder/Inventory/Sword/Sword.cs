@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword: MonoBehaviour, IWeapon
-{   
-
+public class Sword : MonoBehaviour, IWeapon
+{
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private float swordAttackCD = .5f;
@@ -18,7 +17,7 @@ public class Sword: MonoBehaviour, IWeapon
         myAnimator = GetComponent<Animator>();
     }
 
-    private void Start(){
+    private void Start() {
         weaponCollider = PlayerController.Instance.GetWeaponCollider();
         slashAnimSpawnPoint = GameObject.Find("SlashSpawnPoint").transform;
     }
@@ -27,16 +26,13 @@ public class Sword: MonoBehaviour, IWeapon
         MouseFollowWithOffset();
     }
 
-
     public void Attack() {
-            //isAttacking = true;
-            myAnimator.SetTrigger("Attack");
-            weaponCollider.gameObject.SetActive(true);
-            slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
-            slashAnim.transform.parent = this.transform.parent;
-            StartCoroutine(AttackCDRoutine());
-            
-
+        // isAttacking = true;
+        myAnimator.SetTrigger("Attack");
+        weaponCollider.gameObject.SetActive(true);
+        slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
+        slashAnim.transform.parent = this.transform.parent;
+        StartCoroutine(AttackCDRoutine());
     }
 
     private IEnumerator AttackCDRoutine() {
