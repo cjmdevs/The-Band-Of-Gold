@@ -9,8 +9,8 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -23,17 +23,17 @@ public class GameManagerScript : MonoBehaviour
        }
        else
        {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked; 
        }
     }
 
-    public void gameOver()
+    public void GameOver()
     {
         gameOverUI.SetActive(true); 
     }
 
-    public void retry()
+    public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Restart");
@@ -45,7 +45,7 @@ public class GameManagerScript : MonoBehaviour
         Debug.Log("Main Menu");
     }
 
-    public void quit()
+    public void Quit()
     {
         Application.Quit();
         Debug.Log("Quit");

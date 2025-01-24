@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
-{   
-    [Header("Player Stats")]
-    public int health; // current health of the player
-    public int maxHealth; // max health player can have
+{
+    public int health;
+    public int maxHealth;
     public Image healthBar;
     private bool isDead;
     public GameManagerScript gameManager;
@@ -33,13 +32,13 @@ public class PlayerHealth : MonoBehaviour
         health = Mathf.Clamp(health, 0, maxHealth);
 
         UpdateHealthBar(); // Update the health bar whenever health changes
-        //Debug.Log(health);
+        Debug.Log(health);
 
         if (health <= 0 && !isDead)
         {
             isDead = true; 
             gameObject.SetActive(false);
-            gameManager.gameOver();
+            gameManager.GameOver();
             Debug.Log("Player Died");
         }
     }
