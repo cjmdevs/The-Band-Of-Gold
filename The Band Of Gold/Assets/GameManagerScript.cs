@@ -9,8 +9,8 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true; // this needs to be true
+       // Cursor.lockState = CursorLockMode.Locked; // we do not need this
     }
 
     // Update is called once per frame
@@ -23,8 +23,9 @@ public class GameManagerScript : MonoBehaviour
        }
        else
        {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked; 
+        // this is breaking the combat
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked; 
        }
     }
 
