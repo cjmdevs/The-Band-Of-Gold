@@ -16,10 +16,7 @@ public class Staff: MonoBehaviour, IWeapon
 
     }
 
-    public WeaponInfo GetWeaponInfo()
-    {
-        return weaponInfo;
-    }
+    
     private void MouseFollowWithOffset()
     {
         Vector3 mousePos = Input.mousePosition;
@@ -35,5 +32,10 @@ public class Staff: MonoBehaviour, IWeapon
         else{
             ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0,0, angle);
         }
+    }
+
+    public WeaponInfo GetWeaponInfo()
+    {
+        return weaponInfo;
     }
 }
