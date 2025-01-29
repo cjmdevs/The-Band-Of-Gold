@@ -54,7 +54,7 @@ public class MainMenu : Menu
 
     public void OnOptionButtonClicked()
     {
-        
+        this.DeactivateMenu();
     }
 
     private void DisableMenuButtons()
