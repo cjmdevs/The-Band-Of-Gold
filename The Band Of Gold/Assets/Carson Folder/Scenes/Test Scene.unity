@@ -4189,7 +4189,6 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackTime: 0.15
   stunTime: 0.5
-  damageAmount: 1
 --- !u!70 &4174120268731826994
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
