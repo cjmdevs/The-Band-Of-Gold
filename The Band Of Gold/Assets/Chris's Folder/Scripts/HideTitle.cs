@@ -11,14 +11,14 @@ public class MainMenuController : MonoBehaviour
    public Button ContinueButton;
    public Button LoadGameButton;
    public Button RemoveButton;
-   public Button OptionsButton;
+   public Button OptionButton;
 
    void Start()
    {
     NewGameButton.onClick.AddListener(OnNewGame);
     ContinueButton.onClick.AddListener(OnContinue);
     LoadGameButton.onClick.AddListener(OnLoad);
-    OptionsButton.onClick.AddListener(OnOptions);
+    OptionButton.onClick.AddListener(OnOptions);
     RemoveButton.onClick.AddListener(OnRemove);
    }
 

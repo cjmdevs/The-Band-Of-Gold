@@ -8,13 +8,13 @@ public class MainMenu : Menu
 {
     [Header("Menu Navigation")]
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
+    [SerializeField] private SettingsMenu settingsMenu;
 
     [Header("Menu Buttons")]
     [SerializeField] private Button NewGameButton;
     [SerializeField] private Button ContinueGameButton;
     [SerializeField] private Button LoadGameButton;
     [SerializeField] private Button OptionButton;
-
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class MainMenu : Menu
         this.DeactivateMenu();
     }
 
-    public void onLoadGameClicked()
+    public void OnLoadGameClicked() // Changed to OnLoadGameClicked
     {
         saveSlotsMenu.ActivateMenu(true);
         this.DeactivateMenu();
@@ -45,16 +45,14 @@ public class MainMenu : Menu
     public void OnContinueGameClicked()
     {
         DisableMenuButtons();
-        // save the game anytime before loading a new scene
         DataPersistenceManager.instance.SaveGame();
-        // Load the next scene  - which will in turn Load the game because of
-        // OnSceneLoaded() in the DataPersistenceManager
         SceneManager.LoadSceneAsync("Test Scene");
     }
 
     public void OnOptionButtonClicked()
     {
         this.DeactivateMenu();
+        settingsMenu.ActivateMenu();
     }
 
     private void DisableMenuButtons()
@@ -66,7 +64,7 @@ public class MainMenu : Menu
     public void ActivateMenu()
     {
         this.gameObject.SetActive(true);
-        DisableButtonsDependingOnData();
+        DisableButtonsDependingOnData(); // Removed extra period
     }
 
     public void DeactivateMenu()
