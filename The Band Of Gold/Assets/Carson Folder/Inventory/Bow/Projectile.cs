@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-        Indestructable indestructable = other.gameObject.GetComponent<Indestructable>();
+        Indestructible indestructible = other.gameObject.GetComponent<Indestructible>();
         Knockback knockback = other.gameObject.GetComponent<Knockback>();
         // use if statement and fix it if stuff starts breaking upon shooting bow
 
