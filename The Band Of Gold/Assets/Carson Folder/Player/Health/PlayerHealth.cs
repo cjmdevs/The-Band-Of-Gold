@@ -33,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
         UpdateHealthBar(); // Update the health bar whenever health changes
         Debug.Log(health);
+        ShakeManager.Instance.ShakeScreen();
 
         if (health <= 0 && !isDead)
         {
