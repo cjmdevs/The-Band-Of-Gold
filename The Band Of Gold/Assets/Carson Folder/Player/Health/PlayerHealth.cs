@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Singleton<PlayerHealth>
 {
     public int health;
     public int maxHealth;
@@ -22,6 +22,12 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         // The health bar is updated only when health changes, so no need to do this in Update()
+    }
+    public void HealPlayer() {
+        if (health < maxHealth) {
+            health += 1;
+            UpdateHealthBar();
+        }
     }
 
     public void ChangeHealth(int amount)
