@@ -81,12 +81,13 @@ public class Pickup : MonoBehaviour
                 // do goldcoin stuff
                 Debug.Log("GoldCoin");
                 break;
+                // will not work if the coin is tagged with the tag coin must be untagged.
             case PickUpType.HealthGlobe:
-                //PlayerHealth.Instance.HealPlayer();
+                PlayerHealth.Instance.HealPlayer();
                 Debug.Log("HealthGlobe");
                 break;
             case PickUpType.StaminaGlobe:
-                // do stamina globe stuff
+                Stamina.Instance.RefreshStamina();
                 Debug.Log("StaminaGlobe");
                 break;
         }
