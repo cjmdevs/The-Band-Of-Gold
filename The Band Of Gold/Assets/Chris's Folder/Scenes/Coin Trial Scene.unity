@@ -2060,7 +2060,7 @@ GameObject:
   - component: {fileID: 1000194616}
   - component: {fileID: 1000194615}
   m_Layer: 5
-  m_Name: PuasedText
+  m_Name: PauseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
