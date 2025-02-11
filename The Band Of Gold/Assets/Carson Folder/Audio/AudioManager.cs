@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AudioManager : MonoBehaviour
+{
+    //[SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource SFXSource;
+
+    //add as many for audio
+
+    //public AudioClip background;
+    public AudioClip swordSlash;
+    public AudioClip magicLaser;
+    public AudioClip Bow;
+    public AudioClip playerDeath;
+    public AudioClip playerHit;
+    public AudioClip enemyHit;
+    public AudioClip enemyDeath;
+    public AudioClip playerDash;
+
+    private void Start()
+    {
+    //musicSource.clip = background;
+    //musicSource.Play();    
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        SFXSource.PlayOneShot(clip);
+    }
+
+
+}

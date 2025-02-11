@@ -12,14 +12,18 @@ public class Bow: MonoBehaviour, IWeapon
 
     private Animator myAnimator;
 
+    AudioManager audioManager;
+
     private void Awake()
     {
         myAnimator = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void Attack()
     {
         myAnimator.SetTrigger(FIRE_HASH);
+        audioManager.PlaySFX(audioManager.Bow);
         GameObject newArrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, ActiveWeapon.Instance.transform.rotation);
         newArrow.GetComponent<Projectile>().UpdateWeaponInfo(weaponInfo);
     }

@@ -12,6 +12,12 @@ public class enemy_combat : MonoBehaviour
     public float weaponRange;
     public LayerMask playerLayer;
 
+    AudioManager audioManager;
+
+    public void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
 
     public void EnemyAttack(){
@@ -19,6 +25,7 @@ public class enemy_combat : MonoBehaviour
 
         if(hits.Length > 0)
         {
+            audioManager.PlaySFX(audioManager.playerHit);
             hits[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
             hits[0].GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
             Debug.Log("Attack");
