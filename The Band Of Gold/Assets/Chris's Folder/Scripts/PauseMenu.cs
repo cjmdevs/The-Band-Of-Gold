@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {    
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
     public static bool isPaused;
     // Start is called before the first frame update
     void Start()
@@ -56,5 +57,11 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();   
+    }
+
+    public void SettingsMenu()
+    {
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 }
