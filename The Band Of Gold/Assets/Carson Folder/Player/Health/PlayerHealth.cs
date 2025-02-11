@@ -11,9 +11,12 @@ public class PlayerHealth : Singleton<PlayerHealth>
     private bool isDead;
     public GameManagerScript gameManager;
 
+    AudioManager audioManager;
     // Start is called before the first frame update
+    
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         maxHealth = health;   
         UpdateHealthBar(); // Update the health bar initially
     }
@@ -44,6 +47,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
         if (health <= 0 && !isDead)
         {
             isDead = true; 
+            audioManager.PlaySFX(audioManager.playerDeath);
             gameObject.SetActive(false);
             gameManager.GameOver();
             Debug.Log("Player Died");

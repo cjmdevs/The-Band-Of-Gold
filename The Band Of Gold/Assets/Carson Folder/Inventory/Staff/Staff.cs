@@ -12,8 +12,11 @@ public class Staff : MonoBehaviour, IWeapon
 
     readonly int ATTACK_HASH = Animator.StringToHash("Attack");
 
+    AudioManager audioManager;
+
     private void Awake() {
         myAnimator = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Update() {
@@ -23,6 +26,7 @@ public class Staff : MonoBehaviour, IWeapon
 
     public void Attack() {
         myAnimator.SetTrigger(ATTACK_HASH);
+        audioManager.PlaySFX(audioManager.magicLaser);
     }
 
     public void SpawnStaffProjectileAnimEvent() {
