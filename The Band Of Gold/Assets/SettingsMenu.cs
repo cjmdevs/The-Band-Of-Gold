@@ -13,6 +13,9 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Button OptionButton;
     [SerializeField] private Button BackButton; // Reference to your back button
 
+    [Header("Pause abdeca")]
+    [SerializeField] private GameObject PauseMenu;
+
     // Start is called before the first frame update
     void Start()
     {

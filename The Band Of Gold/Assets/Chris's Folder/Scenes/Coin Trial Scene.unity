@@ -379,6 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e151ee076f2c1475fa83b5cf817a0efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackButton: {fileID: 723597065}
   pauseMenu: {fileID: 935665930}
   settingsMenu: {fileID: 1635877483}
 --- !u!114 &106592086
@@ -1031,6 +1032,68 @@ MonoBehaviour:
   player: {fileID: 1234425221}
   speed: 3
   distanceBetween: 6
+--- !u!1001 &479869117
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4016423883810849142, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_Name
+      value: SFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 525
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453346500928142062, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+--- !u!82 &479869118 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 711068426871681995, guid: 7e4e9d42f34924655b1670bb48ab4a75, type: 3}
+  m_PrefabInstance: {fileID: 479869117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &494957718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,6 +1724,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691824321}
   m_CullTransparentMesh: 1
+--- !u!114 &723597065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2375814556700059186, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+  m_PrefabInstance: {fileID: 2135647584}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &848553623
 GameObject:
   m_ObjectHideFlags: 0
@@ -4893,9 +4967,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 848553627}
     m_Modifications:
     - target: {fileID: 10981165414707430, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 935665930}
+    - target: {fileID: 10981165414707430, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: OptionButton
       value: 
       objectReference: {fileID: 351662133}
+    - target: {fileID: 296919989770728087, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 296919989770728087, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 479869118}
+    - target: {fileID: 296919989770728087, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayOneShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 296919989770728087, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a5d86e25c444909906050ea21d2c3, type: 3}
+    - target: {fileID: 296919989770728087, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.AudioClip, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 436205279947455897, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5014,6 +5112,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5460950671525749762, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5837726363493669035, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6226274394202027457, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
@@ -6006,3 +6108,4 @@ SceneRoots:
   - {fileID: 1422612477909266747}
   - {fileID: 1322781061}
   - {fileID: 2100830446}
+  - {fileID: 479869117}

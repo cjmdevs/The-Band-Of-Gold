@@ -4,9 +4,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Net;
 
 public class PauseMenu : MonoBehaviour
 {    
+    [Header("Settings Button")]
+    [SerializeField] private Button BackButton;
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public static bool isPaused;
@@ -14,6 +17,8 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        BackButton.onClick.AddListener(OnBackButtonClicked);
     }
 
     // Update is called once per frame
@@ -44,6 +49,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -63,5 +69,24 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
+    }
+
+    // Method to activate the settings menu
+    public void ActivateMenu()
+    {
+        this.gameObject.SetActive(true);
+        // Additional logic if needed
+    }
+
+    // Method to deactivate the settings menu
+    public void DeactivateMenu()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    // Method called when the back button is clicked
+    private void OnBackButtonClicked()
+    {
+        DeactivateMenu(); // Deactivate settings menu
     }
 }
