@@ -22,6 +22,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     public CoinManager cm;
 
+    AudioManager audioManager;
+
     protected override void Awake() {
 
         base.Awake();
@@ -29,6 +31,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRender = GetComponent<SpriteRenderer>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start() {
@@ -93,6 +96,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         if (!isDashing && Stamina.Instance.CurrentStamina > 0) 
         {
             Stamina.Instance.UseStamina();
+            audioManager.PlaySFX(audioManager.playerDash);
             isDashing = true;
             moveSpeed *= dashSpeed;
             myTrailRenderer.emitting = true;

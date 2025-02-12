@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip enemyHit;
     public AudioClip enemyDeath;
     public AudioClip playerDash;
+    public AudioClip itemPickup;
+    public AudioClip objectBroke;
 
     private void Start()
     {

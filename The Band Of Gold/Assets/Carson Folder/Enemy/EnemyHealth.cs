@@ -10,10 +10,12 @@ public class EnemyHealth : MonoBehaviour
     private Knockback knockback;
     private Flash flash;
     private int currentHealth;
+    AudioManager audioManager;
 
     private void Awake() {
         flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     private void Start() {
         currentHealth = startingHealth;
@@ -21,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage) {
         currentHealth -= damage;
+        audioManager.PlaySFX(audioManager.enemyHit);
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
     }
@@ -32,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void DetectDeath() {
         if (currentHealth <= 0) {
+            audioManager.PlaySFX(audioManager.enemyDeath);
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
             GetComponent<PickUpSpawner>().DropItems();
