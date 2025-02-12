@@ -4887,11 +4887,13 @@ MonoBehaviour:
   swordSlash: {fileID: 8300000, guid: 67288ccaeca4a4be6897f00478e59777, type: 3}
   magicLaser: {fileID: 8300000, guid: 92d7ead6ed39946b2aa689749eea4311, type: 3}
   Bow: {fileID: 8300000, guid: 233c523d1cd7c4ee8beecb1e198572e4, type: 3}
-  playerDeath: {fileID: 0}
+  playerDeath: {fileID: 8300000, guid: d9ec1d5179caa44efa8d36ec84917c81, type: 3}
   playerHit: {fileID: 8300000, guid: b86b1cd64ef5a4ee0ab39345317ed439, type: 3}
-  enemyHit: {fileID: 0}
-  enemyDeath: {fileID: 0}
-  playerDash: {fileID: 0}
+  enemyHit: {fileID: 8300000, guid: a134e30621b3a4ab3b8b3d1bac837693, type: 3}
+  enemyDeath: {fileID: 8300000, guid: 310ac4666f0fb44638623c320fca7f95, type: 3}
+  playerDash: {fileID: 8300000, guid: 705005ef6ff694097aeda609e4343d4b, type: 3}
+  itemPickup: {fileID: 8300000, guid: 4528c52e8c5c6431da3d3d677cfdd541, type: 3}
+  objectBroke: {fileID: 8300000, guid: 8fb408691f85c46e0a8a6569771b13e6, type: 3}
 --- !u!1 &1553770271
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,9 +21,11 @@ public class Pickup : MonoBehaviour
 
     private Vector3 moveDir;
     private Rigidbody2D rb;
+    AudioManager audioManager;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start() {
@@ -49,6 +51,7 @@ public class Pickup : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.GetComponent<PlayerController>()) {
             DetectPickupType();
+            audioManager.PlaySFX(audioManager.itemPickup);
             Destroy(gameObject);
         }
     }
