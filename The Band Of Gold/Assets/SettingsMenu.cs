@@ -40,6 +40,7 @@ public class SettingsMenu : MonoBehaviour
     private void OnBackButtonClicked()
     {
         DeactivateMenu(); // Deactivate settings menu
+        PauseMenu.SetActive(true); // Activate pause menu
         mainMenu.ActivateMenu(); // Activate main menu
     }
 }

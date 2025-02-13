@@ -42,6 +42,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
+        settingsMenu.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -63,6 +64,7 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();   
+        Debug.Log("Game is exiting");
     }
 
     public void SettingsMenu()
@@ -87,6 +89,8 @@ public class PauseMenu : MonoBehaviour
     // Method called when the back button is clicked
     private void OnBackButtonClicked()
     {
-        DeactivateMenu(); // Deactivate settings menu
+        settingsMenu.SetActive(false); // Deactivate settings menu
+        pauseMenu.SetActive(true); // Activate pause menu
+        isPaused = true;
     }
 }
