@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SettingsMenu : MonoBehaviour
+public class OptPauseMenu : MonoBehaviour
 {
-    [Header("Menu Navigation")]
-    [SerializeField] private MainMenu mainMenu; // Reference to the main menu
-
     [Header("Menu Buttons")]
     [SerializeField] private Button OptionButton;
     [SerializeField] private Button BackButton; // Reference to your back button
+
+    [Header("Pause abdeca")]
+    [SerializeField] private GameObject PauseMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +37,6 @@ public class SettingsMenu : MonoBehaviour
     private void OnBackButtonClicked()
     {
         DeactivateMenu(); // Deactivate settings menu
-        mainMenu.ActivateMenu(); // Activate main menu
+        PauseMenu.SetActive(true); // Activate pause menu
     }
 }

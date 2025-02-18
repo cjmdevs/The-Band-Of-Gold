@@ -13,6 +13,7 @@ public class MainMenuController : MonoBehaviour
    public Button RemoveButton;
    public Button OptionButton;
    public Button BackButton;
+   public Button Back2ndButton;
 
    void Start()
    {
@@ -22,6 +23,7 @@ public class MainMenuController : MonoBehaviour
     OptionButton.onClick.AddListener(OnOptions);
     RemoveButton.onClick.AddListener(OnRemove);
     BackButton.onClick.AddListener(OnBack);
+    Back2ndButton.onClick.AddListener(On2ndBack);
    }
 
    void OnNewGame()
@@ -50,6 +52,11 @@ public class MainMenuController : MonoBehaviour
    }
 
    void OnBack()
+   {
+      UnHideTitle();
+   }
+
+   void On2ndBack()
    {
       UnHideTitle();
    }
