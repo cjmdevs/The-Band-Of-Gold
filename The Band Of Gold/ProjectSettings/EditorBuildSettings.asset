@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Carson Folder/Scenes/caveScene.unity
     guid: b1d7cea8afd7cdd4fa4d22e24d4929d5
+  - enabled: 1
+    path: Assets/Juan/TilemapScene.unity
+    guid: 089539baa96f34086a48d7ae561d0626
+  - enabled: 1
+    path: Assets/Juan/Cave.unity
+    guid: 8f875dfacf3d94b16aadcf1b05d9e906
   m_configObjects: {}
