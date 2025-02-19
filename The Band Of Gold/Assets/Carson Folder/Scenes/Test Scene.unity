@@ -1408,6 +1408,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66dfd4d36dc144a30937f5315c129c00, type: 3}
+--- !u!4 &1444448352 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8469275832503708207, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+  m_PrefabInstance: {fileID: 7464330118683056803}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1500190510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2037,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2058013006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058013007}
+  - component: {fileID: 2058013008}
+  m_Layer: 0
+  m_Name: Stats Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2058013007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058013006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1444448352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058013008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058013006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a76e72906ac44959ba4545f5076fafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRange: 0
+  knockbackForce: 0
+  knockbackTime: 0
+  stunTime: 0
+  damage: 0
+  attackCooldown: 0
+  speed: 5
+  staminaRegen: 1
+  maxHealth: 5
+  currentHealth: 5
 --- !u!114 &2060835021 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5867764899962902708, guid: 1951e5792797242ab92f85cbba515d39, type: 3}
@@ -3009,7 +3068,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8469275832503708207, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2058013007}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
 --- !u!4 &8360465491964406987

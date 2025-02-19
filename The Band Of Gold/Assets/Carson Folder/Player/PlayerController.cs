@@ -6,7 +6,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 {
     public bool FacingLeft {get {return facingLeft;} }
 
-    [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float dashSpeed = 4f;
     [SerializeField] private TrailRenderer myTrailRenderer;
     [SerializeField] private Transform weaponCollider;
@@ -37,7 +36,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private void Start() {
         playerControls.Combat.Dash.performed += _ => Dash();
 
-        startingMoveSpeed = moveSpeed;
+        startingMoveSpeed = StatsManager.Instance.speed;
     }
     private void OnEnable() {
         playerControls.Enable();
@@ -75,7 +74,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     private void Move() {
         if (isKnockedBack == false) {
-            rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(rb.position + movement * (StatsManager.Instance.speed * Time.fixedDeltaTime));
         }
         
     }
@@ -98,7 +97,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
             Stamina.Instance.UseStamina();
             audioManager.PlaySFX(audioManager.playerDash);
             isDashing = true;
-            moveSpeed *= dashSpeed;
+            StatsManager.Instance.speed *= dashSpeed;
             myTrailRenderer.emitting = true;
             StartCoroutine(EndDashRoutine());
         }
@@ -117,7 +116,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         float dashTime = .2f;
         float dashCD = .25f;
         yield return new WaitForSeconds(dashTime);
-        moveSpeed = startingMoveSpeed;
+        StatsManager.Instance.speed = startingMoveSpeed;
         myTrailRenderer.emitting = false;
         yield return new WaitForSeconds(dashCD);
         isDashing = false;

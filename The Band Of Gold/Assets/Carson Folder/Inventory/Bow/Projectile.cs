@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -10,9 +11,6 @@ public class Projectile : MonoBehaviour
     private WeaponInfo weaponInfo;
     private Vector3 startPosition;
 
-    public float knockbackForce = 50f;
-    public float knockbackTime = 0.15f;
-    public float stunTime = 0.3f;
 
     private void Start()
     {
@@ -36,9 +34,9 @@ public class Projectile : MonoBehaviour
 
         //if(!other.isTrigger && (enemyHealth || indestructable)) {
             Debug.Log("Take Damage");
-            enemyHealth?.TakeDamage(weaponInfo.weaponDamage);
+            enemyHealth?.TakeDamage(weaponInfo.weaponDamage + StatsManager.Instance.damage);
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
-            knockback?.EnemyKnockback(transform, knockbackForce, knockbackTime ,stunTime);
+            knockback?.EnemyKnockback(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.knockbackTime ,StatsManager.Instance.stunTime);
             Destroy(gameObject);
        // }
     }

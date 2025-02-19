@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealth : Singleton<PlayerHealth>
 {
-    public int health;
-    public int maxHealth;
     public Image healthBar;
     private bool isDead;
     public GameManagerScript gameManager;
@@ -17,7 +15,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
     void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-        maxHealth = health;   
+        StatsManager.Instance.maxHealth = StatsManager.Instance.currentHealth;   
         UpdateHealthBar(); // Update the health bar initially
     }
 
@@ -27,24 +25,23 @@ public class PlayerHealth : Singleton<PlayerHealth>
         // The health bar is updated only when health changes, so no need to do this in Update()
     }
     public void HealPlayer() {
-        if (health < maxHealth) {
-            health += 1;
+        if (StatsManager.Instance.currentHealth < StatsManager.Instance.maxHealth) {
+            StatsManager.Instance.currentHealth += 1;
             UpdateHealthBar();
         }
     }
 
     public void ChangeHealth(int amount)
     {
-        health += amount;
+        StatsManager.Instance.currentHealth += amount;
 
         // Clamp health between 0 and maxHealth
-        health = Mathf.Clamp(health, 0, maxHealth);
+        StatsManager.Instance.currentHealth = Mathf.Clamp(StatsManager.Instance.currentHealth, 0, StatsManager.Instance.maxHealth);
 
         UpdateHealthBar(); // Update the health bar whenever health changes
-        Debug.Log(health);
         ShakeManager.Instance.ShakeScreen();
 
-        if (health <= 0 && !isDead)
+        if (StatsManager.Instance.currentHealth <= 0 && !isDead)
         {
             isDead = true; 
             audioManager.PlaySFX(audioManager.playerDeath);
@@ -57,6 +54,6 @@ public class PlayerHealth : Singleton<PlayerHealth>
     private void UpdateHealthBar()
     {
         // Use float division to avoid truncation
-        healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0f, 1f);
+        healthBar.fillAmount = Mathf.Clamp((float)StatsManager.Instance.currentHealth / StatsManager.Instance.maxHealth, 0f, 1f);
     }
 }
