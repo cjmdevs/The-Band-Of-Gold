@@ -42,12 +42,15 @@ public class Projectile : MonoBehaviour
     }
 
     private void DetectFireDistance(){
-        if(Vector3.Distance(transform.position, startPosition) > weaponInfo.weaponRange) {
+        if(Vector3.Distance(transform.position, startPosition) > weaponInfo.weaponRange + StatsManager.Instance.weaponRange) {
             Destroy(gameObject);
         }
     }
+
     private void MoveProjectile()
     {
         transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+    
     }
+
 }
