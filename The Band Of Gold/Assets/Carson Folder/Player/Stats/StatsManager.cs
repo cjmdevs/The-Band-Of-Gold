@@ -5,7 +5,7 @@ using UnityEngine;
 public class StatsManager : MonoBehaviour
 {
     public static StatsManager Instance;
-
+    private MonoBehaviour currentActiveWeapon;
 
 
    [Header("Combat Stats")]
@@ -28,6 +28,7 @@ public class StatsManager : MonoBehaviour
 
     private void Awake()
     {
+        
         if(Instance == null)
         {
             Instance = this;
