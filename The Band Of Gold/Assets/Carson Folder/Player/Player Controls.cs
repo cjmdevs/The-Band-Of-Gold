@@ -225,6 +225,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Stats"",
+            ""id"": ""e8d4acce-d0b2-4d3a-a069-9482754dd7d8"",
+            ""actions"": [
+                {
+                    ""name"": ""OpenUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""756e40ef-5a45-4ca6-9ce1-e72c41f6f11c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a9ffc070-d700-4a0a-ba1f-81019e5acd12"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -239,6 +267,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Keyboard = m_Inventory.FindAction("Keyboard", throwIfNotFound: true);
+        // Stats
+        m_Stats = asset.FindActionMap("Stats", throwIfNotFound: true);
+        m_Stats_OpenUI = m_Stats.FindAction("OpenUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -442,6 +473,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public InventoryActions @Inventory => new InventoryActions(this);
+
+    // Stats
+    private readonly InputActionMap m_Stats;
+    private List<IStatsActions> m_StatsActionsCallbackInterfaces = new List<IStatsActions>();
+    private readonly InputAction m_Stats_OpenUI;
+    public struct StatsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public StatsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @OpenUI => m_Wrapper.m_Stats_OpenUI;
+        public InputActionMap Get() { return m_Wrapper.m_Stats; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(StatsActions set) { return set.Get(); }
+        public void AddCallbacks(IStatsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_StatsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_StatsActionsCallbackInterfaces.Add(instance);
+            @OpenUI.started += instance.OnOpenUI;
+            @OpenUI.performed += instance.OnOpenUI;
+            @OpenUI.canceled += instance.OnOpenUI;
+        }
+
+        private void UnregisterCallbacks(IStatsActions instance)
+        {
+            @OpenUI.started -= instance.OnOpenUI;
+            @OpenUI.performed -= instance.OnOpenUI;
+            @OpenUI.canceled -= instance.OnOpenUI;
+        }
+
+        public void RemoveCallbacks(IStatsActions instance)
+        {
+            if (m_Wrapper.m_StatsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IStatsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_StatsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_StatsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public StatsActions @Stats => new StatsActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -454,5 +531,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IInventoryActions
     {
         void OnKeyboard(InputAction.CallbackContext context);
+    }
+    public interface IStatsActions
+    {
+        void OnOpenUI(InputAction.CallbackContext context);
     }
 }
