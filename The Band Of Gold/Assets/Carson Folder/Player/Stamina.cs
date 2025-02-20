@@ -8,7 +8,6 @@ public class Stamina : Singleton<Stamina>
     public int CurrentStamina { get; private set; }
 
     [SerializeField] private Sprite fullStaminaImage, emptyStaminaImage;
-    [SerializeField] private int timeBetweenStaminaRefresh = 3;
 
     private Transform staminaContainer;
     private int startingStamina = 3;
