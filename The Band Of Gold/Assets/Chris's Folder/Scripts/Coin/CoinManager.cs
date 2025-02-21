@@ -8,20 +8,22 @@ public class CoinManager : MonoBehaviour
 {
     public int coinCount;
     public TMPro.TMP_Text coinText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public levelupManager levelManager;
 
-    // Update is called once per frame
     void Update()
     {
-        coinText.text = ":  " + coinCount.ToString();
+        coinText.text = "Silver:  " + coinCount.ToString();
+    }
 
-        if (coinCount > 0)
-        {
-            coinText.text = coinText.text + ""; 
-        }
+    public void AddCoins(int amount)
+    {
+        coinCount += amount;
+        levelManager.UpdateCoinText(); // Update coin text after adding coins
+    }
+
+    public void SpendCoins(int amount)
+    {
+        coinCount -= amount;
+        levelManager.UpdateCoinText(); // Update coin text after spending coins
     }
 }
