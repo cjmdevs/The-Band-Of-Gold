@@ -2,36 +2,94 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CharacterSelection : MonoBehaviour
 {
     [Header("Character Class Screen")]
-    [SerializeField] public GameObject ClassSelection;
-    [SerializeField] public Button SwordsmanButton;
-    [SerializeField] public Button MageButton;
-    [SerializeField] public Button ArcherButton;
+    [SerializeField] private GameObject ClassSelectionParent;
+    [SerializeField] private GameObject BackPanel;
+    [SerializeField] private Button SwordsmanButton;
+    [SerializeField] private Button MageButton;
+    [SerializeField] private Button ArcherButton;
 
     [Header("Confirmation Popup")]
-    [SerializeField] public GameObject ConfirmationPopup;
-    [SerializeField] public GameObject ClassSelected;
-    [SerializeField] public Button ConfirmButton;
-    [SerializeField] public Button DeclineButton;
+    [SerializeField] private GameObject ConfirmationParent;
+    [SerializeField] private GameObject ClassSelectedParent;
+    [SerializeField] private GameObject SwordsmanText;
+    [SerializeField] private GameObject MageText;
+    [SerializeField] private GameObject ArcherText;
+    [SerializeField] private Button ConfirmButton;
+    [SerializeField] private Button DeclineButton;
 
-    [Header("Notice PopUp")]
-    [SerializeField] public GameObject NoticePopup;
-    [SerializeField] public Button PositiveButton;
-    [SerializeField] public Button Back;
-    
-    // Start is called before the first frame update
+    [Header("Notice Popup")]
+    [SerializeField] private GameObject NoticeParent;
+    [SerializeField] private Button ProceedButton;
+    [SerializeField] private Button ReturnButton;
+
+    private string selectedClass = "";
+
     void Start()
     {
-        
+        // Initialize UI states
+        ConfirmationParent.SetActive(false);
+        NoticeParent.SetActive(false);
+        ClassSelectionParent.SetActive(true);
+        BackPanel.SetActive(false);
+
+        // Disable all class texts initially
+        SwordsmanText.SetActive(false);
+        MageText.SetActive(false);
+        ArcherText.SetActive(false);
+
+        // Assign button listeners
+        SwordsmanButton.onClick.AddListener(() => SelectClass("Swordsman"));
+        MageButton.onClick.AddListener(() => SelectClass("Mage"));
+        ArcherButton.onClick.AddListener(() => SelectClass("Archer"));
+
+        ConfirmButton.onClick.AddListener(ConfirmSelection);
+        DeclineButton.onClick.AddListener(() => ConfirmationParent.SetActive(false));
+
+        ProceedButton.onClick.AddListener(ProceedToGame);
+        ReturnButton.onClick.AddListener(() => NoticeParent.SetActive(false));
     }
 
-    // Update is called once per frame
-    void Update()
+    void SelectClass(string className)
     {
-        
+        selectedClass = className;
+
+        // Disable all texts first
+        SwordsmanText.SetActive(false);
+        MageText.SetActive(false);
+        ArcherText.SetActive(false);
+
+        // Enable the correct text based on selection
+        switch (className)
+        {
+            case "Swordsman":
+                SwordsmanText.SetActive(true);
+                break;
+            case "Mage":
+                MageText.SetActive(true);
+                break;
+            case "Archer":
+                ArcherText.SetActive(true);
+                break;
+        }
+
+        // Show confirmation popup
+        ConfirmationParent.SetActive(true);
+        BackPanel.SetActive(true);
+    }
+
+    void ConfirmSelection()
+    {
+        ConfirmationParent.SetActive(false);
+        NoticeParent.SetActive(true);
+    }
+
+    void ProceedToGame()
+    {
+        Debug.Log($"Character '{selectedClass}' selected. Proceeding to game...");
+        // Load the game scene or proceed with game logic
     }
 }
