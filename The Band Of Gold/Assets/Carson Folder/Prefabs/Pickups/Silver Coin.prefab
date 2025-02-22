@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2655945406018650602}
   m_Layer: 0
   m_Name: Silver Coin
-  m_TagString: Coin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   heightY: 1.5
   popDuration: 1
+  cm: {fileID: 0}
 --- !u!58 &8346298561135752044
 CircleCollider2D:
   m_ObjectHideFlags: 0
