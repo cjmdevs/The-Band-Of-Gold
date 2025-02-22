@@ -7,6 +7,7 @@ using TMPro;
 public class levelupManager : MonoBehaviour
 {
     public int currentLevel = 1;
+    public int coinMutiplier = 1; // Multiplier for coins needed for each level
     public int coinsNeededForNextLevel = 10;
     public TMPro.TMP_Text levelText;
     public TMPro.TMP_Text coinsNeededText; // Text for coins needed
@@ -17,9 +18,9 @@ public class levelupManager : MonoBehaviour
     {
         UpdateLevelText();
         UpdateCoinText(); // Initialize coin text
-        levelUpButton.onClick.AddListener(AttemptManualLevelUp); // Add listener to the button
     }
 
+    //not being used
     public void CheckForLevelUp()
     {
         while (coinManager.coinCount >= coinsNeededForNextLevel)
@@ -57,7 +58,7 @@ public class levelupManager : MonoBehaviour
 
     int CalculateNextLevelCost(int level)
     {
-        return Mathf.RoundToInt(10 * Mathf.Pow(1.5f, level - 1));
+        return Mathf.RoundToInt(coinMutiplier * Mathf.Pow(1.5f, level - 1));
     }
 
     void UpdateLevelText()

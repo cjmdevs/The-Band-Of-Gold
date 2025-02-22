@@ -37,6 +37,8 @@ Transform:
   - {fileID: 5278887668012877647}
   - {fileID: 4734357526630768964}
   - {fileID: 8632183241435423208}
+  - {fileID: 2604060631078940997}
+  - {fileID: 5728986250127751809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1126733514397851900
@@ -244,6 +246,57 @@ MonoBehaviour:
   playerDash: {fileID: 8300000, guid: 705005ef6ff694097aeda609e4343d4b, type: 3}
   itemPickup: {fileID: 8300000, guid: 4528c52e8c5c6431da3d3d677cfdd541, type: 3}
   objectBroke: {fileID: 8300000, guid: 8fb408691f85c46e0a8a6569771b13e6, type: 3}
+--- !u!1 &5738294400655168754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5728986250127751809}
+  - component: {fileID: 4768728928505785474}
+  m_Layer: 0
+  m_Name: LevelUp Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5728986250127751809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738294400655168754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8469275832503708207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4768728928505785474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738294400655168754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bab03539259a42249333835d7e41144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 1
+  coinMutiplier: 2
+  coinsNeededForNextLevel: 3
+  levelText: {fileID: 0}
+  coinsNeededText: {fileID: 0}
+  coinManager: {fileID: 5316549381185652917}
+  levelUpButton: {fileID: 0}
 --- !u!1 &5820901231842678961
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +518,7 @@ MonoBehaviour:
   knockbackTime: 1
   stunTime: 1
   damage: 0
-  attackCooldown: 0
+  attackCooldown: 0.05
   speed: 5
   staminaRegen: 1
   maxHealth: 5
@@ -568,6 +621,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e37989b6b2184ff3aa7c20a928312dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8483846903981486363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2604060631078940997}
+  - component: {fileID: 5316549381185652917}
+  m_Layer: 0
+  m_Name: Coin Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2604060631078940997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483846903981486363}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8469275832503708207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5316549381185652917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483846903981486363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b3e05c349664f3191a52842f84b95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinCount: 500
+  coinText: {fileID: 0}
+  levelManager: {fileID: 4768728928505785474}
 --- !u!1 &9107401950596150612
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class Pickup : MonoBehaviour
     [SerializeField] private AnimationCurve animCurve;
     [SerializeField] private float heightY = 1.5f;
     [SerializeField] private float popDuration = 1f;
+    public CoinManager cm;
 
     private Vector3 moveDir;
     private Rigidbody2D rb;
@@ -81,8 +82,9 @@ public class Pickup : MonoBehaviour
         switch (pickUpType)
         {
             case PickUpType.GoldCoin:
-                // do goldcoin stuff
-                Debug.Log("GoldCoin");
+                int randomCoins = Random.Range(1, 6); // Generates a random number between 1 and 5
+                cm.AddCoins(randomCoins);
+                Debug.Log("GoldCoin: " + randomCoins);
                 break;
                 // will not work if the coin is tagged with the tag coin must be untagged.
             case PickUpType.HealthGlobe:

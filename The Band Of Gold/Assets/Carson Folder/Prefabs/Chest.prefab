@@ -144,9 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce467588f7824c8da7013fe66f05922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCoin: {fileID: 0}
+  goldCoin: {fileID: 19649713142365569, guid: 66dfd4d36dc144a30937f5315c129c00, type: 3}
   healthGlobe: {fileID: 1193073047514170000, guid: 13394dd674cf6495594d240786b26ca7, type: 3}
   staminaGlobe: {fileID: 1317531808974928259, guid: 3723dbd3027af47a6b105dd7d29fbad4, type: 3}
+  coinManager: {fileID: 0}
 --- !u!114 &8182391783350990038
 MonoBehaviour:
   m_ObjectHideFlags: 0
