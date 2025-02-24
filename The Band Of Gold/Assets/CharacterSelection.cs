@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterSelection : MonoBehaviour
@@ -48,9 +49,11 @@ public class CharacterSelection : MonoBehaviour
 
         ConfirmButton.onClick.AddListener(ConfirmSelection);
         DeclineButton.onClick.AddListener(() => ConfirmationParent.SetActive(false));
+        DeclineButton.onClick.AddListener(() => BackPanel.SetActive(false));
 
         ProceedButton.onClick.AddListener(ProceedToGame);
         ReturnButton.onClick.AddListener(() => NoticeParent.SetActive(false));
+        ReturnButton.onClick.AddListener(() => BackPanel.SetActive(false));
     }
 
     void SelectClass(string className)
@@ -91,5 +94,6 @@ public class CharacterSelection : MonoBehaviour
     {
         Debug.Log($"Character '{selectedClass}' selected. Proceeding to game...");
         // Load the game scene or proceed with game logic
+        SceneManager.LoadSceneAsync("Test Scene");
     }
 }

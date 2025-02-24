@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8401883236381292194
 Transform:
   m_ObjectHideFlags: 0
@@ -122,4 +122,3 @@ MonoBehaviour:
   slashAnimPrefab: {fileID: 3484058472395316854, guid: c97f775f82c4de444a1e59dae2d1165c, type: 3}
   slashAnimSpawnPoint: {fileID: 0}
   weaponInfo: {fileID: 11400000, guid: 31621ef9c1a0521459840a9b9f626ebb, type: 2}
-  swordAttackCD: 1
