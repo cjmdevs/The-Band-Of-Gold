@@ -292,11 +292,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 1
   coinMutiplier: 2
-  coinsNeededForNextLevel: 3
+  coinsNeededForNextLevel: 1
   levelText: {fileID: 0}
   coinsNeededText: {fileID: 0}
   coinManager: {fileID: 5316549381185652917}
   levelUpButton: {fileID: 0}
+  skillTreeManager: {fileID: 0}
 --- !u!1 &5820901231842678961
 GameObject:
   m_ObjectHideFlags: 0
