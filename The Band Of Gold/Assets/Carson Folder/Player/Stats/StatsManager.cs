@@ -19,10 +19,12 @@ public class StatsManager : MonoBehaviour
    [Header("Movement Stats")]
    public float speed;
    public float staminaRegen;
+   public float stamina;
 
    [Header("Health Stats")]
-   public int maxHealth;
-   public int currentHealth;
+   public float maxHealth;
+   public float currentHealth;
+   public float passiveHealAmount;
 
 
 

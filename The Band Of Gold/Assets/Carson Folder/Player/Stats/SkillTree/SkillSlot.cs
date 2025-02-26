@@ -29,19 +29,21 @@ public class SkillSlot : MonoBehaviour
 
     public void TryUpgradeSkill()
     {
-        if(isUnlocked && currentLevel < skillSO.maxLevel)
+    if (isUnlocked && currentLevel < skillSO.maxLevel)
         {
-            currentLevel++;
-            OnAblityPointSpent?.Invoke(this);
+        Debug.Log("Upgrading skill: " + skillSO.skillName + currentLevel);
+        currentLevel++;
+        OnAblityPointSpent?.Invoke(this);
 
-            if(currentLevel >= skillSO.maxLevel)
-            {
-                OnSkillMaxed?.Invoke(this);
-            }
-            UpdateUI();
-
+        if (currentLevel >= skillSO.maxLevel) // Ensure it's exact match
+        {
+            OnSkillMaxed?.Invoke(this);
         }
-    }
+
+        UpdateUI();
+        }
+    }   
+
 
     public bool CanUnlockSkill()
     {

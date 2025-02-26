@@ -10,20 +10,19 @@ public class PlayerHealth : Singleton<PlayerHealth>
     public GameManagerScript gameManager;
 
     AudioManager audioManager;
-    // Start is called before the first frame update
     
+    [SerializeField] private float healInterval = 10f; // Time in seconds before healing
+
     void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         StatsManager.Instance.maxHealth = StatsManager.Instance.currentHealth;   
-        UpdateHealthBar(); // Update the health bar initially
+        UpdateHealthBar();
+
+        // Start passive healing coroutine
+        StartCoroutine(PassiveHeal());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // The health bar is updated only when health changes, so no need to do this in Update()
-    }
     public void HealPlayer() {
         if (StatsManager.Instance.currentHealth < StatsManager.Instance.maxHealth) {
             StatsManager.Instance.currentHealth += 1;
@@ -34,11 +33,9 @@ public class PlayerHealth : Singleton<PlayerHealth>
     public void ChangeHealth(int amount)
     {
         StatsManager.Instance.currentHealth += amount;
-
-        // Clamp health between 0 and maxHealth
         StatsManager.Instance.currentHealth = Mathf.Clamp(StatsManager.Instance.currentHealth, 0, StatsManager.Instance.maxHealth);
 
-        UpdateHealthBar(); // Update the health bar whenever health changes
+        UpdateHealthBar();
         ShakeManager.Instance.ShakeScreen();
 
         if (StatsManager.Instance.currentHealth <= 0 && !isDead)
@@ -53,7 +50,21 @@ public class PlayerHealth : Singleton<PlayerHealth>
 
     private void UpdateHealthBar()
     {
-        // Use float division to avoid truncation
         healthBar.fillAmount = Mathf.Clamp((float)StatsManager.Instance.currentHealth / StatsManager.Instance.maxHealth, 0f, 1f);
+    }
+
+    private IEnumerator PassiveHeal()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(healInterval);
+
+            if (!isDead && StatsManager.Instance.currentHealth < StatsManager.Instance.maxHealth)
+            {
+                StatsManager.Instance.currentHealth = Mathf.Clamp(StatsManager.Instance.currentHealth + StatsManager.Instance.passiveHealAmount, 0, StatsManager.Instance.maxHealth);
+                UpdateHealthBar();
+                Debug.Log("Passive healing applied");
+            }
+        }
     }
 }

@@ -131,7 +131,7 @@ private WeaponInfo weaponInfo;
 
     public void UpdateMaxHealth()
     {
-        statsSlots[8].GetComponentInChildren<TMP_Text>().text = "Current Health: " + StatsManager.Instance.currentHealth + "/" + StatsManager.Instance.maxHealth;
+        statsSlots[8].GetComponentInChildren<TMP_Text>().text = "Current Health: " + StatsManager.Instance.passiveHealAmount + "/" + StatsManager.Instance.maxHealth;
     }
     public void UpdateCurrentHealth()
     {

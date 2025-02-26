@@ -10,9 +10,9 @@ public class Stamina : Singleton<Stamina>
     [SerializeField] private Sprite fullStaminaImage, emptyStaminaImage;
 
     private Transform staminaContainer;
-    private int startingStamina = 3;
+    public int startingStamina = 3;
     private int maxStamina;
-    const string StAMINA_CONTAINER_TEXT = "Stamina Container";
+    const string STAMINA_CONTAINER_TEXT = "Stamina Container";
 
     protected override void Awake()
     {
@@ -22,23 +22,33 @@ public class Stamina : Singleton<Stamina>
         CurrentStamina = startingStamina;
     }
 
-    private void Start() {
-        staminaContainer = GameObject.Find(StAMINA_CONTAINER_TEXT).transform;
+    private void Start()
+    {
+        staminaContainer = GameObject.Find(STAMINA_CONTAINER_TEXT).transform;
+        UpdateStaminaUI();
     }
 
-    public void UseStamina() {
-        CurrentStamina--;
-        UpdateStaminaImage();
+    public void UseStamina()
+    {
+        if (CurrentStamina > 0)
+        {
+            CurrentStamina--;
+            
+            UpdateStaminaImage();
+        }
     }
 
-    public void RefreshStamina() {
-        if (CurrentStamina < maxStamina) {
+    public void RefreshStamina()
+    {
+        if (CurrentStamina < maxStamina)
+        {
             CurrentStamina++;
         }
         UpdateStaminaImage();
     }
 
-    private IEnumerator RefreshStaminaRoutine() {
+    private IEnumerator RefreshStaminaRoutine()
+    {
         while (true)
         {
             yield return new WaitForSeconds(StatsManager.Instance.staminaRegen);
@@ -46,20 +56,48 @@ public class Stamina : Singleton<Stamina>
         }
     }
 
-    private void UpdateStaminaImage() {
-        for (int i = 0; i< maxStamina; i++)
+    private void UpdateStaminaImage()
+    {
+        for (int i = 0; i < maxStamina; i++)
         {
-            if (i <= CurrentStamina - 1) {
+            if (i < CurrentStamina)
+            {
                 staminaContainer.GetChild(i).GetComponent<Image>().sprite = fullStaminaImage;
             }
-            else {
+            else
+            {
                 staminaContainer.GetChild(i).GetComponent<Image>().sprite = emptyStaminaImage;
             }
-
         }
-        if (CurrentStamina <maxStamina) {
+        if (CurrentStamina < maxStamina)
+        {
             StopAllCoroutines();
             StartCoroutine(RefreshStaminaRoutine());
+        }
+    }
+
+    public void SetMaxStamina(int newMaxStamina)
+    {
+        maxStamina = newMaxStamina;
+        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, maxStamina);
+        UpdateStaminaUI();
+    }
+
+    private void UpdateStaminaUI()
+    {
+        // Clear existing stamina orbs
+        foreach (Transform child in staminaContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create new stamina orbs
+        for (int i = 0; i < maxStamina; i++)
+        {
+            GameObject staminaOrb = new GameObject("StaminaOrb", typeof(RectTransform), typeof(Image));
+            staminaOrb.transform.SetParent(staminaContainer);
+            staminaOrb.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50); // Adjust size as needed
+            staminaOrb.GetComponent<Image>().sprite = (i < CurrentStamina) ? fullStaminaImage : emptyStaminaImage;
         }
     }
 }
