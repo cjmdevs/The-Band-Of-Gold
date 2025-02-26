@@ -13,6 +13,8 @@ public class levelupManager : MonoBehaviour
     public TMPro.TMP_Text coinsNeededText; // Text for coins needed
     public CoinManager coinManager;
     public Button levelUpButton; // Button for manual level up
+    public SkillTreeManager skillTreeManager;
+    
 
     void Start()
     {
@@ -49,7 +51,7 @@ public class levelupManager : MonoBehaviour
         coinsNeededForNextLevel = CalculateNextLevelCost(currentLevel);
         UpdateLevelText();
         UpdateCoinText(); // Update coins needed text
-
+        skillTreeManager.UpdateAblityPoints(1);
         // ***********************************************************************************
         // Implement level up actions here
         // ***********************************************************************************
