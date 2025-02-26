@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ClassWeaponsManager : MonoBehaviour
 {
@@ -21,6 +24,8 @@ public class ClassWeaponsManager : MonoBehaviour
         StaffPrefab.SetActive(false);
         Bow.SetActive(false);
         BowPrefab.SetActive(false);
+
+        
     }
 
     // Update is called once per frame

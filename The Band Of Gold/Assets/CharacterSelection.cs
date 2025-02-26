@@ -96,4 +96,14 @@ public class CharacterSelection : MonoBehaviour
         // Load the game scene or proceed with game logic
         SceneManager.LoadSceneAsync("Test Scene");
     }
+
+    public void SetString(string value)
+    {
+        PlayerPrefs.SetString("CharClass", "ClassSelected");
+    }
+
+    public void GetString()
+    {
+        string loadedString = PlayerPrefs.GetString("CharClass");
+    }
 }

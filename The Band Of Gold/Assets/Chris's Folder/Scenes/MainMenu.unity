@@ -917,7 +917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7044d90255aaf24884530498fd337b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Test Scene
+  sceneName: CharacterSelection
 --- !u!4 &227192696
 Transform:
   m_ObjectHideFlags: 0

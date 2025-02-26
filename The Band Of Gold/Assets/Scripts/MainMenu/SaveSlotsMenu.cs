@@ -38,7 +38,8 @@ public class SaveSlotsMenu : Menu
         // case - new game, but the save slot has data
         else if (saveSlot.hasData)
         {
-            confirmationPopupMenu.ActivateMenu(
+            confirmationPopupMenu.ActivateMenu
+            (
                 "Starting a New Game with this slot will override the currently saved data. Are you sure?",
                 // functioni to execute if we select 'yes'
                 () => {
@@ -66,7 +67,7 @@ public class SaveSlotsMenu : Menu
         // save the game anytime before Loading a new scene
         DataPersistenceManager.instance.SaveGame();
         // Load the scene
-        SceneManager.LoadSceneAsync("Test Scene");
+        SceneManager.LoadSceneAsync("CharacterSelection");
     }
 
     public void OnRemoveClicked(SaveSlot saveSlot)
