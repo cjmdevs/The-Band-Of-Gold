@@ -238,6 +238,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenSkills"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4a824b3-72c1-46a5-a10e-6bf7991cdf46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -249,6 +258,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af096460-712d-4f6d-a190-91023ca3eeef"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenSkills"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -270,6 +290,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Stats
         m_Stats = asset.FindActionMap("Stats", throwIfNotFound: true);
         m_Stats_OpenUI = m_Stats.FindAction("OpenUI", throwIfNotFound: true);
+        m_Stats_OpenSkills = m_Stats.FindAction("OpenSkills", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -478,11 +499,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Stats;
     private List<IStatsActions> m_StatsActionsCallbackInterfaces = new List<IStatsActions>();
     private readonly InputAction m_Stats_OpenUI;
+    private readonly InputAction m_Stats_OpenSkills;
     public struct StatsActions
     {
         private @PlayerControls m_Wrapper;
         public StatsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @OpenUI => m_Wrapper.m_Stats_OpenUI;
+        public InputAction @OpenSkills => m_Wrapper.m_Stats_OpenSkills;
         public InputActionMap Get() { return m_Wrapper.m_Stats; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -495,6 +518,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @OpenUI.started += instance.OnOpenUI;
             @OpenUI.performed += instance.OnOpenUI;
             @OpenUI.canceled += instance.OnOpenUI;
+            @OpenSkills.started += instance.OnOpenSkills;
+            @OpenSkills.performed += instance.OnOpenSkills;
+            @OpenSkills.canceled += instance.OnOpenSkills;
         }
 
         private void UnregisterCallbacks(IStatsActions instance)
@@ -502,6 +528,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @OpenUI.started -= instance.OnOpenUI;
             @OpenUI.performed -= instance.OnOpenUI;
             @OpenUI.canceled -= instance.OnOpenUI;
+            @OpenSkills.started -= instance.OnOpenSkills;
+            @OpenSkills.performed -= instance.OnOpenSkills;
+            @OpenSkills.canceled -= instance.OnOpenSkills;
         }
 
         public void RemoveCallbacks(IStatsActions instance)
@@ -535,5 +564,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IStatsActions
     {
         void OnOpenUI(InputAction.CallbackContext context);
+        void OnOpenSkills(InputAction.CallbackContext context);
     }
 }
