@@ -7,8 +7,7 @@ public class StatsManager : MonoBehaviour
     public static StatsManager Instance;
     private MonoBehaviour currentActiveWeapon;
 
-    public delegate void OnMaxHealthChanged();
-    public static event OnMaxHealthChanged MaxHealthChanged;
+  
 
     [Header("Combat Stats")]
     public float weaponRange;
@@ -21,7 +20,7 @@ public class StatsManager : MonoBehaviour
     [Header("Movement Stats")]
     public float speed;
     public float staminaRegen;
-    public float stamina;
+    public int maxStamina;
 
     [Header("Health Stats")]
     public float maxHealth;
@@ -44,5 +43,38 @@ public class StatsManager : MonoBehaviour
     {
         maxHealth += amount;
         currentHealth = maxHealth; // Fully heal the player
+    }
+    public void UpdateHealAmount(float amount)
+    {
+        passiveHealAmount += amount;
+    }
+    public void UpdateSpeed(float amount)
+    {
+        speed += amount;
+    }
+    public void UpdateDamage(int amount)
+    {
+        damage += amount;
+    }
+    public void UpdateKnockback(float amount)
+    {
+        knockbackForce += amount;
+    }
+    public void UpdateAttackSpeed(float amount)
+    {
+        attackCooldown += amount;
+    }
+    public void UpdateRange(float amount)
+    {
+        weaponRange += amount;
+    }
+
+    public void UpdateStamina(int amount)
+    {
+        maxStamina += amount;
+    }
+    public void UpdateStaminaRegen(float amount)
+    {
+        staminaRegen -= amount;
     }
 }

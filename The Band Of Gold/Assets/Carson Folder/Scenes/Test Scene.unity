@@ -651,56 +651,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226209759}
   m_CullTransparentMesh: 1
---- !u!1 &237164089
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 237164090}
-  - component: {fileID: 237164091}
-  m_Layer: 0
-  m_Name: WeaponsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &237164090
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237164089}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7464330118683056804}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &237164091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237164089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded7657ad5d2e495387ba5e0359c0273, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sword: {fileID: 3830728456314491497}
-  SwordPrefab: {fileID: 379911339551550037, guid: 782cb1f3ba857b5418a30bd7eb927096, type: 3}
-  Staff: {fileID: 3830728456314491496}
-  StaffPrefab: {fileID: 8291060214826489255, guid: ba3539ec5f59b7741afba69d6829f8c4, type: 3}
-  Bow: {fileID: 3830728456314491495}
-  BowPrefab: {fileID: 6140190989424274704, guid: 08c38ce3995fecf41af5f81f0e5179cd, type: 3}
 --- !u!1 &239786109
 GameObject:
   m_ObjectHideFlags: 0
@@ -5742,11 +5692,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8127156475957109864, guid: d8497fe432ea34b22a84ed95fc6e7fb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.49794757
+      value: 1.8740476
       objectReference: {fileID: 0}
     - target: {fileID: 8127156475957109864, guid: d8497fe432ea34b22a84ed95fc6e7fb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.59281003
+      value: 0.58841
       objectReference: {fileID: 0}
     - target: {fileID: 9155677893563252677, guid: d8497fe432ea34b22a84ed95fc6e7fb5, type: 3}
       propertyPath: m_Follow
@@ -11460,8 +11410,12 @@ PrefabInstance:
       value: Manager
       objectReference: {fileID: 0}
     - target: {fileID: 2733965269723840237, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
-      propertyPath: passiveHealAmount
-      value: 0.5
+      propertyPath: stamina
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2733965269723840237, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: staminaRegen
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4768728928505785474, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
       propertyPath: levelText
@@ -11487,6 +11441,18 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1745913528}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: Bow
+      value: 
+      objectReference: {fileID: 3830728456314491495}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: Staff
+      value: 
+      objectReference: {fileID: 3830728456314491496}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: Sword
+      value: 
+      objectReference: {fileID: 3830728456314491497}
     - target: {fileID: 6625424574498991286, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
       propertyPath: displayText
       value: 
@@ -11537,17 +11503,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8469275832503708207, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 237164090}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
---- !u!4 &7464330118683056804 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8469275832503708207, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
-  m_PrefabInstance: {fileID: 7464330118683056803}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7471179556682580549
 MonoBehaviour:
   m_ObjectHideFlags: 0
