@@ -54,6 +54,29 @@ public class CharacterSelection : MonoBehaviour
         ProceedButton.onClick.AddListener(ProceedToGame);
         ReturnButton.onClick.AddListener(() => NoticeParent.SetActive(false));
         ReturnButton.onClick.AddListener(() => BackPanel.SetActive(false));
+
+        // Assign OnClick
+        SwordsmanButton.onClick.AddListener(OnSwordsmanButtonClicked);
+        MageButton.onClick.AddListener(OnMageButtonClicked);
+        ArcherButton.onClick.AddListener(OnArcherButtonClicked);
+    }
+
+    void OnSwordsmanButtonClicked()
+    {
+        Debug.Log("Swordsman Selected");
+        SaveCharacter();
+    }
+
+    void OnMageButtonClicked()
+    {
+        Debug.Log("Mage Selected");
+        SaveCharacter();
+    }
+
+    void OnArcherButtonClicked()
+    {
+        Debug.Log("Archer Selected");
+        SaveCharacter();
     }
 
     void SelectClass(string className)
@@ -95,15 +118,11 @@ public class CharacterSelection : MonoBehaviour
         Debug.Log($"Character '{selectedClass}' selected. Proceeding to game...");
         // Load the game scene or proceed with game logic
         SceneManager.LoadSceneAsync("Test Scene");
+        SaveCharacter();
     }
 
-    public void SetString(string value)
+    public void SaveCharacter()
     {
-        PlayerPrefs.SetString("CharClass", "ClassSelected");
-    }
-
-    public void GetString()
-    {
-        string loadedString = PlayerPrefs.GetString("CharClass");
+        PlayerPrefs.SetString("CharacterSelected", selectedClass);
     }
 }

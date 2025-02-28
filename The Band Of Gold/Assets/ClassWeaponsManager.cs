@@ -14,6 +14,7 @@ public class ClassWeaponsManager : MonoBehaviour
     [SerializeField] private GameObject StaffPrefab;
     [SerializeField] private GameObject Bow;
     [SerializeField] private GameObject BowPrefab;
+    [SerializeField] private string loadedCharacter;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +25,19 @@ public class ClassWeaponsManager : MonoBehaviour
         StaffPrefab.SetActive(false);
         Bow.SetActive(false);
         BowPrefab.SetActive(false);
+        LoadCharacter();
+    }
+    public void LoadCharacter()
+    {
+        loadedCharacter = PlayerPrefs.GetString("CharacterSelected");
 
-        
+        //switch
+        //active the weapons
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 }
+
