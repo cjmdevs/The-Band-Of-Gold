@@ -6,7 +6,7 @@ using UnityEngine;
 public class DamageSource : MonoBehaviour
 {   
 
-    private int damageAmount;
+    private float damageAmount;
 
     private void Start()
     {

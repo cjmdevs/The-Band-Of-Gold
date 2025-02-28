@@ -9,7 +9,7 @@ private WeaponInfo weaponInfo;
     public GameObject statsCanvas; // Fully enable/disable this object
     private PlayerControls playerControls; // Input Action Asset
     private InputAction openStatsAction; // Action for opening/closing stats
-    private int damageAmount;
+    private float damageAmount;
     private float weaponRange;
     private float weaponCooldown;
     private bool isCanvasActive = false; // Track canvas state

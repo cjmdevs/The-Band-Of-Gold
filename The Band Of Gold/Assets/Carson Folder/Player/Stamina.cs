@@ -25,6 +25,7 @@ public class Stamina : Singleton<Stamina>
     {
         staminaContainer = GameObject.Find(STAMINA_CONTAINER_TEXT).transform;
         UpdateStaminaUI();
+        StartCoroutine(RefreshStaminaRoutine()); // Start the stamina regeneration coroutine
     }
 
     public void UseStamina()
@@ -55,41 +56,32 @@ public class Stamina : Singleton<Stamina>
     }
 
     private void UpdateStaminaImage()
-{
-    int maxStamina = StatsManager.Instance.maxStamina;
-    Debug.Log("Max Stamina: " + maxStamina); // Add this line
-    int childCount = staminaContainer.childCount;
-
-
-    for (int i = 0; i < maxStamina; i++)
     {
-        if (i < childCount) // Check if the child exists
+        int maxStamina = StatsManager.Instance.maxStamina;
+        int childCount = staminaContainer.childCount;
+
+        for (int i = 0; i < maxStamina; i++)
         {
-            if (i < CurrentStamina)
+            if (i < childCount) // Check if the child exists
             {
-                staminaContainer.GetChild(i).GetComponent<Image>().sprite = fullStaminaImage;
+                if (i < CurrentStamina)
+                {
+                    staminaContainer.GetChild(i).GetComponent<Image>().sprite = fullStaminaImage;
+                }
+                else
+                {
+                    staminaContainer.GetChild(i).GetComponent<Image>().sprite = emptyStaminaImage;
+                }
             }
             else
             {
-                staminaContainer.GetChild(i).GetComponent<Image>().sprite = emptyStaminaImage;
+                // Handle the case where the child doesn't exist (optional)
+                // You could log a warning or add a new orb here if needed.
+                Debug.LogWarning("Stamina Image, child index out of range. Index: " + i);
+                break; // Stop the loop to avoid further errors
             }
         }
-        else
-        {
-            // Handle the case where the child doesn't exist (optional)
-            // You could log a warning or add a new orb here if needed.
-            Debug.LogWarning("Stamina Image, child index out of range. Index: " + i);
-            break; // Stop the loop to avoid further errors
-        }
     }
-
-    if (CurrentStamina < maxStamina)
-    {
-        StopAllCoroutines();
-        StartCoroutine(RefreshStaminaRoutine());
-    }
-}
-
 
     public void SetMaxStamina(int newMaxStamina)
     {
@@ -123,5 +115,11 @@ public class Stamina : Singleton<Stamina>
             rectTransform.localScale = Vector3.one; // Ensure scale is 1,1,1
             staminaOrb.GetComponent<Image>().sprite = (i < CurrentStamina) ? fullStaminaImage : emptyStaminaImage;
         }
+    }
+
+    // Method to increase max stamina by one
+    public void IncreaseMaxStamina()
+    {
+        SetMaxStamina(StatsManager.Instance.maxStamina + 1);
     }
 }

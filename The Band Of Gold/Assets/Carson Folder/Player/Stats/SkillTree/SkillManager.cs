@@ -77,7 +77,7 @@ public class SkillManager : MonoBehaviour
                 StatsManager.Instance.UpdateHealAmount(.15f);
                 break;
             case "Speed":
-                StatsManager.Instance.UpdateSpeed(1f);
+                StatsManager.Instance.UpdateSpeed(.25f);
                 break;
             case "Stamina":
                 StatsManager.Instance.UpdateStamina(1);
@@ -85,17 +85,17 @@ public class SkillManager : MonoBehaviour
             case "Stamina Regen":
                 StatsManager.Instance.UpdateStaminaRegen(.5f);
                 break;
-            case "Damage":
-                StatsManager.Instance.UpdateDamage(1);
+            case "Damage ":
+                StatsManager.Instance.UpdateDamage(.25F);
                 break;
             case "Attack Speed":
-                StatsManager.Instance.UpdateAttackSpeed(1);
+                StatsManager.Instance.UpdateAttackSpeed(.15f);
                 break;
-            case "Knockback":
-                StatsManager.Instance.UpdateKnockback(1);
+            case "Knockback ":
+                StatsManager.Instance.UpdateKnockback(.25f);
                 break;
             case "Range":
-                StatsManager.Instance.UpdateRange(1);
+                StatsManager.Instance.UpdateRange(.50f);
                 break;
             default:
                 Debug.Log("No skill found with the name: " + skillName);

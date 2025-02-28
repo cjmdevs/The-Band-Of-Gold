@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {   
-    [SerializeField] private int startingHealth = 3; // health of the enemy
+    [SerializeField] private float startingHealth = 3; // health of the enemy
     [SerializeField] private GameObject deathVFXPrefab;
 
     private Knockback knockback;
     private Flash flash;
-    private int currentHealth;
+    private float currentHealth;
     AudioManager audioManager;
 
     private void Awake() {
@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = startingHealth;
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(float damage) {
         currentHealth -= damage;
         audioManager.PlaySFX(audioManager.enemyHit);
         StartCoroutine(flash.FlashRoutine());

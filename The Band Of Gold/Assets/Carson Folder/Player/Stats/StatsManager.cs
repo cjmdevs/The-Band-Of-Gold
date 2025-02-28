@@ -14,7 +14,7 @@ public class StatsManager : MonoBehaviour
     public float knockbackForce;
     public float knockbackTime;
     public float stunTime;
-    public int damage;
+    public float damage;
     public float attackCooldown;
 
     [Header("Movement Stats")]
@@ -52,7 +52,7 @@ public class StatsManager : MonoBehaviour
     {
         speed += amount;
     }
-    public void UpdateDamage(int amount)
+    public void UpdateDamage(float amount)
     {
         damage += amount;
     }
@@ -71,7 +71,7 @@ public class StatsManager : MonoBehaviour
 
     public void UpdateStamina(int amount)
     {
-        maxStamina += amount;
+        Stamina.Instance.IncreaseMaxStamina();
     }
     public void UpdateStaminaRegen(float amount)
     {
