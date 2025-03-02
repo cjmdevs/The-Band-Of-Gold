@@ -11,10 +11,10 @@ public class MainMenu : Menu
     [SerializeField] private SettingsMenu settingsMenu;
 
     [Header("Menu Buttons")]
+    [SerializeField] private Button OptionButton;
     [SerializeField] private Button NewGameButton;
     [SerializeField] private Button ContinueGameButton;
     [SerializeField] private Button LoadGameButton;
-    [SerializeField] private Button OptionButton;
 
     private void Start()
     {
@@ -28,6 +28,12 @@ public class MainMenu : Menu
             ContinueGameButton.interactable = false;
             LoadGameButton.interactable = false;
         }
+    }
+
+    public void OnOptionButtonClicked()
+    {
+        this.DeactivateMenu();
+        settingsMenu.ActivateMenu();
     }
 
     public void OnNewGameClicked()
@@ -47,12 +53,6 @@ public class MainMenu : Menu
         DisableMenuButtons();
         DataPersistenceManager.instance.SaveGame();
         SceneManager.LoadSceneAsync("Test Scene");
-    }
-
-    public void OnOptionButtonClicked()
-    {
-        this.DeactivateMenu();
-        settingsMenu.ActivateMenu();
     }
 
     private void DisableMenuButtons()
