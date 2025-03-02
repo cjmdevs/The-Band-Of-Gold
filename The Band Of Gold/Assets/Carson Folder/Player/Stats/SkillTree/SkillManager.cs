@@ -89,10 +89,10 @@ public class SkillManager : MonoBehaviour
                 StatsManager.Instance.UpdateDamage(.25F);
                 break;
             case "Attack Speed":
-                StatsManager.Instance.UpdateAttackSpeed(.15f);
+                StatsManager.Instance.UpdateAttackSpeed(.10f);
                 break;
             case "Knockback ":
-                StatsManager.Instance.UpdateKnockback(.25f);
+                StatsManager.Instance.UpdateKnockback(.20f);
                 break;
             case "Range":
                 StatsManager.Instance.UpdateRange(.50f);
