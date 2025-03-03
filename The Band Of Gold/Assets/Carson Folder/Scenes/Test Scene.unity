@@ -2338,6 +2338,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3132926649429245081, guid: 6589536f1b8579b4dabba16249e9e6e5, type: 3}
   m_PrefabInstance: {fileID: 1527581870}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1081000407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6770775566593244528, guid: c2c8a8ab1e9b444acb9e96d13321f2bf, type: 3}
+  m_PrefabInstance: {fileID: 3830728456314491494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1081000408 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8130028777315975028, guid: c2c8a8ab1e9b444acb9e96d13321f2bf, type: 3}
+  m_PrefabInstance: {fileID: 3830728456314491494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1081000409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7897795285769437678, guid: c2c8a8ab1e9b444acb9e96d13321f2bf, type: 3}
+  m_PrefabInstance: {fileID: 3830728456314491494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1085617761
 GameObject:
   m_ObjectHideFlags: 0
@@ -7188,6 +7203,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7897795285769437678, guid: c2c8a8ab1e9b444acb9e96d13321f2bf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130028777315975028, guid: c2c8a8ab1e9b444acb9e96d13321f2bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10472,9 +10495,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3830728456314491497}
     - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: BowEnabled
+      value: 
+      objectReference: {fileID: 1081000407}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
       propertyPath: BowInventory
       value: 
       objectReference: {fileID: 3830728456314491498}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: StaffEnabled
+      value: 
+      objectReference: {fileID: 1081000408}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: SwordEnabled
+      value: 
+      objectReference: {fileID: 1081000409}
     - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
       propertyPath: StaffInventory
       value: 
