@@ -4735,11 +4735,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8127156475957109864, guid: d8497fe432ea34b22a84ed95fc6e7fb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8469886
+      value: 0.49794757
       objectReference: {fileID: 0}
     - target: {fileID: 8127156475957109864, guid: d8497fe432ea34b22a84ed95fc6e7fb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5884799
+      value: 0.59281003
       objectReference: {fileID: 0}
     - target: {fileID: 9155677893563252677, guid: d8497fe432ea34b22a84ed95fc6e7fb5, type: 3}
       propertyPath: m_Follow
@@ -10518,6 +10518,10 @@ PrefabInstance:
       propertyPath: SwordInventory
       value: 
       objectReference: {fileID: 3830728456314491500}
+    - target: {fileID: 5926268337011130413, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
+      propertyPath: loadedCharacter
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6625424574498991286, guid: 24d0229aa02a04d19b1192f4acb94d88, type: 3}
       propertyPath: displayText
       value: 
