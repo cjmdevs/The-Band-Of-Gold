@@ -189,15 +189,12 @@ MonoBehaviour:
   playerDetectRange: 6
   attackRange: 1.2
   attackCooldown: 1.5
-  separationRadius: 2
+  separationRadius: 1
   separationForce: 1
   detectionPoint: {fileID: 6042248170775454389}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &7823877929472246750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +240,7 @@ MonoBehaviour:
   stunTime: 1
   attackPoint: {fileID: 1870712632743787849}
   weaponRange: 1.4
+  useSwordAttack: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
