@@ -5,12 +5,14 @@ using UnityEngine;
 public class enemy_movement : MonoBehaviour
 {
     [Header("Enemy Stats")]
+    public bool isRangedEnemy = false;
     public float speed = 3f;
     public float playerDetectRange = 5f;
     public float attackRange = 2f;
     public float attackCooldown = 2f;
     public float separationRadius = 2f;
     public float separationForce = 1f;
+    public float rangedAttackRange = 4f;
 
     public Transform detectionPoint;
     public LayerMask playerLayer;
@@ -21,11 +23,13 @@ public class enemy_movement : MonoBehaviour
     private Animator anim;
     private float attackCooldownTimer;
     private Rigidbody2D rb;
+    private enemy_combat enemyCombat;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        enemyCombat = GetComponent<enemy_combat>(); // Get enemy's combat script
         ChangeState(EnemyState.Idle);
     }
 
@@ -53,7 +57,12 @@ public class enemy_movement : MonoBehaviour
 
     void Chase()
     {
-        if (player.position.x > transform.position.x && facingDirection == -1 || player.position.x < transform.position.x && facingDirection == 1)
+        if (player == null) return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (player.position.x > transform.position.x && facingDirection == -1 || 
+            player.position.x < transform.position.x && facingDirection == 1)
         {
             Flip();
         }
@@ -61,7 +70,23 @@ public class enemy_movement : MonoBehaviour
         Vector2 direction = (player.position - transform.position).normalized;
         Vector2 separation = CalculateSeparation();
 
-        rb.velocity = (direction + separation) * speed;
+        if (isRangedEnemy && distanceToPlayer <= rangedAttackRange) 
+        {
+            // If ranged enemy, stop moving and prepare to shoot
+            rb.velocity = Vector2.zero;
+
+            if (attackCooldownTimer <= 0)
+            {
+                attackCooldownTimer = attackCooldown;
+                enemyCombat.LaunchProjectile(); // Shoot projectile
+                ChangeState(EnemyState.Attacking);
+            }
+        }
+        else 
+        {
+            // Melee enemies keep chasing
+            rb.velocity = (direction + separation) * speed;
+        }
     }
 
     Vector2 CalculateSeparation()
@@ -95,14 +120,31 @@ public class enemy_movement : MonoBehaviour
         {
             player = hits[0].transform;
 
-            if (Vector2.Distance(transform.position, player.transform.position) <= attackRange && attackCooldownTimer <= 0)
+            if (isRangedEnemy)
             {
-                attackCooldownTimer = attackCooldown;
-                ChangeState(EnemyState.Attacking);
+                // If ranged, attack at ranged distance
+                if (Vector2.Distance(transform.position, player.transform.position) <= rangedAttackRange && attackCooldownTimer <= 0)
+                {
+                    attackCooldownTimer = attackCooldown;
+                    ChangeState(EnemyState.Attacking);
+                }
+                else if (Vector2.Distance(transform.position, player.position) > rangedAttackRange)
+                {
+                    ChangeState(EnemyState.Chasing);
+                }
             }
-            else if (Vector2.Distance(transform.position, player.position) > attackRange && enemyState != EnemyState.Attacking)
+            else
             {
-                ChangeState(EnemyState.Chasing);
+                // Melee enemies attack up close
+                if (Vector2.Distance(transform.position, player.transform.position) <= attackRange && attackCooldownTimer <= 0)
+                {
+                    attackCooldownTimer = attackCooldown;
+                    ChangeState(EnemyState.Attacking);
+                }
+                else if (Vector2.Distance(transform.position, player.position) > attackRange)
+                {
+                    ChangeState(EnemyState.Chasing);
+                }
             }
         }
         else
@@ -141,3 +183,4 @@ public enum EnemyState
     Attacking,
     Knockback
 }
+

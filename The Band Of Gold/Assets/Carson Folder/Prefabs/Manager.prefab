@@ -516,14 +516,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponRange: 0
-  knockbackForce: 3
-  knockbackTime: 1
-  stunTime: 1
+  knockbackForce: 2
+  knockbackTime: 0.5
+  stunTime: 0.5
   damage: 0
   attackCooldown: 0.05
   speed: 5
-  staminaRegen: 1
-  stamina: 5
+  staminaRegen: 5
+  maxStamina: 0
   maxHealth: 5
   currentHealth: 5
   passiveHealAmount: 0.5
@@ -573,10 +573,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sword: {fileID: 0}
   SwordPrefab: {fileID: 379911339551550037, guid: 782cb1f3ba857b5418a30bd7eb927096, type: 3}
+  SwordInventory: {fileID: 0}
+  SwordEnabled: {fileID: 0}
   Staff: {fileID: 0}
   StaffPrefab: {fileID: 8291060214826489255, guid: ba3539ec5f59b7741afba69d6829f8c4, type: 3}
+  StaffInventory: {fileID: 0}
+  StaffEnabled: {fileID: 0}
   Bow: {fileID: 0}
   BowPrefab: {fileID: 6140190989424274704, guid: 08c38ce3995fecf41af5f81f0e5179cd, type: 3}
+  BowInventory: {fileID: 0}
+  BowEnabled: {fileID: 0}
+  loadedCharacter: 
 --- !u!1 &7224167054171152571
 GameObject:
   m_ObjectHideFlags: 0

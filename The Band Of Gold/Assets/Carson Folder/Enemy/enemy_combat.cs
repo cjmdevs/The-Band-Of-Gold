@@ -8,12 +8,15 @@ public class enemy_combat : MonoBehaviour
     public float KnockbackForce;
     public float stunTime;
 
-    // Optional: For sword-like attacks
     public Transform attackPoint;
     public float weaponRange;
-    public bool useSwordAttack = false; // Flag to switch between attack types
+    public bool useSwordAttack = false;
 
     public LayerMask playerLayer;
+
+    public GameObject projectilePrefab; // Assign in Inspector
+    public Transform projectileSpawnPoint; // Assign in Inspector
+    public float projectileSpeed = 5f; // Adjust speed as needed
 
     AudioManager audioManager;
 
@@ -54,7 +57,7 @@ public class enemy_combat : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!useSwordAttack && (playerLayer.value & (1 << collision.gameObject.layer)) != 0) //check if the collided object is on the player layer.
+        if (!useSwordAttack && (playerLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
             audioManager.PlaySFX(audioManager.playerHit);
             collision.GetComponent<PlayerHealth>().ChangeHealth(-damage);
@@ -62,6 +65,36 @@ public class enemy_combat : MonoBehaviour
             Debug.Log("Touch Attack");
         }
     }
+
+    // Special attack function to launch a projectile (Call this from Animation Event)
+    public void LaunchProjectile()
+{
+    GameObject player = GameObject.FindGameObjectWithTag("Player"); // Find the player
+    if (player == null) return;
+
+    float attackRadius = 15f; // Set the max distance at which the enemy can shoot
+    float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
+    if (distanceToPlayer <= attackRadius) // Only shoot if player is within range
+    {
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            Vector2 direction = (player.transform.position - projectileSpawnPoint.position).normalized; // Get direction to player
+            rb.velocity = direction * projectileSpeed; // Move projectile toward player
+        }
+
+        Debug.Log("Projectile Launched!");
+    }
+    else
+    {
+        Debug.Log("Player not in range, no projectile launched.");
+    }
+}
+
+
 
     private void OnDrawGizmosSelected()
     {
