@@ -78,7 +78,7 @@ public class enemy_movement : MonoBehaviour
             if (attackCooldownTimer <= 0)
             {
                 attackCooldownTimer = attackCooldown;
-                enemyCombat.LaunchProjectile(); // Shoot projectile
+                enemyCombat.LaserAttack(); // Shoot laser
                 ChangeState(EnemyState.Attacking);
             }
         }
@@ -175,6 +175,7 @@ public class enemy_movement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, separationRadius);
     }
 }
+    
 
 public enum EnemyState
 {

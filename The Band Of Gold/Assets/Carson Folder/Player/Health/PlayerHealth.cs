@@ -30,7 +30,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
         }
     }
 
-    public void ChangeHealth(int amount)
+    public void ChangeHealth(float amount)
     {
         StatsManager.Instance.currentHealth += amount;
         StatsManager.Instance.currentHealth = Mathf.Clamp(StatsManager.Instance.currentHealth, 0, StatsManager.Instance.maxHealth);
