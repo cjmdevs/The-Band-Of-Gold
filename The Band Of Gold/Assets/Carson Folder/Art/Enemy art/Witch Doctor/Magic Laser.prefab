@@ -161,5 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1c4ee84acbeb34ebd732adf2e33d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserGrowTime: 5
+  laserGrowTime: 2
   laserDamage: 0.5
