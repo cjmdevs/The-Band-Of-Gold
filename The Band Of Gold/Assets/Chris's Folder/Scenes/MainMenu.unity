@@ -5540,6 +5540,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2832961321536935241, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2832961321536935241, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747299313137840279, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747299313137840279, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747299313137840279, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3974257955556167566, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_Sprite
       value: 
