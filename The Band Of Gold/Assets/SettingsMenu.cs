@@ -13,11 +13,31 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Button OptionButton;
     [SerializeField] private Button BackButton; // Reference to your back button
 
+    [Header("Settings' Buttons")]
+    [SerializeField] private Button AudioButton;
+    [SerializeField] private Button GraphicsButton;
+
+    [Header("Settings Parents")]
+    [SerializeField] private GameObject AudioSettings;
+    [SerializeField] private GameObject GraphicsSettings;
+
+    [Header("Back Buttons")]
+    [SerializeField] private Button AudioBackButton;
+    [SerializeField] private Button GraphicsBackButton;
+
     // Start is called before the first frame update
     void Start()
     {
-        // Add listener to the back button
+        // Disable the Audio and Graphic Parents
+        AudioSettings.SetActive(false);
+        GraphicsSettings.SetActive(false);
+        
+        // Add listener to the back button, Audio, and Graphics
         BackButton.onClick.AddListener(OnBackButtonClicked);
+        AudioButton.onClick.AddListener(OnAudioButtonClicked);
+        GraphicsButton.onClick.AddListener(OnGraphicsButtonClicked);
+        AudioBackButton.onClick.AddListener(OnAudioBackButtonClicked);
+        GraphicsBackButton.onClick.AddListener(OnGraphicsBackButtonClicked);
     }
 
     // Method to activate the settings menu
@@ -38,5 +58,25 @@ public class SettingsMenu : MonoBehaviour
     {
         DeactivateMenu(); // Deactivate settings menu
         mainMenu.ActivateMenu(); // Activate main menu
+    }
+
+    private void OnAudioButtonClicked()
+    {
+
+    }
+
+    private void OnGraphicsButtonClicked()
+    {
+
+    }
+
+    private void OnAudioBackButtonClicked()
+    {
+
+    }
+
+    private void OnGraphicsBackButtonClicked()
+    {
+
     }
 }

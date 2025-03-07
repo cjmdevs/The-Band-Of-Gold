@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SettingsMenuManager : MonoBehaviour
 {
     public TMP_Dropdown graphicsDropdown;
+    public TMP_Dropdown ResolutionDropdown;
     public Slider masterVol, musicVol, sfxVol;
     public AudioMixer mainAudioMixer;
 
