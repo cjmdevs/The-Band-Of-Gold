@@ -458,36 +458,22 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: 320X180
-      m_Image: {fileID: 0}
-    - m_Text: 640X360
-      m_Image: {fileID: 0}
-    - m_Text: 960X540
-      m_Image: {fileID: 0}
-    - m_Text: 1280X720
-      m_Image: {fileID: 0}
-    - m_Text: 1366X768
-      m_Image: {fileID: 0}
-    - m_Text: 1600X900
-      m_Image: {fileID: 0}
-    - m_Text: 1920X1080
-      m_Image: {fileID: 0}
-    - m_Text: 2560X1440
-      m_Image: {fileID: 0}
-    - m_Text: 3200X1800
-      m_Image: {fileID: 0}
-    - m_Text: 3840X2160
-      m_Image: {fileID: 0}
-    - m_Text: 5120X2880
-      m_Image: {fileID: 0}
-    - m_Text: 7680X4320
-      m_Image: {fileID: 0}
-    - m_Text: 15360X8640
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &469768301637968555
 GameObject:
@@ -2008,7 +1994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1692418170020721132
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2236,7 +2222,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8843179133134974976}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeGraphicsQuality
         m_Mode: 1
@@ -3875,7 +3861,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8843179133134974976}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeSfxVolume
         m_Mode: 1
@@ -5006,13 +4992,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 480992628046137182}
+  - component: {fileID: 1580498212446923579}
   m_Layer: 5
   m_Name: Graphic Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &480992628046137182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5042,6 +5029,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -16.8979}
   m_SizeDelta: {x: 865, y: 703.7959}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1580498212446923579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5365506117820542765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961213c699a8d44e6a0bfea6dd0c829b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vsync: {fileID: 7910606962833903889}
+  DisplayMode: {fileID: 6430052073326860417}
+  Resolutions: {fileID: 3298816838837878498}
+  Graphics: {fileID: 4789392556794173928}
 --- !u!1 &5432316707213620639
 GameObject:
   m_ObjectHideFlags: 0
@@ -5132,7 +5135,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8843179133134974976}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeMasterVolume
         m_Mode: 1
@@ -5869,7 +5872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7224036053378479427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5904,7 +5907,6 @@ GameObject:
   - component: {fileID: 1692310438960450857}
   - component: {fileID: 867270803577788249}
   - component: {fileID: 2197816095931672036}
-  - component: {fileID: 8843179133134974976}
   m_Layer: 5
   m_Name: Options background
   m_TagString: Untagged
@@ -5969,24 +5971,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8843179133134974976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5837726363493669035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bebb184a9fda4bb49f5a12c56f1d482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphicsDropdown: {fileID: 4789392556794173928}
-  ResolutionDropdown: {fileID: 0}
-  masterVol: {fileID: 7709003144425205385}
-  musicVol: {fileID: 3968356866332556843}
-  sfxVol: {fileID: 4871987425877311813}
-  mainAudioMixer: {fileID: 24100000, guid: 8cf7d6434517a594caa018a6152077c7, type: 2}
 --- !u!1 &5998640134616975559
 GameObject:
   m_ObjectHideFlags: 0
@@ -6941,7 +6925,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8843179133134974976}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
         m_Mode: 1
@@ -7899,7 +7883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 320X180
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f93cdf98d05d04bf2a43e5366895428c, type: 2}
   m_sharedMaterial: {fileID: 7023595723773580226, guid: f93cdf98d05d04bf2a43e5366895428c, type: 2}
@@ -9392,6 +9376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1900921240863448595}
+  - component: {fileID: 3339551634233938526}
   m_Layer: 5
   m_Name: Audio Settings
   m_TagString: Untagged
@@ -9427,3 +9412,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -16.8979}
   m_SizeDelta: {x: 865, y: 703.7959}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3339551634233938526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9123739857310169853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c0280d9db774275b4ddf8fe5a0a9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVol: {fileID: 7709003144425205385}
+  musicVol: {fileID: 3968356866332556843}
+  sfxVol: {fileID: 4871987425877311813}
+  mainAudioMixer: {fileID: 0}
