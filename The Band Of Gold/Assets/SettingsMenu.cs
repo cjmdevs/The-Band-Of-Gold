@@ -19,7 +19,8 @@ public class SettingsMenu : MonoBehaviour
 
     [Header("Settings Parents")]
     [SerializeField] private GameObject AudioSettings;
-    [SerializeField] private GameObject GraphicsSettings;
+    [SerializeField] private GameObject GraphicSettings;
+    [SerializeField] private GameObject MainSettingsMenu;
 
     [Header("Back Buttons")]
     [SerializeField] private Button AudioBackButton;
@@ -28,9 +29,11 @@ public class SettingsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MainSettingsMenu.SetActive(true);
+
         // Disable the Audio and Graphic Parents
         AudioSettings.SetActive(false);
-        GraphicsSettings.SetActive(false);
+        GraphicSettings.SetActive(false);
         
         // Add listener to the back button, Audio, and Graphics
         BackButton.onClick.AddListener(OnBackButtonClicked);
@@ -62,21 +65,25 @@ public class SettingsMenu : MonoBehaviour
 
     private void OnAudioButtonClicked()
     {
-
+        MainSettingsMenu.SetActive(false);
+        AudioSettings.SetActive(true);
     }
 
     private void OnGraphicsButtonClicked()
     {
-
+        MainSettingsMenu.SetActive(false);
+        GraphicSettings.SetActive(true);
     }
 
     private void OnAudioBackButtonClicked()
     {
-
+        MainSettingsMenu.SetActive(true);
+        AudioSettings.SetActive(false);
     }
 
     private void OnGraphicsBackButtonClicked()
     {
-
+        MainSettingsMenu.SetActive(true);
+        GraphicSettings.SetActive(false);
     }
 }
