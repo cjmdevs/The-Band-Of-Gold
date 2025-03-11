@@ -40,6 +40,11 @@ public class GraphicsSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Load saved setting
+        int savedVSync = PlayerPrefs.GetInt("VSyncSetting", 0);
+        Vsync.value = savedVSync;
+        ApplyVSync(savedVSync);
+
         // Set initial dropdown value based on current screen mode
         switch (Screen.fullScreenMode)
         {
@@ -57,8 +62,20 @@ public class GraphicsSettings : MonoBehaviour
         // Add listener for when the dropdown value changes
         DisplayMode.onValueChanged.AddListener(SetDisplayMode);
         Resolutions.onValueChanged.AddListener(SetResolution);
+        Vsync.onValueChanged.AddListener(ApplyVSync);
 
         PopulateResolutions();
+    }
+
+    void ApplyVSync(int index)
+    {
+        if (index == 0) QualitySettings.vSyncCount = 0; // VSync Off
+        else if (index == 1) QualitySettings.vSyncCount = 1; // 1 VSync Count
+        else if (index == 2) QualitySettings.vSyncCount = 2; // 2 VSync Count
+
+        // Save setting
+        PlayerPrefs.SetInt("VSyncSetting", index);
+        PlayerPrefs.Save();
     }
 
     public void SetDisplayMode(int index)
