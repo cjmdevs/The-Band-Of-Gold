@@ -16,194 +16,178 @@ public class BossController : MonoBehaviour
     public int heavyAttackDamage = 20;
     public float heavyAttackKnockback = 5f;
     public float heavyAttackStun = 1f;
-    public LayerMask playerLayer; // Player layer for range check
-    public Transform attackPoint; // Point from which to check attack range
+    public LayerMask playerLayer;
+    public Transform attackPoint;
+    public float followRange = 10f;
+    public float playerDetectRange = 3f;
 
-    void Start()
+    private int facingDirection = -1;
+    private Rigidbody2D rb;
+    private bool isAttacking = false;
+
+    private void Start()
     {
-        Debug.Log("BossController Start");
         animator = GetComponent<Animator>();
-        Debug.Log("Animator component assigned: " + (animator != null));
+        rb = GetComponent<Rigidbody2D>();
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
-            Debug.Log("Player found by tag: " + (player != null));
         }
-        Debug.Log("Player variable assigned: " + (player != null));
-        Debug.Log("Attack point assigned: " + (attackPoint != null));
-        Debug.Log("Player layer assigned: " + playerLayer.value);
     }
 
-    void Update()
+    private void Update()
     {
-        Debug.Log("BossController Update");
         if (player != null)
         {
-            Vector2 direction = (player.position - transform.position).normalized;
-            movement = direction * moveSpeed;
-            if (movement.magnitude > 0.1f)
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= followRange && !isAttacking)
             {
-                animator.SetBool("IsMoving", true);
-                animator.SetFloat("MovementSpeed", movement.magnitude);
-                Debug.Log("Boss is moving");
+                Vector2 direction = (player.position - transform.position).normalized;
+                movement = direction * moveSpeed;
+
+                if (movement.magnitude > 0.1f)
+                {
+                    animator.SetBool("IsMoving", true);
+                    animator.SetFloat("MovementSpeed", movement.magnitude); // ✅ FIXED: Keep this to update animation state
+                }
+                else
+                {
+                    animator.SetBool("IsMoving", false);
+                }
+
+                // Flip the boss to face the player
+                if (player.position.x > transform.position.x && facingDirection == -1 ||
+                    player.position.x < transform.position.x && facingDirection == 1)
+                {
+                    Flip();
+                }
+
+                // Attack only if player is within detect range
+                if (distanceToPlayer <= playerDetectRange && Time.time >= nextAttackTime)
+                {
+                    ChooseAndPerformAttack();
+                    nextAttackTime = Time.time + attackCooldown;
+                }
             }
             else
             {
                 animator.SetBool("IsMoving", false);
-                Debug.Log("Boss is idle");
+                animator.SetFloat("MovementSpeed", 0); // ✅ FIXED: Ensure this resets if not moving
+                rb.velocity = Vector2.zero;
             }
+        }
+    }
 
-            if (Time.time >= nextAttackTime)
-            {
-                Debug.Log("Time for attack check");
-                if (IsPlayerInRange())
-                {
-                    Debug.Log("Player in range");
-                    ChooseAndPerformAttack();
-                    nextAttackTime = Time.time + attackCooldown;
-                    Debug.Log("Next attack time set to: " + nextAttackTime);
-                }
-                else
-                {
-                    Debug.Log("Player out of range");
-                }
-            }
+    private void FixedUpdate()
+    {
+        if (!isAttacking)
+        {
+            rb.velocity = movement;
         }
         else
         {
-            Debug.Log("Player variable is null");
+            rb.velocity = Vector2.zero;
         }
     }
 
-    void FixedUpdate()
+    private bool IsPlayerInRange()
     {
-        Debug.Log("BossController FixedUpdate");
-        GetComponent<Rigidbody2D>().velocity = movement;
-    }
-
-    bool IsPlayerInRange()
-    {
-        Debug.Log("Checking if player is in range");
-        if (attackPoint == null) {
-            Debug.LogError("Attack point is null, cannot check range.");
-            return false;
-        }
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
-        bool inRange = hits.Length > 0;
-        Debug.Log("Player in range: " + inRange);
-        return inRange;
+        return hits.Length > 0;
     }
 
-    void ChooseAndPerformAttack()
+    private void ChooseAndPerformAttack()
     {
-        Debug.Log("Choosing and performing attack");
-        int regularAttackChance = 60;
-        int quickAttackChance = 25;
-        int summonAttackChance = 10;
-        int heavyAttackChance = 5;
+        if (IsPlayerInRange()) // Only attack if player is in attack range
+        {
+            int regularAttackChance = 60;
+            int quickAttackChance = 25;
+            int summonAttackChance = 5;
+            int heavyAttackChance = 10;
 
-        int totalChance = regularAttackChance + quickAttackChance + summonAttackChance + heavyAttackChance;
-        int randomValue = Random.Range(0, totalChance);
+            int totalChance = regularAttackChance + quickAttackChance + summonAttackChance + heavyAttackChance;
+            int randomValue = Random.Range(0, totalChance);
 
-        if (randomValue < regularAttackChance)
-        {
-            Debug.Log("Performing regular attack");
-            PerformAttack(1);
-        }
-        else if (randomValue < regularAttackChance + quickAttackChance)
-        {
-            Debug.Log("Performing quick attack");
-            PerformAttack(2);
-        }
-        else if (randomValue < regularAttackChance + quickAttackChance + summonAttackChance)
-        {
-            Debug.Log("Performing summon attack");
-            PerformAttack(3);
-        }
-        else
-        {
-            Debug.Log("Performing heavy attack");
-            PerformAttack(4);
+            if (randomValue < regularAttackChance)
+            {
+                PerformAttack(1);
+            }
+            else if (randomValue < regularAttackChance + quickAttackChance)
+            {
+                PerformAttack(2);
+            }
+            else if (randomValue < regularAttackChance + quickAttackChance + summonAttackChance)
+            {
+                PerformAttack(3);
+            }
+            else
+            {
+                PerformAttack(4);
+            }
         }
     }
 
     public void PerformAttack(int attackNumber)
     {
-        Debug.Log("PerformAttack called with attackNumber: " + attackNumber);
+        isAttacking = true;
         animator.SetInteger("AttackTrigger", attackNumber);
-        Debug.Log("AttackTrigger set to: " + attackNumber);
     }
 
     public void MinoAttack1Function()
     {
-        Debug.Log("Regular Attack! (MinoAttack1Function)");
         DealDamage(regularAttackDamage);
     }
 
     public void MinoAttack2Function()
     {
-        Debug.Log("Quick Attack! (MinoAttack2Function)");
         DealDamage(quickAttackDamage);
     }
 
     public void MinoAttack3Function()
     {
-        Debug.Log("Special Summon Attack! (MinoAttack3Function)");
         if (enemyPrefab != null && summonPoint != null)
         {
             Instantiate(enemyPrefab, summonPoint.position, Quaternion.identity);
-            Debug.Log("Enemy summoned at: " + summonPoint.position);
         }
-        else
-        {
-            Debug.Log("Enemy prefab or summon point is null");
-        }
-        //Add projectile attack logic here if you want a projectile on summon.
     }
 
     public void MinoAttack4Function()
     {
-        Debug.Log("Heavy Attack! (MinoAttack4Function)");
         DealDamage(heavyAttackDamage, heavyAttackKnockback, heavyAttackStun);
-    }
-
-    public void ResetAttackTrigger()
-    {
-        Debug.Log("ResetAttackTrigger called");
-        animator.SetInteger("AttackTrigger", 0);
-        Debug.Log("AttackTrigger reset to 0");
     }
 
     private void DealDamage(int damage, float knockback = 0f, float stun = 0f)
     {
-        Debug.Log("Dealing damage: " + damage + ", knockback: " + knockback + ", stun: " + stun);
-        if (player != null)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
+        foreach (Collider2D hit in hits)
         {
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            PlayerController playerController = player.GetComponent<PlayerController>();
-            if (playerHealth != null)
+            if (hit.CompareTag("Player"))
             {
-                playerHealth.ChangeHealth(-damage);
-                Debug.Log("Player health changed by: " + -damage);
-            }
-            else
-            {
-                Debug.Log("PlayerHealth component not found");
-            }
-            if (playerController != null && knockback > 0f)
-            {
-                playerController.Knockback(transform, knockback, stun);
-                Debug.Log("Player knocked back and stunned");
-            }
-            else
-            {
-                Debug.Log("PlayerController component not found or knockback is 0");
+                PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
+                PlayerController playerController = hit.GetComponent<PlayerController>();
+                if (playerHealth != null)
+                {
+                    playerHealth.ChangeHealth(-damage);
+                }
+                if (playerController != null && knockback > 0)
+                {
+                    playerController.Knockback(transform, knockback, stun);
+                }
             }
         }
-        else
-        {
-            Debug.Log("Player variable is null, cannot deal damage");
-        }
+    }
+
+    public void ResetAttackTrigger()
+    {
+        animator.SetInteger("AttackTrigger", 0);
+        isAttacking = false;
+    }
+
+    private void Flip()
+    {
+        facingDirection *= -1;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
     private void OnDrawGizmosSelected()
@@ -213,5 +197,11 @@ public class BossController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, followRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, playerDetectRange);
     }
 }

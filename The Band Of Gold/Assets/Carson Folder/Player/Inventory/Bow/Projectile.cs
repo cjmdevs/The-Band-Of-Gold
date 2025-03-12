@@ -28,17 +28,17 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-        Indestructible indestructible = other.gameObject.GetComponent<Indestructible>();
+        Indestructible Indestructible = other.gameObject.GetComponent<Indestructible>();
         Knockback knockback = other.gameObject.GetComponent<Knockback>();
         // use if statement and fix it if stuff starts breaking upon shooting bow
 
-        //if(!other.isTrigger && (enemyHealth || indestructable)) {
+        if(!other.isTrigger && (enemyHealth || Indestructible)) {
             Debug.Log("Take Damage");
             enemyHealth?.TakeDamage(weaponInfo.weaponDamage + StatsManager.Instance.damage);
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
             knockback?.EnemyKnockback(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.knockbackTime ,StatsManager.Instance.stunTime);
             Destroy(gameObject);
-       // }
+        }
     }
 
     private void DetectFireDistance(){
