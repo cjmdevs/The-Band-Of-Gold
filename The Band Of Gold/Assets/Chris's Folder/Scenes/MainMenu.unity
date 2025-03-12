@@ -5304,6 +5304,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2469823879787064195, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3968356866332556843, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5315,6 +5319,14 @@ PrefabInstance:
     - target: {fileID: 3968356866332556843, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Audio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598508523302321580, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598508523302321580, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4871987425877311813, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5328,6 +5340,54 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Audio, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 5365506117820542765, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460950671525749762, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460950671525749762, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460950671525749762, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5837014822357782607, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6226274394202027457, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6226274394202027457, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6226274394202027457, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065336778240832703, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065336778240832703, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7516645665000386260, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7516645665000386260, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7709003144425205385, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5339,6 +5399,22 @@ PrefabInstance:
     - target: {fileID: 7709003144425205385, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Audio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8084302598605336113, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8084302598605336113, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8084302598605336113, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123739857310169853, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
