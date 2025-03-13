@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db9b7a5695e44c94aaa3cdcb646c72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
   dashSpeed: 4
   myTrailRenderer: {fileID: 1721356523172809481}
   weaponCollider: {fileID: 5254535230264548349}
@@ -205,10 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509dce1f2449946c79f7e33f9e754f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
   healthBar: {fileID: 0}
   gameManager: {fileID: 0}
+  healInterval: 10
 --- !u!114 &8999669290545651605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullStaminaImage: {fileID: 21300000, guid: ecd400e700be34651a3e098919d6852d, type: 3}
   emptyStaminaImage: {fileID: 21300000, guid: aa69a83e4d3d44eb8a0a85353d790a6b, type: 3}
-  timeBetweenStaminaRefresh: 3
+  startingStamina: 3
 --- !u!1 &2342080145745180708
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,9 +531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15229fe73671a43ac92ca33c07aef549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 10
-  knockbackTime: 0.15
-  stunTime: 0.5
 --- !u!1 &8041393597714965495
 GameObject:
   m_ObjectHideFlags: 0

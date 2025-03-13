@@ -18,6 +18,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private bool isKnockedBack;
     private bool facingLeft = false;
     private bool isDashing = false;
+    
+    private string enabledDash = "";
 
     public CoinManager cm;
 
@@ -139,6 +141,16 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         yield return new WaitForSeconds(stunTime);
         rb.velocity = Vector2.zero;
         isKnockedBack = false;
+    }
+
+    void EnableDash(string dashName)
+    {
+        enabledDash = dashName;
+    }
+
+    public void CharactersDash()
+    {
+        PlayerPrefs.SetString("EnabledPlayerDash", enabledDash);
     }
 }
 
