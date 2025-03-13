@@ -4256,6 +4256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1830173281 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7336058484512670453, guid: 1951e5792797242ab92f85cbba515d39, type: 3}
+  m_PrefabInstance: {fileID: 4981429897790226843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1878091458 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3132926649429245081, guid: 6589536f1b8579b4dabba16249e9e6e5, type: 3}
@@ -5363,9 +5368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f210f1f8efc424b89e33eff8d3aca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Test Scene 1
-  sceneTransitionName: 'Tester '
-  loadedCharacter: 
+  sceneToLoad: caveScene
+  sceneTransitionName: WEntry
 --- !u!1001 &1108268214169087764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5426,7 +5430,6 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 31814840}
-<<<<<<< Updated upstream
     - target: {fileID: 7857507294989148638, guid: 048424bdcba7f420495b631232eb4bac, type: 3}
       propertyPath: inputActions
       value: 
@@ -5447,8 +5450,6 @@ PrefabInstance:
       propertyPath: startingStamina
       value: 3
       objectReference: {fileID: 0}
-=======
->>>>>>> Stashed changes
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10271,7 +10272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &6796456893222358292
 CanvasRenderer:
   m_ObjectHideFlags: 0
