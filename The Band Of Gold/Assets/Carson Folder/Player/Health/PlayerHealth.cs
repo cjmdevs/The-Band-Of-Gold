@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerHealth : Singleton<PlayerHealth>
 {
@@ -9,12 +10,22 @@ public class PlayerHealth : Singleton<PlayerHealth>
     private bool isDead;
     public GameManagerScript gameManager;
 
+    public InputActionAsset playerControls; // Assign your "Player Controls" Input Action Asset in the Inspector
+    public string statsActionMapName = "Stats"; // The name of the action map you want to disable
+
+    private InputActionMap statsActionMap;
+
+
+
     AudioManager audioManager;
     
     [SerializeField] private float healInterval = 10f; // Time in seconds before healing
 
     void Start()
     {
+        statsActionMap = playerControls.FindActionMap(statsActionMapName);
+
+
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         StatsManager.Instance.maxHealth = StatsManager.Instance.currentHealth;   
         UpdateHealthBar();
@@ -42,9 +53,13 @@ public class PlayerHealth : Singleton<PlayerHealth>
         {
             isDead = true; 
             audioManager.PlaySFX(audioManager.playerDeath);
+            statsActionMap.Disable();
             gameObject.SetActive(false);
             gameManager.GameOver();
+            Time.timeScale = 0f;
             Debug.Log("Player Died");
+            
+
         }
     }
 

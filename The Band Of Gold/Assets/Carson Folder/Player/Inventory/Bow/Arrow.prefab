@@ -105,7 +105,7 @@ CapsuleCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -290,6 +290,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 22
   particleOnHitPrefabVFX: {fileID: 8679314357134211543, guid: 3ff13889d61594540afa8739074ecdd7, type: 3}
-  knockbackForce: 7
-  knockbackTime: 0.15
-  stunTime: 0.2

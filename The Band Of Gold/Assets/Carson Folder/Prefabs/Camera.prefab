@@ -110,11 +110,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.096048355, y: 8.972028}
-      - {x: -14.157729, y: 9.14548}
-      - {x: -13.59219, y: -7.362417}
-      - {x: 14.615182, y: -7.4523163}
-      - {x: 14.83007, y: 8.953383}
+    - - {x: 0.7449131, y: 26.275227}
+      - {x: -43.140594, y: 32.72109}
+      - {x: -50.145206, y: -8.443868}
+      - {x: -44.93435, y: -32.884705}
+      - {x: 45.76095, y: -26.702127}
+      - {x: 33.431023, y: 24.742554}
   m_UseDelaunayMesh: 0
 --- !u!1 &3677265206159100045
 GameObject:
@@ -143,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 3677265206159100045}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.132465, y: 0.7255596, z: -9.933148}
+  m_LocalPosition: {x: -8.347548, y: 1.7655602, z: -9.933148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -327,7 +328,7 @@ Transform:
   m_GameObject: {fileID: 7168544663421678135}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.819899, y: 0.58857, z: -10}
+  m_LocalPosition: {x: -9.200012, y: -0.5999994, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -343,7 +344,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.34118018, g: 0.3607283, b: 0.38679248, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
