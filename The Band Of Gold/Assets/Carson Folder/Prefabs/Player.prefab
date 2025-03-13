@@ -206,6 +206,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   gameManager: {fileID: 0}
+  playerControls: {fileID: -944628639613478452, guid: d1872bb974fec409e86cf44dc8c595f1, type: 3}
+  statsActionMapName: Stats
   healInterval: 10
 --- !u!114 &8999669290545651605
 MonoBehaviour:

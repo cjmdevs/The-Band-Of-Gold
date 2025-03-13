@@ -17,7 +17,7 @@ TagManager:
   - Player
   - Enemy
   - Arrow
-  - 
+  - Obstacle
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: test
+    uniqueID: 2819318561
     locked: 0
