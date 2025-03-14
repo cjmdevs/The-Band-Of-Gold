@@ -5,6 +5,9 @@ using System.Collections;
 public class MinoController : MonoBehaviour
 {
     public float moveSpeed = 3f;
+    public float maxMoveSpeed = 6f; // Cap for speed increase
+    public float speedIncreaseRate = 0.1f; // Rate of speed increase
+    private float currentMoveSpeed; // Current move speed that increases gradually
     public Transform player;
     private Animator animator;
     private Vector2 movement;
@@ -22,11 +25,11 @@ public class MinoController : MonoBehaviour
     public Transform attackPoint;
     public float followRange = 10f;
     public float playerDetectRange = 3f;
-    public float dashSpeed = 10f; // Speed for dash attack
-    public float dashDuration = 0.2f; // Duration for dash attack
-    public GameObject rageParticles; // Particle effect for rage mode
-    public float rageThreshold = 0.5f; // Health threshold for rage mode
-    public Vector3 particleOffset = new Vector3(1f, 0f, 0f); // Offset for particle instantiation
+    public float dashSpeed = 10f;
+    public float dashDuration = 0.2f;
+    public GameObject rageParticles;
+    public float rageThreshold = 0.5f;
+    public Vector3 particleOffset = new Vector3(1f, 0f, 0f);
 
     private int facingDirection = -1;
     private Rigidbody2D rb;
@@ -36,7 +39,7 @@ public class MinoController : MonoBehaviour
     private float originalMoveSpeed;
     private float originalAttackCooldown;
     private EnemyHealth enemyHealth;
-    private GameObject currentRageParticles; // Store the instantiated particle object
+    private GameObject currentRageParticles;
 
     private void Start()
     {
@@ -44,6 +47,7 @@ public class MinoController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         originalMoveSpeed = moveSpeed;
         originalAttackCooldown = attackCooldown;
+        currentMoveSpeed = moveSpeed;
         enemyHealth = GetComponent<EnemyHealth>();
 
         if (player == null)
@@ -51,7 +55,6 @@ public class MinoController : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
     }
-
 
     private void Update()
     {
@@ -61,8 +64,11 @@ public class MinoController : MonoBehaviour
 
             if (distanceToPlayer <= followRange && !isAttacking)
             {
+                // Gradually increase movement speed until cap is reached
+                currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, maxMoveSpeed, speedIncreaseRate * Time.deltaTime);
+
                 Vector2 direction = (player.position - transform.position).normalized;
-                movement = direction * moveSpeed;
+                movement = direction * currentMoveSpeed;
 
                 if (movement.magnitude > 0.1f)
                 {
@@ -75,13 +81,13 @@ public class MinoController : MonoBehaviour
                 }
 
                 // Flip the boss to face the player
-                if (player.position.x > transform.position.x && facingDirection == -1 ||
-                    player.position.x < transform.position.x && facingDirection == 1)
+                if ((player.position.x > transform.position.x && facingDirection == -1) ||
+                    (player.position.x < transform.position.x && facingDirection == 1))
                 {
                     Flip();
                 }
 
-                // Attack only if player is within detect range
+                // Attack if within detect range
                 if (distanceToPlayer <= playerDetectRange && Time.time >= nextAttackTime)
                 {
                     ChooseAndPerformAttack();
@@ -90,11 +96,12 @@ public class MinoController : MonoBehaviour
             }
             else
             {
+                // Stop moving if out of range
                 animator.SetBool("IsMoving", false);
                 rb.velocity = Vector2.zero;
+                ResetMoveSpeed(); // Reset speed when idle
             }
 
-            // Check health to activate rage mode if necessary
             CheckHealth();
         }
     }
@@ -123,7 +130,7 @@ public class MinoController : MonoBehaviour
 
     private void ChooseAndPerformAttack()
     {
-        if (IsPlayerInRange()) // Only attack if player is in attack range
+        if (IsPlayerInRange())
         {
             int regularAttackChance = 60;
             int quickAttackChance = 25;
@@ -156,6 +163,8 @@ public class MinoController : MonoBehaviour
     {
         isAttacking = true;
         animator.SetInteger("AttackTrigger", attackNumber);
+        ResetMoveSpeed(); // Reset speed when attacking
+
         if (attackNumber == 2)
         {
             StartCoroutine(DashForward());
@@ -204,7 +213,6 @@ public class MinoController : MonoBehaviour
                 if (playerHealth != null)
                 {
                     playerHealth.ChangeHealth(-damage);
-                    playerController.Knockback(transform, knockback, stun);
                 }
                 if (playerController != null && knockback > 0)
                 {
@@ -218,27 +226,18 @@ public class MinoController : MonoBehaviour
     {
         animator.SetInteger("AttackTrigger", 0);
         isAttacking = false;
+        ResetMoveSpeed(); // Reset after attack
+    }
+
+    private void ResetMoveSpeed()
+    {
+        currentMoveSpeed = moveSpeed;
     }
 
     private void Flip()
     {
         facingDirection *= -1;
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, followRange);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, playerDetectRange);
     }
 
     private void CheckHealth()
@@ -255,15 +254,13 @@ public class MinoController : MonoBehaviour
     {
         isInRageMode = true;
         moveSpeed *= 1.5f;
-        regularAttackDamage = Mathf.RoundToInt(regularAttackDamage * 1.2f);
-        Debug.Log("Rage mode activated!");
+        maxMoveSpeed *= 1.5f;
+        speedIncreaseRate *= 1.2f;
 
         if (rageParticles != null)
         {
             Vector3 particlePosition = transform.position + particleOffset;
-            currentRageParticles = Instantiate(rageParticles, particlePosition, Quaternion.identity, transform); //Parent the particle to the boss
-            Debug.Log("Rage particles instantiated!");
+            currentRageParticles = Instantiate(rageParticles, particlePosition, Quaternion.identity, transform);
         }
-
     }
 }

@@ -1093,7 +1093,7 @@ MonoBehaviour:
   - {fileID: 3197583398364778992}
   - {fileID: 3197583398498147971}
   pointsText: {fileID: 1276117331}
-  availablePoints: 50
+  availablePoints: 0
 --- !u!114 &429745166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2347,11 +2347,6 @@ PrefabInstance:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7413845093876258101, guid: 6589536f1b8579b4dabba16249e9e6e5, type: 3}
   m_PrefabInstance: {fileID: 1989660025}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1043076053 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 251719064765132032, guid: 869a2ed2f23e6744c9a9480d066b3567, type: 3}
-  m_PrefabInstance: {fileID: 3888118718118133301}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1073322795 stripped
 RectTransform:
@@ -11052,7 +11047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 35
   deathVFXPrefab: {fileID: 132740611625135121, guid: d3fcdb8bef01742acb2fa0dee25295bf, type: 3}
-  currentHealth: 0
+  currentHealth: 35
 --- !u!114 &7299423481201339230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11101,6 +11096,7 @@ GameObject:
   - component: {fileID: 69339342753932251}
   - component: {fileID: 8718446578100705268}
   - component: {fileID: 8718446578100705269}
+  - component: {fileID: 8718446578100705270}
   m_Layer: 7
   m_Name: Minotaur Boss
   m_TagString: Untagged
@@ -14389,9 +14385,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.3
+  maxMoveSpeed: 6
+  speedIncreaseRate: 0.1
   player: {fileID: 512672837981729082}
-  enemyPrefab: {fileID: 1043076053}
-  summonPoint: {fileID: 295593123}
+  enemyPrefab: {fileID: 0}
+  summonPoint: {fileID: 0}
   attackRange: 1.9
   attackCooldown: 2
   regularAttackDamage: 3
@@ -14408,7 +14406,7 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.2
   rageParticles: {fileID: 132740611625135121, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
-  rageThreshold: 0.2
+  rageThreshold: 0.5
   particleOffset: {x: 0.5, y: 0, z: 0}
 --- !u!114 &8718446578100705269
 MonoBehaviour:
@@ -14422,6 +14420,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce31fc9f142f95b42acf165a5721aaad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8718446578100705270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433473685188369019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10af5b20c0f76945ba99d6e8db61bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldCoin: {fileID: 19649713142365569, guid: 66dfd4d36dc144a30937f5315c129c00, type: 3}
+  coinManager: {fileID: 1649095889}
+  maxGold: 15
 --- !u!224 &8770021707540138476
 RectTransform:
   m_ObjectHideFlags: 0
