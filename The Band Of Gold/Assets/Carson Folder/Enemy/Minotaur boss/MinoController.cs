@@ -24,21 +24,33 @@ public class MinoController : MonoBehaviour
     public float playerDetectRange = 3f;
     public float dashSpeed = 10f; // Speed for dash attack
     public float dashDuration = 0.2f; // Duration for dash attack
+    public GameObject rageParticles; // Particle effect for rage mode
+    public float rageThreshold = 0.5f; // Health threshold for rage mode
+    public Vector3 particleOffset = new Vector3(1f, 0f, 0f); // Offset for particle instantiation
 
     private int facingDirection = -1;
     private Rigidbody2D rb;
     private bool isAttacking = false;
     private bool isDashing = false;
+    private bool isInRageMode = false;
+    private float originalMoveSpeed;
+    private float originalAttackCooldown;
+    private EnemyHealth enemyHealth;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        originalMoveSpeed = moveSpeed;
+        originalAttackCooldown = attackCooldown;
+        enemyHealth = GetComponent<EnemyHealth>();
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
     }
+
 
     private void Update()
     {
@@ -80,6 +92,9 @@ public class MinoController : MonoBehaviour
                 animator.SetBool("IsMoving", false);
                 rb.velocity = Vector2.zero;
             }
+
+            // Check health to activate rage mode if necessary
+            CheckHealth();
         }
     }
 
@@ -155,12 +170,12 @@ public class MinoController : MonoBehaviour
 
     public void MinoAttack1Function()
     {
-        DealDamage(regularAttackDamage);
+        DealDamage(regularAttackDamage, heavyAttackKnockback, heavyAttackStun);
     }
 
     public void MinoAttack2Function()
     {
-        DealDamage(quickAttackDamage);
+        DealDamage(quickAttackDamage, heavyAttackKnockback, heavyAttackStun);
     }
 
     public void MinoAttack3Function()
@@ -188,6 +203,7 @@ public class MinoController : MonoBehaviour
                 if (playerHealth != null)
                 {
                     playerHealth.ChangeHealth(-damage);
+                    playerController.Knockback(transform, knockback, stun);
                 }
                 if (playerController != null && knockback > 0)
                 {
@@ -222,5 +238,31 @@ public class MinoController : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, playerDetectRange);
+    }
+
+    private void CheckHealth()
+    {
+        float currentHealth = enemyHealth.currentHealth;
+        float maxHealth = enemyHealth.startingHealth;
+        if (!isInRageMode && currentHealth <= maxHealth * rageThreshold)
+        {
+            ActivateRageMode();
+        }
+    }
+
+    private void ActivateRageMode()
+    {
+        isInRageMode = true;
+        moveSpeed *= 1.5f;
+        regularAttackDamage = Mathf.RoundToInt(regularAttackDamage * 1.2f);
+        Debug.Log("Rage mode activated!");
+
+        if (rageParticles != null)
+        {
+            Vector3 particlePosition = transform.position + particleOffset;
+            Instantiate(rageParticles, particlePosition, Quaternion.identity, transform);
+            Debug.Log("Rage particles instantiated!");
+        }
+
     }
 }

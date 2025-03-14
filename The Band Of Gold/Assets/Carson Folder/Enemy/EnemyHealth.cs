@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {   
-    [SerializeField] private float startingHealth = 3; // health of the enemy
+    [SerializeField] public float startingHealth = 3; // health of the enemy
     [SerializeField] private GameObject deathVFXPrefab;
 
     private Knockback knockback;
     private Flash flash;
-    private float currentHealth;
+    public float currentHealth;
     AudioManager audioManager;
 
     private void Awake() {
@@ -37,8 +37,9 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0) {
             audioManager.PlaySFX(audioManager.enemyDeath);
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject);
             GetComponent<PickUpSpawner>().DropItems();
+            Destroy(gameObject);
+
             
         }
     }
