@@ -36,6 +36,7 @@ public class MinoController : MonoBehaviour
     private float originalMoveSpeed;
     private float originalAttackCooldown;
     private EnemyHealth enemyHealth;
+    private GameObject currentRageParticles; // Store the instantiated particle object
 
     private void Start()
     {
@@ -260,7 +261,7 @@ public class MinoController : MonoBehaviour
         if (rageParticles != null)
         {
             Vector3 particlePosition = transform.position + particleOffset;
-            Instantiate(rageParticles, particlePosition, Quaternion.identity, transform);
+            currentRageParticles = Instantiate(rageParticles, particlePosition, Quaternion.identity, transform); //Parent the particle to the boss
             Debug.Log("Rage particles instantiated!");
         }
 

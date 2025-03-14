@@ -9030,11 +9030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3937428417432400552, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.05
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3937428417432400552, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.35
+      value: -5.08
       objectReference: {fileID: 0}
     - target: {fileID: 3937428417432400552, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9067,18 +9067,6 @@ PrefabInstance:
     - target: {fileID: 3937428417432400552, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8704275548692953298, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8704275548692953298, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8704275548692953298, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.86
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14420,8 +14408,8 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.2
   rageParticles: {fileID: 132740611625135121, guid: e0165b07f28c4c548a5e969957d4a989, type: 3}
-  rageThreshold: 0.3
-  particleOffset: {x: 2.14, y: 8.29, z: 0}
+  rageThreshold: 0.2
+  particleOffset: {x: 0.5, y: 0, z: 0}
 --- !u!114 &8718446578100705269
 MonoBehaviour:
   m_ObjectHideFlags: 0
