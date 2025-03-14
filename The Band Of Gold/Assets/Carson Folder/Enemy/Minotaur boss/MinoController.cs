@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 using System.Collections;
 
 public class MinoController : MonoBehaviour
@@ -36,8 +35,6 @@ public class MinoController : MonoBehaviour
     private bool isAttacking = false;
     private bool isDashing = false;
     private bool isInRageMode = false;
-    private float originalMoveSpeed;
-    private float originalAttackCooldown;
     private EnemyHealth enemyHealth;
     private GameObject currentRageParticles;
 
@@ -45,8 +42,6 @@ public class MinoController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        originalMoveSpeed = moveSpeed;
-        originalAttackCooldown = attackCooldown;
         currentMoveSpeed = moveSpeed;
         enemyHealth = GetComponent<EnemyHealth>();
 
@@ -64,8 +59,8 @@ public class MinoController : MonoBehaviour
 
             if (distanceToPlayer <= followRange && !isAttacking)
             {
-                // Gradually increase movement speed until cap is reached
-                currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, maxMoveSpeed, speedIncreaseRate * Time.deltaTime);
+                // ✅ Gradually increase movement speed until it reaches maxMoveSpeed
+                currentMoveSpeed = Mathf.Min(currentMoveSpeed + (speedIncreaseRate * Time.deltaTime), maxMoveSpeed);
 
                 Vector2 direction = (player.position - transform.position).normalized;
                 movement = direction * currentMoveSpeed;
@@ -73,21 +68,23 @@ public class MinoController : MonoBehaviour
                 if (movement.magnitude > 0.1f)
                 {
                     animator.SetBool("IsMoving", true);
-                    animator.SetFloat("MovementSpeed", movement.magnitude);
+                    // ✅ Use currentMoveSpeed directly for the animation value
+                    animator.SetFloat("MovementSpeed", currentMoveSpeed);
                 }
                 else
                 {
                     animator.SetBool("IsMoving", false);
+                    animator.SetFloat("MovementSpeed", moveSpeed);
                 }
 
-                // Flip the boss to face the player
+                // ✅ Flip the boss to face the player
                 if ((player.position.x > transform.position.x && facingDirection == -1) ||
                     (player.position.x < transform.position.x && facingDirection == 1))
                 {
                     Flip();
                 }
 
-                // Attack if within detect range
+                // ✅ Attack if within detect range
                 if (distanceToPlayer <= playerDetectRange && Time.time >= nextAttackTime)
                 {
                     ChooseAndPerformAttack();
@@ -96,12 +93,14 @@ public class MinoController : MonoBehaviour
             }
             else
             {
-                // Stop moving if out of range
+                // ✅ Stop moving if out of range
                 animator.SetBool("IsMoving", false);
+                animator.SetFloat("MovementSpeed", moveSpeed);
                 rb.velocity = Vector2.zero;
                 ResetMoveSpeed(); // Reset speed when idle
             }
 
+            // ✅ Check health to activate rage mode
             CheckHealth();
         }
     }
@@ -163,7 +162,7 @@ public class MinoController : MonoBehaviour
     {
         isAttacking = true;
         animator.SetInteger("AttackTrigger", attackNumber);
-        ResetMoveSpeed(); // Reset speed when attacking
+        ResetMoveSpeed(); // ✅ Reset speed after attacking
 
         if (attackNumber == 2)
         {
@@ -226,12 +225,13 @@ public class MinoController : MonoBehaviour
     {
         animator.SetInteger("AttackTrigger", 0);
         isAttacking = false;
-        ResetMoveSpeed(); // Reset after attack
+        ResetMoveSpeed();
     }
 
     private void ResetMoveSpeed()
     {
         currentMoveSpeed = moveSpeed;
+        animator.SetFloat("MovementSpeed", moveSpeed); // ✅ Keep it consistent
     }
 
     private void Flip()
