@@ -4986,7 +4986,7 @@ Transform:
   m_GameObject: {fileID: 7433473685188369019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.52, y: -4.98, z: 0}
+  m_LocalPosition: {x: 4.06, y: -2.8, z: 0}
   m_LocalScale: {x: -7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14386,12 +14386,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.3
   maxMoveSpeed: 6
-  speedIncreaseRate: 0.1
+  speedIncreaseRate: 0.5
   player: {fileID: 512672837981729082}
   enemyPrefab: {fileID: 0}
   summonPoint: {fileID: 0}
-  attackRange: 1.9
-  attackCooldown: 2
+  attackRange: 2
+  attackCooldown: 1
   regularAttackDamage: 3
   quickAttackDamage: 2
   heavyAttackDamage: 5
