@@ -59,7 +59,6 @@ public class MinoController : MonoBehaviour
 
             if (distanceToPlayer <= followRange && !isAttacking)
             {
-                // ✅ Gradually increase movement speed until it reaches maxMoveSpeed
                 currentMoveSpeed = Mathf.Min(currentMoveSpeed + (speedIncreaseRate * Time.deltaTime), maxMoveSpeed);
 
                 Vector2 direction = (player.position - transform.position).normalized;
@@ -68,23 +67,18 @@ public class MinoController : MonoBehaviour
                 if (movement.magnitude > 0.1f)
                 {
                     animator.SetBool("IsMoving", true);
-                    // ✅ Use currentMoveSpeed directly for the animation value
-                    animator.SetFloat("MovementSpeed", currentMoveSpeed);
                 }
                 else
                 {
                     animator.SetBool("IsMoving", false);
-                    animator.SetFloat("MovementSpeed", moveSpeed);
                 }
 
-                // ✅ Flip the boss to face the player
                 if ((player.position.x > transform.position.x && facingDirection == -1) ||
                     (player.position.x < transform.position.x && facingDirection == 1))
                 {
                     Flip();
                 }
 
-                // ✅ Attack if within detect range
                 if (distanceToPlayer <= playerDetectRange && Time.time >= nextAttackTime)
                 {
                     ChooseAndPerformAttack();
@@ -93,33 +87,39 @@ public class MinoController : MonoBehaviour
             }
             else
             {
-                // ✅ Stop moving if out of range
                 animator.SetBool("IsMoving", false);
-                animator.SetFloat("MovementSpeed", moveSpeed);
                 rb.velocity = Vector2.zero;
-                ResetMoveSpeed(); // Reset speed when idle
+                ResetMoveSpeed();
             }
 
-            // ✅ Check health to activate rage mode
             CheckHealth();
         }
     }
 
+
+
+
     private void FixedUpdate()
-    {
-        if (!isAttacking && !isDashing)
         {
-            rb.velocity = movement;
+            if (!isAttacking && !isDashing)
+            {
+                rb.velocity = movement;
+                // ✅ Set the animation speed based on the magnitude of the velocity
+                animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
+            }
+            else if (isDashing)
+            {
+                rb.velocity = new Vector2(facingDirection * dashSpeed, rb.velocity.y);
+                animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+                animator.SetFloat("MovementSpeed", 0f); // Ensure it's 0 when not moving
+            }
         }
-        else if (isDashing)
-        {
-            rb.velocity = new Vector2(facingDirection * dashSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
-    }
+
+
 
     private bool IsPlayerInRange()
     {
@@ -231,7 +231,7 @@ public class MinoController : MonoBehaviour
     private void ResetMoveSpeed()
     {
         currentMoveSpeed = moveSpeed;
-        animator.SetFloat("MovementSpeed", moveSpeed); // ✅ Keep it consistent
+        
     }
 
     private void Flip()
