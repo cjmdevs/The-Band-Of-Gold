@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0027327f5110d42ec8edf07a82df58f5, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  Dialogue:
-  - The sunset is quite nice today, but currently, we can't enjoy it due to the many
-    monsters that have been invading our village and pillaging us.
-  - If only there was someone that could help us with this predicament...
+  dialogue:
+  - I wanna touch you
+  - And oil you up
