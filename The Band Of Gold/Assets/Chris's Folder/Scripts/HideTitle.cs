@@ -20,7 +20,6 @@ public class MainMenuController : MonoBehaviour
     NewGameButton.onClick.AddListener(OnNewGame);
     ContinueButton.onClick.AddListener(OnContinue);
     LoadGameButton.onClick.AddListener(OnLoad);
-    OptionButton.onClick.AddListener(OnOptions);
     RemoveButton.onClick.AddListener(OnRemove);
     BackButton.onClick.AddListener(OnBack);
     Back2ndButton.onClick.AddListener(On2ndBack);
@@ -39,11 +38,6 @@ public class MainMenuController : MonoBehaviour
    void OnLoad()
    {
     HideTitle();
-   }
-
-   void OnOptions()
-   {
-      HideTitle();
    }
 
    void OnRemove()
