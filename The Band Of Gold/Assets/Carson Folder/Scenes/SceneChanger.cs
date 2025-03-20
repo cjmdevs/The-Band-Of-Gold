@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-
+    public Vector2 newPlayerPosition;
     public string scenetoLoad;
     public Animator fadeAnim;
+    private Transform player;
     public float fadeTime = .8f;
+    
 
 
 
@@ -16,6 +18,7 @@ public class SceneChanger : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            player = collision.transform;
             fadeAnim.Play("FadeToWhite");
             StartCoroutine(DelayFade());
             
@@ -25,6 +28,7 @@ public class SceneChanger : MonoBehaviour
     IEnumerator DelayFade()
     {
         yield return new WaitForSeconds(fadeTime);
+        player.position = newPlayerPosition;
         SceneManager.LoadScene(scenetoLoad);
     }
 }
