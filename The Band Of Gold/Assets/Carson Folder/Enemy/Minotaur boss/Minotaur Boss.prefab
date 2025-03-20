@@ -332,9 +332,9 @@ MonoBehaviour:
   speedIncreaseRate: 0.5
   player: {fileID: 0}
   enemyPrefab: {fileID: 0}
-  summonPoint: {fileID: 0}
+  summonPoint: {fileID: 2994861401855333711}
   attackRange: 2
-  attackCooldown: 1
+  attackCooldown: 2
   regularAttackDamage: 3
   quickAttackDamage: 2
   heavyAttackDamage: 5
