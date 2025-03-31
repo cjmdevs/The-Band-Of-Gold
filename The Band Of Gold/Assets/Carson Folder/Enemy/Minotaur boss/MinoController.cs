@@ -7,7 +7,8 @@ public class MinoController : MonoBehaviour
     public float maxMoveSpeed = 6f; // Cap for speed increase
     public float speedIncreaseRate = 0.1f; // Rate of speed increase
     private float currentMoveSpeed; // Current move speed that increases gradually
-    public Transform player;
+    private Transform player; // No longer public GameObject, just Transform
+    public LayerMask playerLayer; // Use this to detect the player
     private Animator animator;
     private Vector2 movement;
     public GameObject enemyPrefab;
@@ -20,7 +21,6 @@ public class MinoController : MonoBehaviour
     public int heavyAttackDamage = 20;
     public float heavyAttackKnockback = 5f;
     public float heavyAttackStun = 1f;
-    public LayerMask playerLayer;
     public Transform attackPoint;
     public float followRange = 10f;
     public float playerDetectRange = 3f;
@@ -45,81 +45,90 @@ public class MinoController : MonoBehaviour
         currentMoveSpeed = moveSpeed;
         enemyHealth = GetComponent<EnemyHealth>();
 
-        if (player == null)
+        // Find the player using the layer mask at the start
+        FindPlayer();
+    }
+
+    private void FindPlayer()
+    {
+        Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, followRange, playerLayer);
+        if (players.Length > 0)
         {
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            player = players[0].transform;
+        }
+        else
+        {
+            player = null; // Reset player if out of initial follow range
         }
     }
 
     private void Update()
     {
-        if (player != null)
+        if (player == null)
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            FindPlayer(); // Keep trying to find the player if they were not found initially or moved out of range
+            return;
+        }
 
-            if (distanceToPlayer <= followRange && !isAttacking)
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= followRange && !isAttacking)
+        {
+            currentMoveSpeed = Mathf.Min(currentMoveSpeed + (speedIncreaseRate * Time.deltaTime), maxMoveSpeed);
+
+            Vector2 direction = (player.position - transform.position).normalized;
+            movement = direction * currentMoveSpeed;
+
+            if (movement.magnitude > 0.1f)
             {
-                currentMoveSpeed = Mathf.Min(currentMoveSpeed + (speedIncreaseRate * Time.deltaTime), maxMoveSpeed);
-
-                Vector2 direction = (player.position - transform.position).normalized;
-                movement = direction * currentMoveSpeed;
-
-                if (movement.magnitude > 0.1f)
-                {
-                    animator.SetBool("IsMoving", true);
-                }
-                else
-                {
-                    animator.SetBool("IsMoving", false);
-                }
-
-                if ((player.position.x > transform.position.x && facingDirection == -1) ||
-                    (player.position.x < transform.position.x && facingDirection == 1))
-                {
-                    Flip();
-                }
-
-                if (distanceToPlayer <= playerDetectRange && Time.time >= nextAttackTime)
-                {
-                    ChooseAndPerformAttack();
-                    nextAttackTime = Time.time + attackCooldown;
-                }
+                animator.SetBool("IsMoving", true);
             }
             else
             {
                 animator.SetBool("IsMoving", false);
-                rb.velocity = Vector2.zero;
-                ResetMoveSpeed();
             }
 
-            CheckHealth();
+            if ((player.position.x > transform.position.x && facingDirection == -1) ||
+                (player.position.x < transform.position.x && facingDirection == 1))
+            {
+                Flip();
+            }
+
+            if (distanceToPlayer <= playerDetectRange && Time.time >= nextAttackTime)
+            {
+                ChooseAndPerformAttack();
+                nextAttackTime = Time.time + attackCooldown;
+            }
         }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+            rb.velocity = Vector2.zero;
+            ResetMoveSpeed();
+        }
+
+        CheckHealth();
     }
 
-
-
-
     private void FixedUpdate()
+    {
+        if (!isAttacking && !isDashing)
         {
-            if (!isAttacking && !isDashing)
-            {
-                rb.velocity = movement;
-                // ✅ Set the animation speed based on the magnitude of the velocity
-                animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
-            }
-            else if (isDashing)
-            {
-                rb.velocity = new Vector2(facingDirection * dashSpeed, rb.velocity.y);
-                animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
-            }
-            else
-            {
-                rb.velocity = Vector2.zero;
-                animator.SetFloat("MovementSpeed", 0f); // Ensure it's 0 when not moving
-            }
+            rb.velocity = movement;
+            // ✅ Set the animation speed based on the magnitude of the velocity
+            animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
         }
-
-
+        else if (isDashing)
+        {
+            rb.velocity = new Vector2(facingDirection * dashSpeed, rb.velocity.y);
+            animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            animator.SetFloat("MovementSpeed", 0f); // Ensure it's 0 when not moving
+        }
+    }
 
     private bool IsPlayerInRange()
     {
@@ -231,7 +240,6 @@ public class MinoController : MonoBehaviour
     private void ResetMoveSpeed()
     {
         currentMoveSpeed = moveSpeed;
-        
     }
 
     private void Flip()
@@ -261,6 +269,19 @@ public class MinoController : MonoBehaviour
         {
             Vector3 particlePosition = transform.position + particleOffset;
             currentRageParticles = Instantiate(rageParticles, particlePosition, Quaternion.identity, transform);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, followRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, playerDetectRange);
+        Gizmos.color = Color.yellow;
+        if (attackPoint != null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
     }
 }
