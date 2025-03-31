@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerHealth : Singleton<PlayerHealth>
 {
@@ -14,7 +15,6 @@ public class PlayerHealth : Singleton<PlayerHealth>
     public string statsActionMapName = "Stats"; // The name of the action map you want to disable
 
     private InputActionMap statsActionMap;
-
 
 
     AudioManager audioManager;
@@ -48,6 +48,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
 
         UpdateHealthBar();
         ShakeManager.Instance.ShakeScreen();
+        
 
         if (StatsManager.Instance.currentHealth <= 0 && !isDead)
         {
@@ -55,11 +56,9 @@ public class PlayerHealth : Singleton<PlayerHealth>
             audioManager.PlaySFX(audioManager.playerDeath);
             statsActionMap.Disable();
             gameObject.SetActive(false);
-            gameManager.GameOver();
+            gameManager.GameOverScreen();
             Time.timeScale = 0f;
             Debug.Log("Player Died");
-            
-
         }
     }
 

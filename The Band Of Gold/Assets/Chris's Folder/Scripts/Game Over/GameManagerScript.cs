@@ -5,18 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
-    public GameObject gameOverUI;
+    public GameObject gameOverScreen;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = true; // this needs to be true
-       // Cursor.lockState = CursorLockMode.Locked; // we do not need this
+        // Cursor.lockState = CursorLockMode.Locked; // we do not need this
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (gameOverUI.activeInHierarchy)
+       if (gameOverScreen.activeInHierarchy)
        {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -29,9 +30,9 @@ public class GameManagerScript : MonoBehaviour
        }
     }
 
-    public void GameOver()
+    public void GameOverScreen()
     {
-        gameOverUI.SetActive(true); 
+        gameOverScreen.SetActive(true); 
     }
 
     public void Retry()
@@ -51,4 +52,5 @@ public class GameManagerScript : MonoBehaviour
         Application.Quit();
         Debug.Log("Quit");
     }
+    
 }

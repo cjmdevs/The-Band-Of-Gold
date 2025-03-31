@@ -3,7 +3,10 @@ guid: 509dce1f2449946c79f7e33f9e754f2d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - gameManager: {instanceID: 0}
+  - playerControls: {fileID: -944628639613478452, guid: d1872bb974fec409e86cf44dc8c595f1, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
