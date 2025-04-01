@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bossDrops : MonoBehaviour
+public class enemyDrops : MonoBehaviour
 {
     [SerializeField] private GameObject goldCoin;
     [SerializeField] private CoinManager coinManager; // Reference to the CoinManager

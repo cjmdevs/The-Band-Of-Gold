@@ -41,7 +41,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0) {
             audioManager.PlaySFX(audioManager.enemyDeath);
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
-            GetComponent<bossDrops>().DropItems();
+            GetComponent<enemyDrops>().DropItems();
             Destroy(gameObject);
 
             
