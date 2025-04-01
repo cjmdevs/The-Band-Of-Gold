@@ -101,6 +101,12 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        LoadGame();
+    }
+
     public void NewGame()
     {
         this.gameData = new GameData();
@@ -127,7 +133,7 @@ public class DataPersistenceManager : MonoBehaviour
         if(this.gameData == null)
         {
             Debug.Log("No data was found. A New Game needs top be started before data can be loaded");
-            return;
+            NewGame();
         }
         
         // push the loaded data to all other scripts that need it
@@ -139,7 +145,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame()
     {
-        // return right awa if data persistence is disabled
+        // return right away if data persistence is disabled
         if (disableDataPersistence)
         {
             return;
