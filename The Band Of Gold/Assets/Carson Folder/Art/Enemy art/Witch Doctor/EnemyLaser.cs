@@ -48,7 +48,7 @@ public class EnemyLaser : MonoBehaviour
             timePassed += Time.deltaTime;
             float linearT = timePassed / laserGrowTime;
 
-            // sprite 
+            // sprite
             spriteRenderer.size = new Vector2(Mathf.Lerp(1f, laserRange, linearT), 1f);
 
             // collider
@@ -65,12 +65,12 @@ public class EnemyLaser : MonoBehaviour
             StartCoroutine(spriteFade.SlowFadeRoutine());
         }
 
-        // Notify the enemy that the laser attack is complete
-        enemy_combat enemyCombat = GetComponentInParent<enemy_combat>();
-        if (enemyCombat != null)
-        {
-            enemyCombat.OnLaserAttackComplete();
-        }
+        // Remove the problematic line:
+        // enemy_combat enemyCombat = GetComponentInParent<enemy_combat>();
+        // if (enemyCombat != null)
+        // {
+        //     enemyCombat.OnLaserAttackComplete();
+        // }
     }
 
     private void Update()

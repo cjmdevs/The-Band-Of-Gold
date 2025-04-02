@@ -2461,6 +2461,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7413845093876258101, guid: 6589536f1b8579b4dabba16249e9e6e5, type: 3}
   m_PrefabInstance: {fileID: 1334728}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1103255189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2704969061115600292, guid: 37a26cd0535dc404a8eaf35f537bf4d3, type: 3}
+  m_PrefabInstance: {fileID: 4967437862866024165}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e91fd5f53a0b4a6a8168529a40a6923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1112793548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2511,23 +2522,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 323681609557431986, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 323681609557431986, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 884516668578501290, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
       propertyPath: coinManager
       value: 
       objectReference: {fileID: 3341263896072589846}
+    - target: {fileID: 2967746445769507811, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: canTouchDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967746445769507811, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: useSwordAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7433473685363877783, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
       propertyPath: m_Name
       value: Orc (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7433473685363877783, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718446578276739615, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718446578276739615, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718446578276739615, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718446578276739615, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: m_CallbackLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718446578276739615, guid: a617b401ff7c14066a171aec1c1f4adc, type: 3}
+      propertyPath: m_ContactCaptureLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8243,13 +8282,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spectre
       objectReference: {fileID: 0}
-    - target: {fileID: 4411599672486534165, guid: 869a2ed2f23e6744c9a9480d066b3567, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 251719064765132032, guid: 869a2ed2f23e6744c9a9480d066b3567, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4411599672486534165, guid: 869a2ed2f23e6744c9a9480d066b3567, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411599672486534165, guid: 869a2ed2f23e6744c9a9480d066b3567, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4689476638687202281, guid: 869a2ed2f23e6744c9a9480d066b3567, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9546,6 +9589,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 110741200440259058, guid: 37a26cd0535dc404a8eaf35f537bf4d3, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1103255189}
+    - target: {fileID: 3027669490373289754, guid: 37a26cd0535dc404a8eaf35f537bf4d3, type: 3}
+      propertyPath: useSwordAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3247308622354909406, guid: 37a26cd0535dc404a8eaf35f537bf4d3, type: 3}
       propertyPath: coinManager
       value: 

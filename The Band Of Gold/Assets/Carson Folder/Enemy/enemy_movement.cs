@@ -8,7 +8,7 @@ public class enemy_movement : MonoBehaviour
     public bool isRangedEnemy = false;
     public float speed = 3f;
     public float playerDetectRange = 5f;
-    public float attackRange = 2f;
+    public float attackRange = 2f; // Melee attack range
     public float attackCooldown = 2f;
     public float separationRadius = 2f;
     public float separationForce = 1f;
@@ -17,13 +17,14 @@ public class enemy_movement : MonoBehaviour
     public Transform detectionPoint;
     public LayerMask playerLayer;
 
-    private EnemyState enemyState;
+    public EnemyState enemyState; // Changed to public
     private Transform player;
     private int facingDirection = -1;
     private Animator anim;
     private float attackCooldownTimer;
     private Rigidbody2D rb;
     private enemy_combat enemyCombat;
+    private bool playerInAttackRange; // Track if player is currently in attack range
 
     void Start()
     {
@@ -61,7 +62,7 @@ public class enemy_movement : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (player.position.x > transform.position.x && facingDirection == -1 || 
+        if (player.position.x > transform.position.x && facingDirection == -1 ||
             player.position.x < transform.position.x && facingDirection == 1)
         {
             Flip();
@@ -70,7 +71,7 @@ public class enemy_movement : MonoBehaviour
         Vector2 direction = (player.position - transform.position).normalized;
         Vector2 separation = CalculateSeparation();
 
-        if (isRangedEnemy && distanceToPlayer <= rangedAttackRange) 
+        if (isRangedEnemy && distanceToPlayer <= rangedAttackRange)
         {
             // If ranged enemy, stop moving and prepare to shoot
             rb.velocity = Vector2.zero;
@@ -82,9 +83,9 @@ public class enemy_movement : MonoBehaviour
                 ChangeState(EnemyState.Attacking);
             }
         }
-        else 
+        else
         {
-            // Melee enemies keep chasing
+            // Melee enemies keep chasing or ranged enemies move closer if out of range
             rb.velocity = (direction + separation) * speed;
         }
     }
@@ -119,29 +120,36 @@ public class enemy_movement : MonoBehaviour
         if (hits.Length > 0)
         {
             player = hits[0].transform;
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
             if (isRangedEnemy)
             {
-                // If ranged, attack at ranged distance
-                if (Vector2.Distance(transform.position, player.transform.position) <= rangedAttackRange && attackCooldownTimer <= 0)
+                // Ranged Enemy Logic
+                playerInAttackRange = distanceToPlayer <= rangedAttackRange;
+
+                if (playerInAttackRange && attackCooldownTimer <= 0 && enemyState != EnemyState.Attacking)
                 {
                     attackCooldownTimer = attackCooldown;
+                    enemyCombat.LaserAttack();
                     ChangeState(EnemyState.Attacking);
                 }
-                else if (Vector2.Distance(transform.position, player.position) > rangedAttackRange)
+                else if (!playerInAttackRange && enemyState != EnemyState.Attacking)
                 {
                     ChangeState(EnemyState.Chasing);
                 }
             }
             else
             {
-                // Melee enemies attack up close
-                if (Vector2.Distance(transform.position, player.transform.position) <= attackRange && attackCooldownTimer <= 0)
+                // Melee Enemy Logic
+                playerInAttackRange = distanceToPlayer <= attackRange;
+
+                if (playerInAttackRange && attackCooldownTimer <= 0 && enemyState != EnemyState.Attacking)
                 {
                     attackCooldownTimer = attackCooldown;
                     ChangeState(EnemyState.Attacking);
+                    enemyCombat.EnemyAttack(); // Perform melee attack
                 }
-                else if (Vector2.Distance(transform.position, player.position) > attackRange)
+                else if (!playerInAttackRange && enemyState != EnemyState.Attacking)
                 {
                     ChangeState(EnemyState.Chasing);
                 }
@@ -151,6 +159,8 @@ public class enemy_movement : MonoBehaviour
         {
             ChangeState(EnemyState.Idle);
             rb.velocity = Vector2.zero;
+            player = null; // Clear the player reference when out of detection range
+            playerInAttackRange = false;
         }
     }
 
@@ -169,13 +179,25 @@ public class enemy_movement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
+        if (detectionPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
+        }
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, separationRadius);
+        if (isRangedEnemy)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, rangedAttackRange);
+        }
+        else
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
     }
 }
-    
 
 public enum EnemyState
 {
@@ -184,4 +206,3 @@ public enum EnemyState
     Attacking,
     Knockback
 }
-

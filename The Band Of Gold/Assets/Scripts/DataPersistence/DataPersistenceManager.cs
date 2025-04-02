@@ -161,7 +161,7 @@ public class DataPersistenceManager : MonoBehaviour
         // pass the data to other scripts so they can update it
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            dataPersistenceObj.SaveData(gameData);
+            //dataPersistenceObj.SaveData(gameData);
         }
 
         // timestamp the data so we know when it was last saved
