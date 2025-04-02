@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class SaveSlot : MonoBehaviour
@@ -10,53 +10,54 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private string profileId = "";
 
     [Header("Content")]
-    [SerializeField] private GameObject noDataConntent;
+    [SerializeField] private GameObject noDataContent;
     [SerializeField] private GameObject hasDataContent;
     [SerializeField] private TextMeshProUGUI percentageCompleteText;
-    [SerializeField] private TextMeshProUGUI deathCountText;
-    
-    [Header("Remove Data Button")]
-    [SerializeField] private Button removeButton;
+    [SerializeField] private TextMeshProUGUI silverCountText;
+
+    [Header("Clear Data Button")]
+    [SerializeField] private Button clearButton;
 
     public bool hasData { get; private set; } = false;
 
-    private Button saveSlotbutton;
+    private Button saveSlotButton;
 
-    private void Awake()
+    private void Awake() 
     {
-        saveSlotbutton = this.GetComponent<Button>();
+        saveSlotButton = this.GetComponent<Button>();
     }
 
-    public void SetData(GameData data)
+    public void SetData(GameData data) 
     {
-        // if there's no data for this profileId
-        if (data == null)
+        // there's no data for this profileId
+        if (data == null) 
         {
-            noDataConntent.SetActive(true);
+            hasData = false;
+            noDataContent.SetActive(true);
             hasDataContent.SetActive(false);
-            removeButton.gameObject.SetActive(false);
+            clearButton.gameObject.SetActive(false);
         }
         // there is data for this profileId
-        else
+        else 
         {
             hasData = true;
-            noDataConntent.SetActive(false);
+            noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
-            removeButton.gameObject.SetActive(true);
+            clearButton.gameObject.SetActive(true);
 
             percentageCompleteText.text = data.GetPercentageComplete() + "% COMPLETE";
-            deathCountText.text = "DEATH COUNT: " + data.deathCount;
+            silverCountText.text = "SILVER: " + data.silverCount;
         }
     }
 
-    public string GetProfileId()
+    public string GetProfileId() 
     {
         return this.profileId;
     }
 
     public void SetInteractable(bool interactable)
     {
-        saveSlotbutton.interactable = interactable;
-        removeButton.interactable = interactable;
+        saveSlotButton.interactable = interactable;
+        clearButton.interactable = interactable;
     }
 }

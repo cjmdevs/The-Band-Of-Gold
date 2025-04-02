@@ -9,6 +9,7 @@ public class CoinManager : MonoBehaviour
     public int coinCount;
     public TMPro.TMP_Text coinText;
     public levelupManager levelManager;
+    internal static readonly object instance;
 
     void Update()
     {

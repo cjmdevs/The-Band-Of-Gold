@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MainMenu : Menu
 {
@@ -11,10 +12,10 @@ public class MainMenu : Menu
     [SerializeField] private SettingsMenu settingsMenu;
 
     [Header("Menu Buttons")]
-    [SerializeField] private Button OptionButton;
-    [SerializeField] private Button NewGameButton;
-    [SerializeField] private Button ContinueGameButton;
-    [SerializeField] private Button LoadGameButton;
+    [SerializeField] private Button optionButton;
+    [SerializeField] private Button newGameButton;
+    [SerializeField] private Button continueGameButton;
+    [SerializeField] private Button loadGameButton;
 
     private void Start()
     {
@@ -25,8 +26,8 @@ public class MainMenu : Menu
     {
         if (!DataPersistenceManager.instance.HasGameData())
         {
-            ContinueGameButton.interactable = false;
-            LoadGameButton.interactable = false;
+            continueGameButton.interactable = false;
+            loadGameButton.interactable = false;
         }
     }
 
@@ -52,19 +53,19 @@ public class MainMenu : Menu
     {
         DisableMenuButtons();
         DataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadSceneAsync("Test Scene");
+        SceneManager.LoadSceneAsync("TitlemapScene");
     }
 
     private void DisableMenuButtons()
     {
-        NewGameButton.interactable = false;
-        ContinueGameButton.interactable = false;
+        newGameButton.interactable = false;
+        continueGameButton.interactable = false;
     }
 
     public void ActivateMenu()
     {
         this.gameObject.SetActive(true);
-        DisableButtonsDependingOnData(); // Removed extra period
+        DisableButtonsDependingOnData();
     }
 
     public void DeactivateMenu()

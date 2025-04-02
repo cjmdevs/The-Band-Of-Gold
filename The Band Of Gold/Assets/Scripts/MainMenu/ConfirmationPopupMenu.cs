@@ -14,28 +14,28 @@ public class ConfirmationPopupMenu : Menu
 
     public void ActivateMenu(string displayText, UnityAction confirmAction, UnityAction cancelAction)
     {
-      this.gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
 
-      // set the display text
-      this.displayText.text = displayText;
+        // set the display text
+        this.displayText.text = displayText;
 
-      // remove any existing listeners just to make sure there aren't any previous ones hanging around
-      // note - this only removes listeners added through code
-      confirmButton.onClick.RemoveAllListeners();
-      cancelButton.onClick.RemoveAllListeners();
+        // remove any existing listeners just to make sure there aren't any previous ones hanging around
+        // note - this only removes listeners added through code
+        confirmButton.onClick.RemoveAllListeners();
+        cancelButton.onClick.RemoveAllListeners();
 
-      // assign the onClick listeners
-      confirmButton.onClick.AddListener(() => {
-        DeactivateMenu();
-        confirmAction();
-      });
-      cancelButton.onClick.AddListener(() => {
-        DeactivateMenu();
-        cancelAction();
-      });
+        // assign the onClick listeners
+        confirmButton.onClick.AddListener(() => {
+            DeactivateMenu();
+            confirmAction();
+        });
+        cancelButton.onClick.AddListener(() => {
+            DeactivateMenu();
+            cancelAction();
+        });
     }
 
-    private void DeactivateMenu()
+    private void DeactivateMenu() 
     {
         this.gameObject.SetActive(false);
     }
