@@ -66,11 +66,10 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
 
         // start up the auto saving coroutine
-        if (autoSaveCoroutine != null) 
+        if (autoSaveCoroutine == null) 
         {
-            StopCoroutine(autoSaveCoroutine);
+            autoSaveCoroutine = StartCoroutine(AutoSave());
         }
-        autoSaveCoroutine = StartCoroutine(AutoSave());
     }
 
     public void ChangeSelectedProfileId(string newProfileId) 
@@ -140,10 +139,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void SaveGame()
     {
         // return right away if data persistence is disabled
-        if (disableDataPersistence) 
-        {
-            return;
-        }
+        if (disableDataPersistence) return;
 
         // if we don't have any data to save, log a warning here
         if (this.gameData == null) 
@@ -155,7 +151,7 @@ public class DataPersistenceManager : MonoBehaviour
         // pass the data to other scripts so they can update it
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) 
         {
-            //dataPersistenceObj.SaveData(gameData);
+            dataPersistenceObj.SaveData(gameData);
         }
 
         // timestamp the data so we know when it was last saved

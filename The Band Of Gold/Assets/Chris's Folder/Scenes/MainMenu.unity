@@ -387,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5186644237531409485, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnRemoveClicked
+      value: OnClearClicked
       objectReference: {fileID: 0}
     - target: {fileID: 5186644237531409485, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -730,10 +730,10 @@ MonoBehaviour:
   firstSelected: {fileID: 1830707988}
   saveSlotsMenu: {fileID: 1437483517}
   settingsMenu: {fileID: 2023792278}
-  OptionButton: {fileID: 330076008}
-  NewGameButton: {fileID: 1830707988}
-  ContinueGameButton: {fileID: 780527914}
-  LoadGameButton: {fileID: 760809174}
+  optionButton: {fileID: 330076008}
+  newGameButton: {fileID: 1830707988}
+  continueGameButton: {fileID: 780527914}
+  loadGameButton: {fileID: 760809174}
 --- !u!114 &185271515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,17 +1161,45 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 227192695}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: changeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: profileId
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: clearButton
+      value: 
+      objectReference: {fileID: 1537289463}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: removeButton
       value: 
       objectReference: {fileID: 1537289463}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: noDataContent
+      value: 
+      objectReference: {fileID: 809107314}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: silverCountText
+      value: 
+      objectReference: {fileID: 1636260433}
     - target: {fileID: 3303419655850688096, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 750
@@ -1245,8 +1273,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_text
+      value: 'SILVER: 26'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_margin.y
       value: 81.590775
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156685910364346808, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_Name
+      value: SilverCountText
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1427,7 +1463,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &330076009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,6 +2005,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560184756}
   m_CullTransparentMesh: 1
+--- !u!114 &643510845 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+  m_PrefabInstance: {fileID: 7900084949784468435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &695786431 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3339551634233938526, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
@@ -2274,7 +2321,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &760809175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,7 +2454,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &780527915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,6 +2493,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780527912}
   m_CullTransparentMesh: 1
+--- !u!1 &809107314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5330680828943071179, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+  m_PrefabInstance: {fileID: 261674448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &811234781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2942,6 +2994,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080781396}
   m_CullTransparentMesh: 1
+--- !u!1 &1161022399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5330680828943071179, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+  m_PrefabInstance: {fileID: 7900084949784468435}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1165080380 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2875580200134054700, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
@@ -3308,6 +3365,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483222120}
   m_CullTransparentMesh: 1
+--- !u!114 &1502070112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+  m_PrefabInstance: {fileID: 1863114782}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1510913040
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,7 +3640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5186644237531409485, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnRemoveClicked
+      value: OnClearClicked
       objectReference: {fileID: 0}
     - target: {fileID: 5186644237531409485, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -3682,6 +3750,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625125276}
   m_CullTransparentMesh: 1
+--- !u!114 &1636260433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+  m_PrefabInstance: {fileID: 261674448}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1652930446
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,7 +4032,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &1830707989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4293,17 +4372,45 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 227192695}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: changeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621726174757370502, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: profileId
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: clearButton
+      value: 
+      objectReference: {fileID: 70196843}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: removeButton
       value: 
       objectReference: {fileID: 70196843}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: noDataContent
+      value: 
+      objectReference: {fileID: 1929061435}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: silverCountText
+      value: 
+      objectReference: {fileID: 1502070112}
     - target: {fileID: 3303419655850688096, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 750
@@ -4377,8 +4484,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_text
+      value: 'SILVER: 26'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_margin.y
       value: 71.991936
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156685910364346808, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_Name
+      value: SilverCountText
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4613,6 +4728,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917113474}
   m_CullTransparentMesh: 1
+--- !u!1 &1929061435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5330680828943071179, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+  m_PrefabInstance: {fileID: 1863114782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1961469025
 GameObject:
   m_ObjectHideFlags: 0
@@ -5278,6 +5398,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4774643273590338696, guid: b7634affa060f476ba1c212cd30c3fe4, type: 3}
+      propertyPath: disableDataPersistence
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774643273590338696, guid: b7634affa060f476ba1c212cd30c3fe4, type: 3}
       propertyPath: overrideSelectedProfileId
       value: 1
       objectReference: {fileID: 0}
@@ -5416,7 +5540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5186644237531409485, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnRemoveClicked
+      value: OnClearClicked
       objectReference: {fileID: 0}
     - target: {fileID: 5186644237531409485, guid: 82adbdc61a38e46db86c4122a1ffdd71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -5891,9 +6015,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: clearButton
+      value: 
+      objectReference: {fileID: 1165080381}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: removeButton
       value: 
       objectReference: {fileID: 1165080381}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: noDataContent
+      value: 
+      objectReference: {fileID: 1161022399}
+    - target: {fileID: 2837767276321391325, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: silverCountText
+      value: 
+      objectReference: {fileID: 643510845}
     - target: {fileID: 3303419655850688096, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 757.399
@@ -5991,6 +6127,10 @@ PrefabInstance:
       value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_text
+      value: 'SILVER: 26'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_fontSize
       value: 40
       objectReference: {fileID: 0}
@@ -6009,6 +6149,10 @@ PrefabInstance:
     - target: {fileID: 7165565657857550625, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156685910364346808, guid: 070f7963250b94427b5155005ed6cb5c, type: 3}
+      propertyPath: m_Name
+      value: SilverCountText
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

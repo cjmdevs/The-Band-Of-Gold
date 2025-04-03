@@ -25,7 +25,7 @@ public class UIOpacityAnimator : MonoBehaviour
         // **Ensure UI starts fully transparent & disabled**
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        canvasGroup.blocksRaycasts = true;
 
         titleRectTransform = title?.GetComponent<RectTransform>();
 
