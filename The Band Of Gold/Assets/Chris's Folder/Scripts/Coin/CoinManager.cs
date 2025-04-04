@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CoinManager : MonoBehaviour
+public class CoinManager : MonoBehaviour, IDataPersistence
 {
     public int coinCount;
     public TMPro.TMP_Text coinText;
@@ -26,5 +26,17 @@ public class CoinManager : MonoBehaviour
     {
         coinCount -= amount;
         levelManager.UpdateCoinText(); // Update coin text after spending coins
+        SaveData(GameManagerScript.instance.gameData);
+    }
+
+    public void LoadData(GameData data)
+    {
+        coinCount = data.coinCount;
+        levelManager.UpdateCoinText(); // Update coin text after loading data
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.coinCount = coinCount;
     }
 }

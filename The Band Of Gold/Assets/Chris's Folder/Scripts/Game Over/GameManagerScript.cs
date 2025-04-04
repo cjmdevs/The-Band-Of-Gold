@@ -5,10 +5,41 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public static GameManagerScript instance;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void InitializeGameManager()
+    {
+        if (instance == null)
+        {
+            GameObject gameManagerObject = new GameObject("GameManager");
+            instance = gameManagerObject.AddComponent<GameManagerScript>();
+            DontDestroyOnLoad(gameManagerObject);
+        }
+    }
+    public GameData gameData;
     public GameObject gameOverScreen;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
+        if (gameOverScreen == null)
+        {
+            Debug.LogError("GameOverScreen is not assigned!");
+        }
         Cursor.visible = true; // this needs to be true
         // Cursor.lockState = CursorLockMode.Locked; // we do not need this
 
@@ -17,22 +48,28 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (gameOverScreen.activeInHierarchy)
-       {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-       }
-       else
-       {
-        // this is breaking the combat
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked; 
-       }
+        if (gameOverScreen != null && gameOverScreen.activeInHierarchy)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            // Cursor.visible = false;
+            // Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void GameOverScreen()
     {
-        gameOverScreen.SetActive(true); 
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("GameOverScreen is not assigned in the Inspector!");
+        }
     }
 
     public void Retry()

@@ -13,6 +13,12 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public static bool isPaused;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void InitializePauseState()
+    {
+        isPaused = false;
+    }
     // Start is called before the first frame update
     void Start()
     {

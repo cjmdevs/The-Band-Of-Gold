@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameData
 {
     public long lastUpdated;
-    public int silverCount;
+    public int coinCount;
     public Vector3 playerPosition;
     public SerializableDictionary<string, bool> coinsCollected;
     public AttributesData playerAttributesData;
@@ -15,7 +15,7 @@ public class GameData
     // the game starts with when there's no data to load
     public GameData() 
     {
-        this.silverCount = 0;
+        this.coinCount = 0;
         playerPosition = Vector3.zero;
         coinsCollected = new SerializableDictionary<string, bool>();
         playerAttributesData = new AttributesData();

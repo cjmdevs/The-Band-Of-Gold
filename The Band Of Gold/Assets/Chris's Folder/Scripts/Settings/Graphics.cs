@@ -28,12 +28,7 @@ public class GraphicsSettings : MonoBehaviour
         new Vector2Int(2560, 1440), // QHD
         new Vector2Int(3200, 1800), // WQXGA+
         new Vector2Int(3840, 2160), // UHD
-        new Vector2Int(5120, 2880), // UHD+
-        new Vector2Int(7680, 4320), // FUHD
-        new Vector2Int(15360, 8640),    // QUHD
-        new Vector2Int(30720, 17280),   // HHD
-        new Vector2Int(61440, 34560),   // FHHD
-        new Vector2Int(122880, 69120),  // QHHD
+        new Vector2Int(5120, 2880), // UHD+ 
     };
 
 

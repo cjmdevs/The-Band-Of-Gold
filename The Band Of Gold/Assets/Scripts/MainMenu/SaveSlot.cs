@@ -13,7 +13,7 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private GameObject noDataContent;
     [SerializeField] private GameObject hasDataContent;
     [SerializeField] private TextMeshProUGUI percentageCompleteText;
-    [SerializeField] private TextMeshProUGUI silverCountText;
+    [SerializeField] private TextMeshProUGUI coinCountText;
 
     [Header("Clear Data Button")]
     [SerializeField] private Button clearButton;
@@ -46,7 +46,7 @@ public class SaveSlot : MonoBehaviour
             clearButton.gameObject.SetActive(true);
 
             percentageCompleteText.text = data.GetPercentageComplete() + "% COMPLETE";
-            silverCountText.text = "SILVER: " + data.silverCount;
+            coinCountText.text = "COINS: " + data.coinCount;
         }
     }
 
