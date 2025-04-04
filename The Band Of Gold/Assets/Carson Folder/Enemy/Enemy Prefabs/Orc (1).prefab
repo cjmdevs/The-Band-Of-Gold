@@ -591,6 +591,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyState: 0
 --- !u!114 &7823877929472246750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +637,7 @@ MonoBehaviour:
   damage: 3
   KnockbackForce: 3
   stunTime: 1.5
+  canTouchDamage: 0
   laserOrigin: {fileID: 0}
   laserPrefab: {fileID: 0}
   laserDuration: 0
@@ -643,12 +645,12 @@ MonoBehaviour:
   attackPoint: {fileID: 1870712632743787849}
   weaponRange: 1.6
   useSwordAttack: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
   projectilePrefab: {fileID: 0}
   projectileSpawnPoint: {fileID: 0}
   projectileSpeed: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &7938909207437878827
 MonoBehaviour:
   m_ObjectHideFlags: 0

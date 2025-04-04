@@ -8,7 +8,7 @@ public class enemy_combat : MonoBehaviour
     public float KnockbackForce;
     public float stunTime;
     [Header("Damage on Touch")]
-    public bool canTouchDamage = false; // New flag to control touch damage
+    public bool canTouchDamage = false; // Flag to control touch damage
     [Header("Laser Attack")]
     public Transform laserOrigin; // Origin point of the laser (where the laser starts)
     public GameObject laserPrefab; // The laser prefab to instantiate
@@ -28,6 +28,7 @@ public class enemy_combat : MonoBehaviour
     AudioManager audioManager;
     private enemy_movement enemyMovement;
     private bool isAttacking = false; // Prevent multiple attacks at once
+    private bool canDealSwordDamage = false; // Flag to control when sword damage can be applied
 
     public void Awake()
     {
@@ -42,10 +43,57 @@ public class enemy_combat : MonoBehaviour
             isAttacking = true;
             if (useSwordAttack)
             {
-                SwordAttack();
-                isAttacking = false; // Reset flag only for sword attacks here
+                // Instead of immediately calling SwordAttack, we just start the animation
+                // The actual damage will be applied by the animation event
+                
+                // The animation will call EnableSwordDamage() and DisableSwordDamage() at appropriate frames
+                // SwordAttack() will be called directly from the animation event
+                
+                // This just starts the attack animation and sequence
+                Debug.Log("Starting sword attack sequence");
+                
+                // EnemyState.Attacking should be set in enemy_movement script,
+                // which will trigger the attack animation
             }
-            // Touch damage is handled in OnTriggerEnter2D and OnCollisionEnter2D
+            // We don't reset isAttacking flag here anymore - it gets reset at the end of the animation
+        }
+    }
+
+    // Called by Animation Event at the exact frame when the sword should deal damage
+    public void ExecuteSwordAttack()
+    {
+        if (useSwordAttack && canDealSwordDamage)
+        {
+            SwordAttack();
+            Debug.Log("Sword Attack executed by animation event");
+        }
+    }
+    
+    // Called by Animation Event when the sword starts its damage frame
+    public void EnableSwordDamage()
+    {
+        canDealSwordDamage = true;
+        Debug.Log("Sword damage enabled");
+    }
+    
+    // Called by Animation Event when the sword ends its damage frame
+    public void DisableSwordDamage()
+    {
+        canDealSwordDamage = false;
+        Debug.Log("Sword damage disabled");
+    }
+    
+    // Called by Animation Event when the attack animation ends
+    public void FinishAttack()
+    {
+        isAttacking = false;
+        canDealSwordDamage = false;
+        Debug.Log("Attack animation finished");
+        
+        // Optionally, tell the enemy movement to change state
+        if (enemyMovement != null)
+        {
+            enemyMovement.ChangeState(EnemyState.Chasing);
         }
     }
 
@@ -58,37 +106,51 @@ public class enemy_combat : MonoBehaviour
             audioManager.PlaySFX(audioManager.playerHit);
             hits[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
             hits[0].GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
-            Debug.Log("Sword Attack");
+            Debug.Log("Sword Attack damage applied");
         }
-    }
-
-    private void TouchAttack()
-    {
-        // Touch damage logic is now in OnTriggerEnter2D and OnCollisionEnter2D
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (canTouchDamage && !isAttacking && (playerLayer.value & (1 << collision.gameObject.layer)) != 0)
+        // Only proceed if touch damage is enabled AND collision is with player
+        if (canTouchDamage && !isAttacking && 
+            collision.CompareTag("Player") && 
+            (playerLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
             ApplyTouchDamage(collision);
+            Debug.Log("Touch damage applied from trigger collision");
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (canTouchDamage && !isAttacking && (playerLayer.value & (1 << collision.gameObject.layer)) != 0)
+        // Only proceed if touch damage is enabled AND collision is with player
+        if (canTouchDamage && !isAttacking && 
+            collision.gameObject.CompareTag("Player") && 
+            (playerLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
             ApplyTouchDamage(collision.collider);
+            Debug.Log("Touch damage applied from physical collision");
         }
     }
 
     private void ApplyTouchDamage(Collider2D otherCollider)
     {
+        // Double-check that we should actually apply damage
+        if (!canTouchDamage) return;
+        
         isAttacking = true;
         audioManager.PlaySFX(audioManager.playerHit);
-        otherCollider.GetComponent<PlayerHealth>().ChangeHealth(-damage);
-        otherCollider.GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
+        
+        PlayerHealth playerHealth = otherCollider.GetComponent<PlayerHealth>();
+        PlayerController playerController = otherCollider.GetComponent<PlayerController>();
+        
+        if (playerHealth != null)
+            playerHealth.ChangeHealth(-damage);
+            
+        if (playerController != null)
+            playerController.Knockback(transform, KnockbackForce, stunTime);
+            
         Debug.Log("Touch Attack - Damage Applied");
         StartCoroutine(ResetAttackFlag());
     }

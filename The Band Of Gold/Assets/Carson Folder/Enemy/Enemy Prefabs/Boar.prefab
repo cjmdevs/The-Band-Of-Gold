@@ -622,6 +622,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyState: 0
 --- !u!114 &3039860186103415078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +668,7 @@ MonoBehaviour:
   damage: 2
   KnockbackForce: 2.5
   stunTime: 2
+  canTouchDamage: 0
   laserOrigin: {fileID: 0}
   laserPrefab: {fileID: 0}
   laserDuration: 0
@@ -674,12 +676,12 @@ MonoBehaviour:
   attackPoint: {fileID: 287000159415762586}
   weaponRange: 1.2
   useSwordAttack: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
   projectilePrefab: {fileID: 0}
   projectileSpawnPoint: {fileID: 0}
   projectileSpeed: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &6957017619148155686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +761,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: -0.06}
+  m_Offset: {x: -0.03, y: -0.07}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -770,7 +772,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23, y: 0.13}
+  m_Size: {x: 0.23, y: 0.11}
   m_EdgeRadius: 0
 --- !u!114 &6618634341841592747
 MonoBehaviour:

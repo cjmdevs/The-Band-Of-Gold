@@ -277,7 +277,7 @@ RectTransform:
   m_Father: {fileID: 653969573361265696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -345,7 +345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7768016722518322306
 Transform:
   m_ObjectHideFlags: 0
@@ -488,6 +488,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyState: 0
 --- !u!114 &388082981222353034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,6 +534,7 @@ MonoBehaviour:
   damage: 1
   KnockbackForce: 0.3
   stunTime: 0.5
+  canTouchDamage: 0
   laserOrigin: {fileID: 0}
   laserPrefab: {fileID: 0}
   laserDuration: 0
@@ -540,12 +542,12 @@ MonoBehaviour:
   attackPoint: {fileID: 7621279650880190383}
   weaponRange: 1.4
   useSwordAttack: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
   projectilePrefab: {fileID: 0}
   projectileSpawnPoint: {fileID: 0}
   projectileSpeed: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &3485574220801134655
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,7 +57,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9111493394600395906
 Transform:
   m_ObjectHideFlags: 0
@@ -200,6 +200,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyState: 0
 --- !u!114 &1736434658760716257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 6
   deathVFXPrefab: {fileID: 132740611625135121, guid: d3fcdb8bef01742acb2fa0dee25295bf, type: 3}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 2704969061115600292}
   currentHealth: 0
 --- !u!114 &3027669490373289754
 MonoBehaviour:
@@ -245,19 +246,20 @@ MonoBehaviour:
   damage: 0
   KnockbackForce: 2.5
   stunTime: 2
+  canTouchDamage: 0
   laserOrigin: {fileID: 8049874795217306947}
   laserPrefab: {fileID: 4075354934551317665, guid: 07b2222a78ee3c14ea06f7a60d6736a2, type: 3}
   laserDuration: 4
   laserDamage: 0.5
   attackPoint: {fileID: 8049874795217306947}
   weaponRange: 6
-  useSwordAttack: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  useSwordAttack: 0
   projectilePrefab: {fileID: 0}
   projectileSpawnPoint: {fileID: 0}
   projectileSpeed: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &8956307686516649593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +400,7 @@ RectTransform:
   m_Father: {fileID: 4116490782550127673}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
