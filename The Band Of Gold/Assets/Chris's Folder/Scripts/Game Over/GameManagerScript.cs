@@ -14,7 +14,6 @@ public class GameManagerScript : MonoBehaviour
         {
             GameObject gameManagerObject = new GameObject("GameManager");
             instance = gameManagerObject.AddComponent<GameManagerScript>();
-            DontDestroyOnLoad(gameManagerObject);
         }
     }
     public GameData gameData;

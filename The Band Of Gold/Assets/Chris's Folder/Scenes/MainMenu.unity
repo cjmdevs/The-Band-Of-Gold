@@ -588,7 +588,7 @@ AudioSource:
   m_GameObject: {fileID: 150515379}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4333925799445561374, guid: 8cf7d6434517a594caa018a6152077c7, type: 2}
+  OutputAudioMixerGroup: {fileID: -1055373349327339142, guid: 8cf7d6434517a594caa018a6152077c7, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3ca6f6d6479ae47498c8faa1d7ea8a7d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -746,7 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480fb73c328214eaeab41e6bc859de69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: {fileID: 1411679667}
+  Title: {fileID: 406401655}
   NewGameButton: {fileID: 1830707988}
   ContinueButton: {fileID: 780527914}
   LoadGameButton: {fileID: 760809174}
@@ -782,7 +782,7 @@ CanvasGroup:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185271512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206960646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2327aa0355b5745978e0f2e78079a2ef, type: 3}
   m_Name: 
@@ -847,12 +847,7 @@ MonoBehaviour:
   titleStartPos: {x: 0, y: 100}
   titleEndPos: {x: 0, y: -250}
   titleEndTransform: {fileID: 406401656}
-  buttons:
-  - {fileID: 330076008}
-  - {fileID: 1830707988}
-  - {fileID: 780527914}
-  - {fileID: 760809174}
-  - {fileID: 1652930448}
+  buttons: []
 --- !u!1 &227192694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &406401656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3060,7 +3055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1411679668
 RectTransform:
   m_ObjectHideFlags: 0
