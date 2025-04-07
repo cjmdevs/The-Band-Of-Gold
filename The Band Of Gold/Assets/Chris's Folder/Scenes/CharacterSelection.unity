@@ -873,6 +873,7 @@ MonoBehaviour:
   NoticeParent: {fileID: 522919288}
   ProceedButton: {fileID: 423481009}
   ReturnButton: {fileID: 1642356355}
+  sceneToLoad: TilemapScene
 --- !u!1 &1993558381 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7832360307150150454, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}

@@ -7,6 +7,7 @@ public class GameData
 {
     public long lastUpdated;
     public int coinCount;
+    public string characterClass { get; set; }
     public Vector3 playerPosition;
     public SerializableDictionary<string, bool> coinsCollected;
     public AttributesData playerAttributesData;

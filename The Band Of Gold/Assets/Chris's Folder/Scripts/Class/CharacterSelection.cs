@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CharacterSelection : MonoBehaviour
+public class CharacterSelection : MonoBehaviour, IDataPersistence
 {
     [Header("Character Class Screen")]
     [SerializeField] private GameObject ClassSelectionParent;
@@ -26,6 +26,12 @@ public class CharacterSelection : MonoBehaviour
     [SerializeField] private GameObject NoticeParent;
     [SerializeField] private Button ProceedButton;
     [SerializeField] private Button ReturnButton;
+
+    [Header("Loaded Character")]
+    [SerializeField] private string loadedCharacter;
+
+    [Header("Scene")]
+    [SerializeField] private string sceneToLoad;
 
     private string selectedClass = "";
 
@@ -117,12 +123,24 @@ public class CharacterSelection : MonoBehaviour
     {
         Debug.Log($"Character '{selectedClass}' selected. Proceeding to game...");
         // Load the game scene or proceed with game logic
-        SceneManager.LoadSceneAsync("Test Scene");
+        SceneManager.LoadScene(sceneToLoad);
         SaveCharacter();
     }
 
     public void SaveCharacter()
     {
         PlayerPrefs.SetString("CharacterSelected", selectedClass);
+    }
+
+    public void LoadData(GameData data)
+    {
+        // Load character data if needed
+        loadedCharacter = PlayerPrefs.GetString("CharacterSelected");
+    }
+
+    public void SaveData(GameData data)
+    {
+        // Save character data if needed
+        data.characterClass = selectedClass;
     }
 }
