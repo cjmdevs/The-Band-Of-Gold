@@ -8,11 +8,18 @@ public class BossSpawner : MonoBehaviour
     public LayerMask playerLayer;
     public float detectionRadius = 5f; // Adjust this radius as needed
 
+    AudioManager audioManager;
+
+    public void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (spawnedBoss == null && (playerLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             // Player entered the area and the boss is not spawned
+            audioManager.PlaySFX(audioManager.minoSummon);
             SpawnBoss();
         }
     }

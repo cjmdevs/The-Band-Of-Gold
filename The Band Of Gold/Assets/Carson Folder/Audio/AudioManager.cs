@@ -20,6 +20,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip playerDash;
     public AudioClip itemPickup;
     public AudioClip objectBroke;
+    public AudioClip mino1;
+    public AudioClip mino2;
+    public AudioClip mino3;
+    public AudioClip minoSummon;
+
+
+    
 
     private void Start()
     {
