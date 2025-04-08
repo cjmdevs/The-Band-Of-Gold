@@ -379,6 +379,10 @@ MonoBehaviour:
   playerDash: {fileID: 8300000, guid: 705005ef6ff694097aeda609e4343d4b, type: 3}
   itemPickup: {fileID: 8300000, guid: 4528c52e8c5c6431da3d3d677cfdd541, type: 3}
   objectBroke: {fileID: 8300000, guid: 8fb408691f85c46e0a8a6569771b13e6, type: 3}
+  mino1: {fileID: 8300000, guid: 73f85659dc10d46e8983600aa20c8b3a, type: 3}
+  mino2: {fileID: 8300000, guid: 0ab63f742c02d4d99ba9828bd2a7c5ec, type: 3}
+  mino3: {fileID: 8300000, guid: 4af0df97fd5ec449e88464593ed7b83e, type: 3}
+  minoSummon: {fileID: 8300000, guid: d3f89cbe31c17412f9698b049dee3ad8, type: 3}
 --- !u!1 &5332041015070126759
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7433989733632904463}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.4035826, y: 2.2274334, z: 0.36195928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

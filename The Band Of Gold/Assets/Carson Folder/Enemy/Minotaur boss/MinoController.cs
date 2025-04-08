@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class MinoController : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class MinoController : MonoBehaviour
     private bool isInRageMode = false;
     private EnemyHealth enemyHealth;
     private GameObject currentRageParticles;
+    AudioManager audioManager;
 
     private void Start()
     {
@@ -47,6 +49,10 @@ public class MinoController : MonoBehaviour
 
         // Find the player using the layer mask at the start
         FindPlayer();
+    }
+    public void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void FindPlayer()
@@ -151,18 +157,22 @@ public class MinoController : MonoBehaviour
             if (randomValue < regularAttackChance)
             {
                 PerformAttack(1);
+                audioManager.PlaySFX(audioManager.mino1);
             }
             else if (randomValue < regularAttackChance + quickAttackChance)
             {
                 PerformAttack(2);
+                audioManager.PlaySFX(audioManager.mino1);
             }
             else if (randomValue < regularAttackChance + quickAttackChance + summonAttackChance)
             {
                 PerformAttack(3);
+                audioManager.PlaySFX(audioManager.mino2);
             }
             else
             {
                 PerformAttack(4);
+                audioManager.PlaySFX(audioManager.mino3);
             }
         }
     }
@@ -189,11 +199,13 @@ public class MinoController : MonoBehaviour
     public void MinoAttack1Function()
     {
         DealDamage(regularAttackDamage, heavyAttackKnockback, heavyAttackStun);
+        
     }
 
     public void MinoAttack2Function()
     {
         DealDamage(quickAttackDamage, heavyAttackKnockback, heavyAttackStun);
+        
     }
 
     public void MinoAttack3Function()
@@ -202,11 +214,13 @@ public class MinoController : MonoBehaviour
         {
             Instantiate(enemyPrefab, summonPoint.position, Quaternion.identity);
         }
+        
     }
 
     public void MinoAttack4Function()
     {
         DealDamage(heavyAttackDamage, heavyAttackKnockback, heavyAttackStun);
+        
     }
 
     private void DealDamage(int damage, float knockback = 0f, float stun = 0f)
@@ -226,6 +240,7 @@ public class MinoController : MonoBehaviour
                 {
                     playerController.Knockback(transform, knockback, stun);
                 }
+                audioManager.PlaySFX(audioManager.mino1);
             }
         }
     }
