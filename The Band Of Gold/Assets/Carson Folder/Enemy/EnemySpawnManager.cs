@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class EnemySpawnManager : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs = new List<GameObject>();
     public int maxEnemiesTotal = 10;
     public float minSpawnTime = 1f;
     public float maxSpawnTime = 5f;
@@ -31,6 +31,10 @@ public class EnemySpawnManager : MonoBehaviour
         public int maxEnemiesPerPoint = 3;
         public float spawnRadius = 5f; // Customizable radius per spawn point
         [HideInInspector] public int currentEnemiesAtPoint = 0;
+        
+        [Header("Enemy Types for this Spawn Point")]
+        public bool useSpecificEnemies = false;
+        public List<int> allowedEnemyIndices = new List<int>(); // Indices from the main enemyPrefabs list
     }
 
     void Start()
@@ -75,6 +79,10 @@ public class EnemySpawnManager : MonoBehaviour
 
     void SpawnEnemy()
     {
+        // Check if there are any enemy prefabs to spawn
+        if (enemyPrefabs.Count == 0)
+            return;
+
         SpawnPoint selectedSpawnPoint = null;
 
         List<SpawnPoint> availableSpawnPoints = new List<SpawnPoint>();
@@ -108,7 +116,35 @@ public class EnemySpawnManager : MonoBehaviour
                 spawnPosition = selectedSpawnPoint.transform.position + new Vector3(randomCircleOffset.x, randomCircleOffset.y, 0) + spawnOffset;
             }
 
-            GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            // Select an enemy prefab based on spawn point restrictions
+            GameObject selectedEnemyPrefab;
+            
+            if (selectedSpawnPoint.useSpecificEnemies && selectedSpawnPoint.allowedEnemyIndices.Count > 0)
+            {
+                // Select from specified enemy types for this spawn point
+                int randomAllowedIndex = Random.Range(0, selectedSpawnPoint.allowedEnemyIndices.Count);
+                int enemyIndex = selectedSpawnPoint.allowedEnemyIndices[randomAllowedIndex];
+                
+                // Validate index is within range
+                if (enemyIndex >= 0 && enemyIndex < enemyPrefabs.Count)
+                {
+                    selectedEnemyPrefab = enemyPrefabs[enemyIndex];
+                }
+                else
+                {
+                    // Fallback to random enemy if index is out of range
+                    selectedEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+                    Debug.LogWarning("Enemy index out of range for spawn point. Using random enemy instead.");
+                }
+            }
+            else
+            {
+                // Use any random enemy from the full list
+                int randomEnemyIndex = Random.Range(0, enemyPrefabs.Count);
+                selectedEnemyPrefab = enemyPrefabs[randomEnemyIndex];
+            }
+            
+            GameObject newEnemy = Instantiate(selectedEnemyPrefab, spawnPosition, Quaternion.identity);
             activeEnemies.Add(newEnemy);
         }
     }
