@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerHealth : Singleton<PlayerHealth>
@@ -15,6 +16,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
     public string statsActionMapName = "Stats"; // The name of the action map you want to disable
 
     private InputActionMap statsActionMap;
+
+    readonly int DEATH_HASH = Animator.StringToHash("Death");
 
 
     AudioManager audioManager;
@@ -58,8 +61,16 @@ public class PlayerHealth : Singleton<PlayerHealth>
             gameObject.SetActive(false);
             gameManager.GameOverScreen();
             Time.timeScale = 0f;
+            GetComponent<Animator>().SetTrigger(DEATH_HASH);
+            StartCoroutine(DeathLoadSceneRoutine());
             Debug.Log("Player Died");
         }
+    }
+
+    private IEnumerator DeathLoadSceneRoutine()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 
     private void UpdateHealthBar()
