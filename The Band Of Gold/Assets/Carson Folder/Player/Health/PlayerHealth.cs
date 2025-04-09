@@ -58,9 +58,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
             isDead = true; 
             audioManager.PlaySFX(audioManager.playerDeath);
             statsActionMap.Disable();
-            gameObject.SetActive(false);
             gameManager.GameOverScreen();
-            Time.timeScale = 0f;
             GetComponent<Animator>().SetTrigger(DEATH_HASH);
             StartCoroutine(DeathLoadSceneRoutine());
             Debug.Log("Player Died");
@@ -70,7 +68,9 @@ public class PlayerHealth : Singleton<PlayerHealth>
     private IEnumerator DeathLoadSceneRoutine()
     {
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        {
+            Time.timeScale = 0f;
+        }
     }
 
     private void UpdateHealthBar()
