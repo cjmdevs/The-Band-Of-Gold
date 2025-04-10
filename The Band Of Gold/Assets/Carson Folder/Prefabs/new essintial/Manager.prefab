@@ -383,6 +383,53 @@ MonoBehaviour:
   mino2: {fileID: 8300000, guid: 0ab63f742c02d4d99ba9828bd2a7c5ec, type: 3}
   mino3: {fileID: 8300000, guid: 4af0df97fd5ec449e88464593ed7b83e, type: 3}
   minoSummon: {fileID: 8300000, guid: d3f89cbe31c17412f9698b049dee3ad8, type: 3}
+--- !u!1 &4772525737385026273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7325550188533066297}
+  - component: {fileID: 1926349925846324689}
+  m_Layer: 0
+  m_Name: Pause Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7325550188533066297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772525737385026273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2904440535278025085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1926349925846324689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772525737385026273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e151ee076f2c1475fa83b5cf817a0efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackButton: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  settingsMenu: {fileID: 0}
 --- !u!1 &5332041015070126759
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +513,7 @@ Transform:
   - {fileID: 3684540783478216856}
   - {fileID: 9109752416622395702}
   - {fileID: 1950671165051832567}
+  - {fileID: 7325550188533066297}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8742769812851825538
@@ -805,13 +853,10 @@ MonoBehaviour:
   Sword: {fileID: 0}
   SwordPrefab: {fileID: 379911339551550037, guid: 782cb1f3ba857b5418a30bd7eb927096, type: 3}
   SwordInventory: {fileID: 0}
-  SwordEnabled: {fileID: 0}
   Staff: {fileID: 0}
   StaffPrefab: {fileID: 8291060214826489255, guid: ba3539ec5f59b7741afba69d6829f8c4, type: 3}
   StaffInventory: {fileID: 0}
-  StaffEnabled: {fileID: 0}
   Bow: {fileID: 0}
   BowPrefab: {fileID: 6140190989424274704, guid: 08c38ce3995fecf41af5f81f0e5179cd, type: 3}
   BowInventory: {fileID: 0}
-  BowEnabled: {fileID: 0}
   loadedCharacter: 

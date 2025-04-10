@@ -99,7 +99,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81439ecece3f14a6d84697add7743f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 0}
+  gameData:
+    lastUpdated: 0
+    coinCount: 0
+    playerPosition: {x: 0, y: 0, z: 0}
+    coinsCollected:
+      keys: []
+      values: 
+    playerAttributesData:
+      vitality: 1
+      strength: 1
+      intellect: 1
+      endurance: 1
+  gameOverScreen: {fileID: 6641116011200843435, guid: b03db4a51e45b4b1a868c6a932d0c66d, type: 3}
 --- !u!114 &450501710933615315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,8 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackButton: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  settingsMenu: {fileID: 0}
+  pauseMenu: {fileID: 441893631145140080, guid: 6a57ebc7bac8148adb14599d1432ea50, type: 3}
+  settingsMenu: {fileID: 2469823879787064195, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
 --- !u!1 &1548249400930434379
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +275,10 @@ MonoBehaviour:
   playerDash: {fileID: 8300000, guid: 705005ef6ff694097aeda609e4343d4b, type: 3}
   itemPickup: {fileID: 8300000, guid: 4528c52e8c5c6431da3d3d677cfdd541, type: 3}
   objectBroke: {fileID: 8300000, guid: 8fb408691f85c46e0a8a6569771b13e6, type: 3}
+  mino1: {fileID: 0}
+  mino2: {fileID: 0}
+  mino3: {fileID: 0}
+  minoSummon: {fileID: 0}
 --- !u!1 &5738294400655168754
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,15 +606,12 @@ MonoBehaviour:
   Sword: {fileID: 0}
   SwordPrefab: {fileID: 379911339551550037, guid: 782cb1f3ba857b5418a30bd7eb927096, type: 3}
   SwordInventory: {fileID: 0}
-  SwordEnabled: {fileID: 0}
   Staff: {fileID: 0}
   StaffPrefab: {fileID: 8291060214826489255, guid: ba3539ec5f59b7741afba69d6829f8c4, type: 3}
   StaffInventory: {fileID: 0}
-  StaffEnabled: {fileID: 0}
   Bow: {fileID: 0}
   BowPrefab: {fileID: 6140190989424274704, guid: 08c38ce3995fecf41af5f81f0e5179cd, type: 3}
   BowInventory: {fileID: 0}
-  BowEnabled: {fileID: 0}
   loadedCharacter: 
 --- !u!1 &7224167054171152571
 GameObject:

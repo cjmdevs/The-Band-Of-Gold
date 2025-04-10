@@ -46,7 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81439ecece3f14a6d84697add7743f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
+  gameData:
+    lastUpdated: 0
+    coinCount: 0
+    playerPosition: {x: 0, y: 0, z: 0}
+    coinsCollected:
+      keys: []
+      values: 
+    playerAttributesData:
+      vitality: 1
+      strength: 1
+      intellect: 1
+      endurance: 1
+  gameOverScreen: {fileID: 6641116011200843435, guid: b03db4a51e45b4b1a868c6a932d0c66d, type: 3}
 --- !u!114 &8607824055204316085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,8 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackButton: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  settingsMenu: {fileID: 0}
+  pauseMenu: {fileID: 441893631145140080, guid: 6a57ebc7bac8148adb14599d1432ea50, type: 3}
+  settingsMenu: {fileID: 2469823879787064195, guid: 8c628ad3877a5498486bb6d096ad6bc4, type: 3}
 --- !u!114 &8240998987391433714
 MonoBehaviour:
   m_ObjectHideFlags: 0
