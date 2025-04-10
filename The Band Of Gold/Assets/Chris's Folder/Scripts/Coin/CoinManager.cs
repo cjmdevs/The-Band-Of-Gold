@@ -11,6 +11,18 @@ public class CoinManager : MonoBehaviour, IDataPersistence
     public levelupManager levelManager;
     internal static readonly object instance;
 
+    private void OnEnable()
+    {
+        // Subscribe to the coin collection event
+        GameEvents.OnCoinCollected += AddCoins;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe when the object is disabled
+        GameEvents.OnCoinCollected -= AddCoins;
+    }
+
     void Update()
     {
         coinText.text = "Silver:  " + coinCount.ToString();

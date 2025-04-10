@@ -5,7 +5,6 @@ using UnityEngine;
 public class PickUpSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject goldCoin, healthGlobe, staminaGlobe;
-    [SerializeField] private CoinManager coinManager; // Reference to the CoinManager
     [SerializeField] private int maxGold = 5; // Maximum number of gold coins to spawn
 
     public void DropItems() {
@@ -24,11 +23,8 @@ public class PickUpSpawner : MonoBehaviour
             
             for (int i = 0; i < randomAmountOfGold; i++)
             {
-                GameObject coin = Instantiate(goldCoin, transform.position, Quaternion.identity);
-                Pickup pickupScript = coin.GetComponent<Pickup>();
-                if (pickupScript != null) {
-                    pickupScript.cm = coinManager; // Set the CoinManager reference
-                }
+                Instantiate(goldCoin, transform.position, Quaternion.identity);
+                // No CoinManager reference needed anymore
             }
         }
     }

@@ -2,6 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Create a static event system
+public static class GameEvents
+{
+    // Define a delegate for coin collection
+    public delegate void CoinCollectionHandler(int amount);
+    
+    // Create an event that other classes can subscribe to
+    public static event CoinCollectionHandler OnCoinCollected;
+    
+    // Method to trigger the event
+    public static void CollectCoins(int amount)
+    {
+        OnCoinCollected?.Invoke(amount);
+    }
+}
+
 public class Pickup : MonoBehaviour
 {
     private enum PickUpType
@@ -13,12 +29,12 @@ public class Pickup : MonoBehaviour
 
     [SerializeField] private PickUpType pickUpType;
     [SerializeField] private float pickUpDistance = 5f;
-    [SerializeField] private float accelartionRate = .2f;
+    [SerializeField] private float accelerationRate = .2f;
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private AnimationCurve animCurve;
     [SerializeField] private float heightY = 1.5f;
     [SerializeField] private float popDuration = 1f;
-    public CoinManager cm;
+    [SerializeField] private int coinValue = 1; // Default value for coins
 
     private Vector3 moveDir;
     private Rigidbody2D rb;
@@ -38,7 +54,7 @@ public class Pickup : MonoBehaviour
 
         if (Vector3.Distance(transform.position, playerPos) < pickUpDistance) {
             moveDir = (playerPos - transform.position).normalized;
-            moveSpeed += accelartionRate;
+            moveSpeed += accelerationRate;
         } else {
             moveDir = Vector3.zero;
             moveSpeed = 0;
@@ -83,10 +99,10 @@ public class Pickup : MonoBehaviour
         {
             case PickUpType.GoldCoin:
                 int randomCoins = Random.Range(1, 6); // Generates a random number between 1 and 5
-                cm.AddCoins(randomCoins);
+                // Use the event system instead of direct reference
+                GameEvents.CollectCoins(randomCoins);
                 Debug.Log("GoldCoin: " + randomCoins);
                 break;
-                // will not work if the coin is tagged with the tag coin must be untagged.
             case PickUpType.HealthGlobe:
                 PlayerHealth.Instance.HealPlayer();
                 Debug.Log("HealthGlobe");
@@ -96,5 +112,10 @@ public class Pickup : MonoBehaviour
                 Debug.Log("StaminaGlobe");
                 break;
         }
+    }
+    
+    // Method to set the coin value (optional)
+    public void SetCoinValue(int value) {
+        coinValue = value;
     }
 }

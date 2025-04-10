@@ -50,6 +50,7 @@ public class MinoController : MonoBehaviour
         // Find the player using the layer mask at the start
         FindPlayer();
     }
+    
     public void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -80,7 +81,11 @@ public class MinoController : MonoBehaviour
 
         if (distanceToPlayer <= followRange && !isAttacking)
         {
-            currentMoveSpeed = Mathf.Min(currentMoveSpeed + (speedIncreaseRate * Time.deltaTime), maxMoveSpeed);
+            // Only increase speed when actively moving toward player
+            if (!isDashing)
+            {
+                currentMoveSpeed = Mathf.Min(currentMoveSpeed + (speedIncreaseRate * Time.deltaTime), maxMoveSpeed);
+            }
 
             Vector2 direction = (player.position - transform.position).normalized;
             movement = direction * currentMoveSpeed;
@@ -88,10 +93,13 @@ public class MinoController : MonoBehaviour
             if (movement.magnitude > 0.1f)
             {
                 animator.SetBool("IsMoving", true);
+                // Set animation speed based on current speed
+                animator.SetFloat("MovementSpeed", currentMoveSpeed / moveSpeed);
             }
             else
             {
                 animator.SetBool("IsMoving", false);
+                ResetMoveSpeed();
             }
 
             if ((player.position.x > transform.position.x && facingDirection == -1) ||
@@ -121,18 +129,14 @@ public class MinoController : MonoBehaviour
         if (!isAttacking && !isDashing)
         {
             rb.velocity = movement;
-            // ✅ Set the animation speed based on the magnitude of the velocity
-            animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
         }
         else if (isDashing)
         {
             rb.velocity = new Vector2(facingDirection * dashSpeed, rb.velocity.y);
-            animator.SetFloat("MovementSpeed", rb.velocity.magnitude);
         }
         else
         {
             rb.velocity = Vector2.zero;
-            animator.SetFloat("MovementSpeed", 0f); // Ensure it's 0 when not moving
         }
     }
 
@@ -181,7 +185,7 @@ public class MinoController : MonoBehaviour
     {
         isAttacking = true;
         animator.SetInteger("AttackTrigger", attackNumber);
-        ResetMoveSpeed(); // ✅ Reset speed after attacking
+        ResetMoveSpeed(); // Reset speed when attacking
 
         if (attackNumber == 2)
         {
@@ -199,13 +203,11 @@ public class MinoController : MonoBehaviour
     public void MinoAttack1Function()
     {
         DealDamage(regularAttackDamage, heavyAttackKnockback, heavyAttackStun);
-        
     }
 
     public void MinoAttack2Function()
     {
         DealDamage(quickAttackDamage, heavyAttackKnockback, heavyAttackStun);
-        
     }
 
     public void MinoAttack3Function()
@@ -214,13 +216,11 @@ public class MinoController : MonoBehaviour
         {
             Instantiate(enemyPrefab, summonPoint.position, Quaternion.identity);
         }
-        
     }
 
     public void MinoAttack4Function()
     {
         DealDamage(heavyAttackDamage, heavyAttackKnockback, heavyAttackStun);
-        
     }
 
     private void DealDamage(int damage, float knockback = 0f, float stun = 0f)
