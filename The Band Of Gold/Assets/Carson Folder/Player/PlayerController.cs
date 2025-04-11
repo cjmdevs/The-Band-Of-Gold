@@ -18,6 +18,10 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private bool isKnockedBack;
     private bool facingLeft = false;
     private bool isDashing = false;
+    private bool isStunned = false;
+    private GameObject stunEffectInstance;
+    public GameObject stunEffectPrefab; // Assign a stun stars effect prefab in the inspector
+
     
     private string enabledDash = "";
 
@@ -152,5 +156,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     {
         PlayerPrefs.SetString("EnabledPlayerDash", enabledDash);
     }
+    
 }
 
