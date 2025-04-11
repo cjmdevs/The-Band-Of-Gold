@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject settingsMenu;
     public static bool isPaused;
 
+    public HideToolbar hideToolbar;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void InitializePauseState()
     {
@@ -52,6 +54,33 @@ public class PauseMenu : MonoBehaviour
         settingsMenu.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
+
+        if (hideToolbar != null && hideToolbar.UICanvas != null)
+        {
+            CanvasGroup canvasGroup = hideToolbar.UICanvas.GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+            {
+                canvasGroup = hideToolbar.UICanvas.gameObject.AddComponent<CanvasGroup>();
+            }
+            canvasGroup.alpha = 0.2f; // Set to semi-transparent
+
+            foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
+            {
+                if (gameObj.name == "Inventory")
+                {
+                    Image image = gameObj.GetComponent<Image>();
+                    image = gameObj.AddComponent<Image>();
+                    image.color = new Color(80 / 255f, 80 / 255f, 80 / 255f);
+                }
+
+                if (gameObj.name == "Item")
+                {
+                    Image image = gameObj.GetComponent<Image>();
+                    image = gameObj.AddComponent<Image>();
+                    image.color = new Color(80 / 255f, 80 / 255f, 80 / 255f);
+                }                
+            }
+        }
     }
 
     public void ResumeGame()
@@ -60,6 +89,35 @@ public class PauseMenu : MonoBehaviour
         settingsMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        if (hideToolbar != null && hideToolbar.UICanvas != null)
+        {
+            CanvasGroup canvasGroup = hideToolbar.UICanvas.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f; // Set to fully opaque
+            }
+        }
+
+        Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
+
+            foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
+            {
+                if (gameObj.name == "Inventory")
+                {
+                    Image image = gameObj.GetComponent<Image>();
+                    image = gameObj.AddComponent<Image>();
+                    image.color = new Color(1f, 1f, 1f);
+                }
+                {
+                    // Store the original color
+                   // if (!originalColors.ContainsKey(gameObj))
+                    //{
+                    //    originalColors[gameObj] = image.color;
+
+                }
+            }
+        
     }
 
     public void GoToMainMenu()

@@ -6,11 +6,17 @@ using TMPro;
 
 public class HideToolbar : MonoBehaviour
 {
+    [Header("Player Inventory")]
     public GameObject ActiveInventory;
-    public GameObject GameOverScreen;
-    public Button RetryButton;
-    public Button MainMenuButton;
-    public Button QuitButton;
+
+    [Header("Game Over Screen")]
+    [SerializeField] public GameObject GameOverScreen;
+    [SerializeField] public Button RetryButton;
+    [SerializeField] public Button MainMenuButton;
+    [SerializeField] public Button QuitButton;
+
+    [Header("Inventory & Stamina")]
+    [SerializeField] public GameObject UICanvas;
 
     void Start()
     {
@@ -18,6 +24,7 @@ public class HideToolbar : MonoBehaviour
         MainMenuButton.onClick.AddListener(OnMainMenu);
         QuitButton.onClick.AddListener(OnQuit);
     }
+    
 
     void Update()
     {
@@ -25,6 +32,7 @@ public class HideToolbar : MonoBehaviour
         {
             ActiveInventory.SetActive(false);
         }
+        
     }
 
     void OnRetry()
