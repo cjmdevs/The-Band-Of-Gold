@@ -7,7 +7,6 @@ public class kingManager : MonoBehaviour
     [Header("Boss Stats")]
     public float moveSpeed = 2f;
     public float detectionRange = 15f;
-    public float phaseChangeThreshold = 0.5f; // Boss enters phase 2 at 50% health
 
     [Header("Attack Properties")]
     public float attackCooldown = 3f;
@@ -21,17 +20,20 @@ public class kingManager : MonoBehaviour
     public float trackingBallLifetime = 8f;
     public int trackingBallsCount = 3;
     public float trackingBallDelay = 0.5f;
+    public float trackingBallAttackChance = 0.25f;
 
     [Header("Ground Slam Attack")]
     public float slamRadius = 5f;
     public float slamDamage = 2f;
     public float playerStunDuration = 1.5f;
     public GameObject slamEffectPrefab;
+    public float groundSlamAttackChance = 0.25f;
 
     [Header("Staff Melee Attack")]
     public float staffAttackRange = 3f;
     public float staffDamage = 1f;
     public GameObject staffAttackEffectPrefab;
+    public float staffMeleeAttackChance = 0.2f;
 
     [Header("Ring of Balls Attack")]
     public GameObject ballProjectilePrefab;
@@ -39,6 +41,7 @@ public class kingManager : MonoBehaviour
     public float ballSpeed = 5f;
     public float ballDamage = 1f;
     public float ballLifetime = 5f;
+    public float ringOfBallsAttackChance = 0.15f;
 
     [Header("Beam Attack")]
     public GameObject beamPrefab;
@@ -47,6 +50,7 @@ public class kingManager : MonoBehaviour
     public float beamDamageTickRate = 0.2f;
     public float beamChargeTime = 1f;
     public float beamWidth = 2f;
+    public float beamAttackChance = 0.15f;
     
     [Header("References")]
     public GameObject beamWarningIndicatorPrefab;
@@ -54,16 +58,7 @@ public class kingManager : MonoBehaviour
     private GameObject currentBeam = null;
     private Vector2 currentBeamDirection = Vector2.right;
 
-    // Add these to your existing Header sections
-    [Header("Attack Effects")]
-    public GameObject trackingBallChargePrefab;
-    public GameObject staffChargeEffectPrefab;
-    public GameObject ringChargeEffectPrefab;
-    public GameObject phaseChangeEffectPrefab;
-
-
-    private enum BossState { Idle, Moving, Attacking, Stunned }
-    private enum BossPhase { Phase1, Phase2 }
+    private enum BossState { Idle, Moving, Attacking }
     private enum AttackType { TrackingBall, GroundSlam, StaffMelee, RingOfBalls, BeamAttack }
 
     private Animator animator;
@@ -71,12 +66,13 @@ public class kingManager : MonoBehaviour
     private EnemyHealth health;
     private Transform player;
     private BossState currentState;
-    private BossPhase currentPhase;
     private float attackCooldownTimer;
     private AttackType nextAttack;
     private int facingDirection = 1;
-    private float startingHealth;
     private bool isBeamActive = false;
+    private bool playerInRange = false;
+    private bool isRangedAttack = false;
+    private bool needsMeleeRange = false;
 
     private void Start()
     {
@@ -84,33 +80,22 @@ public class kingManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<EnemyHealth>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        startingHealth = health.startingHealth;
         currentState = BossState.Idle;
-        currentPhase = BossPhase.Phase1;
         attackCooldownTimer = attackCooldown;
     }
 
     private void Update()
     {
-        if (currentState == BossState.Stunned)
+        if (player == null)
             return;
-
-        // Check for phase change
-        if (currentPhase == BossPhase.Phase1 && health.currentHealth / startingHealth <= phaseChangeThreshold)
-        {
-            TransitionToPhase2();
-        }
-
-        if (attackCooldownTimer > 0)
-        {
-            attackCooldownTimer -= Time.deltaTime;
-        }
-
-        // Find player in detection range
-        if (player != null && Vector2.Distance(transform.position, player.position) <= detectionRange)
+            
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        playerInRange = distanceToPlayer <= detectionRange;
+        
+        if (playerInRange)
         {
             FacePlayer();
-
+            
             // Select and perform attack if cooldown is ready
             if (attackCooldownTimer <= 0 && currentState != BossState.Attacking)
             {
@@ -119,34 +104,47 @@ public class kingManager : MonoBehaviour
             }
             else if (currentState != BossState.Attacking)
             {
-                // Move toward player when not attacking
-                MoveTowardPlayer();
+                // Only move if not attacking
+                HandleMovement();
             }
         }
         else
         {
             // No player in range, return to idle
             SetState(BossState.Idle);
+            rb.velocity = Vector2.zero;
+        }
+        
+        // Update the cooldown timer
+        if (attackCooldownTimer > 0)
+        {
+            attackCooldownTimer -= Time.deltaTime;
         }
     }
 
-    private void MoveTowardPlayer()
+    private void HandleMovement()
     {
         if (player == null || currentState == BossState.Attacking || isBeamActive)
+        {
+            rb.velocity = Vector2.zero;
             return;
-
+        }
+        
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        
+        // Always in Moving state when player is in range and not attacking
         SetState(BossState.Moving);
         
-        // Don't move too close to the player
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer > staffAttackRange)
+        // Stop at staff attack range if waiting for cooldown
+        if (distanceToPlayer <= staffAttackRange && attackCooldownTimer > 0)
         {
-            Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = direction * moveSpeed;
+            rb.velocity = Vector2.zero;
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            // Move toward player
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
         }
     }
 
@@ -169,39 +167,92 @@ public class kingManager : MonoBehaviour
 
     private void SelectAttack()
     {
-        // Select a random attack with weighting based on phase
+        // Weight-based attack selection
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        List<AttackType> availableAttacks = new List<AttackType>();
-
-        // Phase 1 attacks
+        
+        // Reset flags
+        isRangedAttack = false;
+        needsMeleeRange = false;
+        
+        // Create a weighted list of attacks
+        List<AttackType> attackOptions = new List<AttackType>();
+        List<float> attackWeights = new List<float>();
+        
+        // Close range - prioritize melee if in range
         if (distanceToPlayer <= staffAttackRange)
         {
-            availableAttacks.Add(AttackType.StaffMelee);
+            attackOptions.Add(AttackType.StaffMelee);
+            attackWeights.Add(staffMeleeAttackChance * 2); // Double weight when in range
         }
-        availableAttacks.Add(AttackType.TrackingBall);
-        availableAttacks.Add(AttackType.GroundSlam);
-
-        // Phase 2 adds more attacks
-        if (currentPhase == BossPhase.Phase2)
+        else 
         {
-            availableAttacks.Add(AttackType.RingOfBalls);
-            availableAttacks.Add(AttackType.BeamAttack);
-            
-            // Add TrackingBall and GroundSlam again to increase their probability in phase 2
-            if (distanceToPlayer > staffAttackRange)
+            // Still add melee attack but with normal weight
+            attackOptions.Add(AttackType.StaffMelee);
+            attackWeights.Add(staffMeleeAttackChance);
+        }
+        
+        // Add all other attacks with their respective weights
+        attackOptions.Add(AttackType.TrackingBall);
+        attackWeights.Add(trackingBallAttackChance);
+        
+        attackOptions.Add(AttackType.GroundSlam);
+        attackWeights.Add(groundSlamAttackChance);
+        
+        attackOptions.Add(AttackType.RingOfBalls);
+        attackWeights.Add(ringOfBallsAttackChance);
+        
+        attackOptions.Add(AttackType.BeamAttack);
+        attackWeights.Add(beamAttackChance);
+        
+        // Select attack based on weights
+        float totalWeight = 0f;
+        foreach (float weight in attackWeights)
+        {
+            totalWeight += weight;
+        }
+        
+        float randomValue = Random.Range(0f, totalWeight);
+        float weightSum = 0f;
+        
+        for (int i = 0; i < attackOptions.Count; i++)
+        {
+            weightSum += attackWeights[i];
+            if (randomValue <= weightSum)
             {
-                availableAttacks.Add(AttackType.TrackingBall);
-                availableAttacks.Add(AttackType.GroundSlam);
+                nextAttack = attackOptions[i];
+                break;
             }
         }
-
-        // Select a random attack from available attacks
-        nextAttack = availableAttacks[Random.Range(0, availableAttacks.Count)];
+        
+        // Set attack type flags
+        switch (nextAttack)
+        {
+            case AttackType.StaffMelee:
+                isRangedAttack = false;
+                needsMeleeRange = true;
+                break;
+            case AttackType.GroundSlam:
+                isRangedAttack = false;
+                needsMeleeRange = true;
+                break;
+            case AttackType.TrackingBall:
+            case AttackType.RingOfBalls:
+            case AttackType.BeamAttack:
+                isRangedAttack = true;
+                needsMeleeRange = false;
+                break;
+        }
     }
 
     private IEnumerator PerformAttack()
     {
         SetState(BossState.Attacking);
+        
+        // For melee attacks, move toward player until in range
+        if (needsMeleeRange)
+        {
+            yield return StartCoroutine(MoveToMeleeRange());
+        }
         
         // Stop moving while attacking
         rb.velocity = Vector2.zero;
@@ -233,8 +284,8 @@ public class kingManager : MonoBehaviour
         // Reset attack cooldown
         attackCooldownTimer = attackCooldown;
         
-        // Return to idle/moving state
-        if (player != null && Vector2.Distance(transform.position, player.position) <= detectionRange)
+        // Return to moving state if player still in range
+        if (playerInRange)
         {
             SetState(BossState.Moving);
         }
@@ -242,6 +293,30 @@ public class kingManager : MonoBehaviour
         {
             SetState(BossState.Idle);
         }
+    }
+
+    private IEnumerator MoveToMeleeRange()
+    {
+        // Only move if player isn't already in range
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        
+        while (distanceToPlayer > staffAttackRange && player != null)
+        {
+            // Move toward player
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+            
+            // Face the player
+            FacePlayer();
+            
+            // Update distance
+            distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            
+            yield return null;
+        }
+        
+        // Stop moving once in range
+        rb.velocity = Vector2.zero;
     }
 
     private IEnumerator TrackingBallAttack()
@@ -286,11 +361,11 @@ public class kingManager : MonoBehaviour
         Collider2D hitPlayer = Physics2D.OverlapCircle(transform.position, slamRadius, playerLayer);
         if (hitPlayer != null)
         {
-            // Apply damage and stun to player
+            // Apply damage to player
             PlayerHealth playerHealth = hitPlayer.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.ChangeHealth(slamDamage);
+                playerHealth.ChangeHealth(-slamDamage);
             }
             
             // Stun player - you'll need to implement this in your player controller
@@ -433,20 +508,6 @@ public class kingManager : MonoBehaviour
         isBeamActive = false;
     }
 
-    private void TransitionToPhase2()
-    {
-        currentPhase = BossPhase.Phase2;
-        
-        // Visual indication of phase change
-        animator.SetTrigger("PhaseChange");
-        
-        // Adjust attack cooldown for phase 2
-        attackCooldown *= 0.8f; // Reduce cooldown by 20%
-        
-        // Increase movement speed
-        moveSpeed *= 1.2f; // Increase speed by 20%
-    }
-
     private void SetState(BossState newState)
     {
         if (currentState == newState)
@@ -458,7 +519,6 @@ public class kingManager : MonoBehaviour
         animator.SetBool("isIdle", currentState == BossState.Idle);
         animator.SetBool("isMoving", currentState == BossState.Moving);
         animator.SetBool("isAttacking", currentState == BossState.Attacking);
-        animator.SetBool("isStunned", currentState == BossState.Stunned);
     }
 
     // Called from animation events to deal damage
@@ -493,25 +553,14 @@ public class kingManager : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(attackPoint.position, staffAttackRange);
     }
-    public void AnimEvent_StartTrackingBallAttack()
-    {
-        // Visual or sound effects for charging up the attack
-        // Example: instantiate a charging effect
-        if (trackingBallChargePrefab != null)
-        {
-            GameObject chargeEffect = Instantiate(trackingBallChargePrefab, attackPoint.position, Quaternion.identity);
-            chargeEffect.transform.parent = attackPoint;
-            Destroy(chargeEffect, 0.8f); // Destroy after animation completes
-        }
-    }
 
-    // Call this from animation event when boss should spawn a tracking ball
+    // Animation event handlers
     public void AnimEvent_FireTrackingBall()
     {
         if (player != null)
         {
             GameObject trackingBall = Instantiate(trackingBallPrefab, attackPoint.position, Quaternion.identity);
-            TrackingBallController ballController = trackingBall.GetComponent<TrackingBallController>();
+            TrackingBallScript ballController = trackingBall.GetComponent<TrackingBallScript>();
             if (ballController != null)
             {
                 ballController.Initialize(player, trackingBallSpeed, trackingBallLifetime);
@@ -519,16 +568,6 @@ public class kingManager : MonoBehaviour
         }
     }
 
-    // GROUND SLAM ATTACK EVENTS
-    // Call this from animation event when boss starts the ground slam
-    public void AnimEvent_StartGroundSlam()
-    {
-        // Boss jumps or prepares for slam
-        // Add effects or screen shake anticipation
-        rb.velocity = new Vector2(0, 5f); // Optional: small jump before slam
-    }
-
-    // Call this from animation event when boss hits the ground
     public void AnimEvent_GroundSlamImpact()
     {
         // Create slam effect
@@ -539,9 +578,6 @@ public class kingManager : MonoBehaviour
             Destroy(slamEffect, 2f);
         }
         
-        // Camera shake effect - implement your own camera shake method or use Cinemachine
-        CameraShake();
-        
         // Check for player in slam radius and damage them
         Collider2D hitPlayer = Physics2D.OverlapCircle(transform.position, slamRadius, playerLayer);
         if (hitPlayer != null)
@@ -549,32 +585,18 @@ public class kingManager : MonoBehaviour
             PlayerHealth playerHealth = hitPlayer.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(slamDamage);
+                playerHealth.ChangeHealth(-slamDamage);
             }
             
             // Stun player
             PlayerController playerController = hitPlayer.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                playerController.StunPlayer(playerStunDuration);
+                //playerController.StunPlayer(playerStunDuration);
             }
         }
     }
 
-    // STAFF MELEE ATTACK EVENTS
-    // Call this from animation event during windup
-    public void AnimEvent_StaffWindup()
-    {
-        // Visual effect for staff charging
-        if (staffChargeEffectPrefab != null)
-        {
-            GameObject chargeEffect = Instantiate(staffChargeEffectPrefab, attackPoint.position, Quaternion.identity);
-            chargeEffect.transform.parent = attackPoint;
-            Destroy(chargeEffect, 0.5f);
-        }
-    }
-
-    // Call this from animation event at the moment of impact
     public void AnimEvent_StaffStrike()
     {
         // Apply damage in attack arc
@@ -584,7 +606,7 @@ public class kingManager : MonoBehaviour
             PlayerHealth playerHealth = hitPlayer.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(staffDamage);
+                playerHealth.ChangeHealth(-staffDamage);
             }
             
             // Apply knockback
@@ -592,7 +614,7 @@ public class kingManager : MonoBehaviour
             if (playerKnockback != null)
             {
                 Vector2 knockbackDirection = (hitPlayer.transform.position - transform.position).normalized;
-                playerKnockback.GetKnockedBack(knockbackDirection, 10f);
+                //playerKnockback.GetKnockedBack(knockbackDirection, 10f);
             }
         }
         
@@ -605,20 +627,6 @@ public class kingManager : MonoBehaviour
         }
     }
 
-    // RING OF BALLS ATTACK EVENTS
-    // Call this from animation at the start of ring attack
-    public void AnimEvent_StartRingOfBalls()
-    {
-        // Visual buildup effect
-        if (ringChargeEffectPrefab != null)
-        {
-            GameObject chargeEffect = Instantiate(ringChargeEffectPrefab, transform.position, Quaternion.identity);
-            chargeEffect.transform.parent = transform;
-            Destroy(chargeEffect, 1.0f);
-        }
-    }
-
-    // Call this from animation when the boss should release the ring of balls
     public void AnimEvent_FireRingOfBalls()
     {
         // Create ring of balls
@@ -637,8 +645,6 @@ public class kingManager : MonoBehaviour
         }
     }
 
-    // BEAM ATTACK EVENTS
-    // Call this from animation when starting beam charge
     public void AnimEvent_BeamChargeStart()
     {
         // Face player
@@ -664,7 +670,6 @@ public class kingManager : MonoBehaviour
         }
     }
 
-    // Call this from animation when the beam should fire
     public void AnimEvent_BeamFire()
     {
         // Clean up warning indicator
@@ -694,7 +699,6 @@ public class kingManager : MonoBehaviour
         StartCoroutine(BeamDurationCoroutine());
     }
 
-    // Call this from animation when beam should end (could be called from coroutine instead)
     public void AnimEvent_BeamEnd()
     {
         // Clean up beam if it's still there
@@ -710,24 +714,4 @@ public class kingManager : MonoBehaviour
         yield return new WaitForSeconds(beamDuration);
         AnimEvent_BeamEnd();
     }
-
-    // PHASE CHANGE EVENTS
-    // Call this from phase change animation at the key moment
-    public void AnimEvent_PhaseChangeEffect()
-    {
-        // Spawn phase change effect
-        if (phaseChangeEffectPrefab != null)
-        {
-            GameObject effect = Instantiate(phaseChangeEffectPrefab, transform.position, Quaternion.identity);
-            Destroy(effect, 3f);
-        }
-        
-        // Add screen shake
-        CameraShake();
-        
-        // Adjust stats for phase 2
-        attackCooldown *= 0.8f;
-        moveSpeed *= 1.2f;
-    }
-
 }

@@ -1,4 +1,3 @@
-// TrackingBallController.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine;
 public class TrackingBallScript : MonoBehaviour
 {
     public float damage = 1f;
-    public ParticleSystem impactEffect;
+    public GameObject impactEffect;
     
     private Transform target;
     private float speed;
@@ -66,8 +65,8 @@ public class TrackingBallScript : MonoBehaviour
         // Play impact effect
         if (impactEffect != null)
         {
-            ParticleSystem effect = Instantiate(impactEffect, transform.position, Quaternion.identity);
-            effect.Play();
+            GameObject effect = Instantiate(impactEffect, transform.position, Quaternion.identity);
+            Destroy(effect, 2f); // Destroy the effect after 2 seconds (adjust as needed)
         }
         
         // Scale down
