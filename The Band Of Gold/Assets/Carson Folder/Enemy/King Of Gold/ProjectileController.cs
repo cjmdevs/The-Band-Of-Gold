@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    public ParticleSystem impactEffect;
+    public GameObject impactParticle;
     
     private Vector2 direction;
     private float speed;
     private float damage;
     private float lifetime;
     private float timer;
+    private bool isRingProjectile = false;
+    private float initialDelay = 0f;
     
     public void Initialize(Vector2 dir, float projectileSpeed, float projectileDamage, float projectileLifetime)
     {
@@ -23,6 +25,13 @@ public class ProjectileController : MonoBehaviour
         // Rotate to face direction
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+    
+    // Optional method for ring patterns
+    public void InitializeRingProjectile(Vector2 dir, float projectileSpeed, float projectileDamage, float projectileLifetime)
+    {
+        Initialize(dir, projectileSpeed, projectileDamage, projectileLifetime);
+        isRingProjectile = true;
     }
     
     private void Update()
@@ -41,32 +50,34 @@ public class ProjectileController : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        // Check if collision is on the Wall layer
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.ChangeHealth(-damage);
-            }
-            
-            if (impactEffect != null)
-            {
-                ParticleSystem effect = Instantiate(impactEffect, transform.position, Quaternion.identity);
-                effect.Play();
-            }
-            
+            // Spawn impact particle and destroy projectile
+            SpawnImpactParticle();
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Ground") || collision.CompareTag("Wall"))
+        
+        // Check for player to apply damage (keeping this separate from wall check)
+        PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
         {
-            // Play impact effect on environment
-            if (impactEffect != null)
-            {
-                ParticleSystem effect = Instantiate(impactEffect, transform.position, Quaternion.identity);
-                effect.Play();
-            }
+            playerHealth.ChangeHealth(-damage);
             
+            // If you want to destroy the projectile when hitting a player too
+            SpawnImpactParticle();
             Destroy(gameObject);
+        }
+    }
+    
+    private void SpawnImpactParticle()
+    {
+        if (impactParticle != null)
+        {
+            GameObject particle = Instantiate(impactParticle, transform.position, Quaternion.identity);
+            
+            // Auto-destroy the particle after a time
+            Destroy(particle, 1.0f);
         }
     }
 }

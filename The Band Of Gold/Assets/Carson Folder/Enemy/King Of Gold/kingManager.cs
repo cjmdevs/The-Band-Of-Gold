@@ -26,7 +26,7 @@ public class kingManager : MonoBehaviour
     public float slamRadius = 5f;
     public float slamDamage = 2f;
     public float playerStunDuration = 1.5f;
-    public GameObject slamEffectPrefab;
+    public GameObject slamEffectPrefab; // Reference to the GroundSlamEffect prefab
     public float groundSlamAttackChance = 0.25f;
 
     [Header("Staff Melee Attack")]
@@ -167,7 +167,7 @@ public class kingManager : MonoBehaviour
 
     private void SelectAttack()
     {
-        // Weight-based attack selection
+        // Weight-based attack selection - Same as before
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         
         // Reset flags
@@ -321,6 +321,7 @@ public class kingManager : MonoBehaviour
 
     private IEnumerator TrackingBallAttack()
     {
+        // Unchanged - your original tracking ball attack code
         // Animation buildup
         yield return new WaitForSeconds(0.8f);
         
@@ -344,6 +345,7 @@ public class kingManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+
     private IEnumerator GroundSlamAttack()
     {
         // Animation buildup
@@ -353,27 +355,15 @@ public class kingManager : MonoBehaviour
         if (slamEffectPrefab != null)
         {
             GameObject slamEffect = Instantiate(slamEffectPrefab, transform.position, Quaternion.identity);
-            slamEffect.transform.localScale = new Vector3(slamRadius * 2, slamRadius * 2, 1);
-            Destroy(slamEffect, 2f);
-        }
-        
-        // Check for player in slam radius
-        Collider2D hitPlayer = Physics2D.OverlapCircle(transform.position, slamRadius, playerLayer);
-        if (hitPlayer != null)
-        {
-            // Apply damage to player
-            PlayerHealth playerHealth = hitPlayer.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.ChangeHealth(-slamDamage);
-            }
             
-            // Stun player - you'll need to implement this in your player controller
-            PlayerController playerController = hitPlayer.GetComponent<PlayerController>();
-            if (playerController != null)
+            // Configure the effect if needed
+            GroundSlamEffect effectScript = slamEffect.GetComponent<GroundSlamEffect>();
+            if (effectScript != null)
             {
-                // Implement stun functionality in your player controller
-                //playerController.StunPlayer(playerStunDuration);
+                effectScript.radius = slamRadius;
+                effectScript.damage = slamDamage;
+                effectScript.playerStunDuration = playerStunDuration;
+                effectScript.playerLayer = playerLayer;
             }
         }
         
@@ -383,6 +373,7 @@ public class kingManager : MonoBehaviour
 
     private IEnumerator StaffMeleeAttack()
     {
+        // Unchanged - your original staff melee attack code
         // Animation buildup
         yield return new WaitForSeconds(0.5f);
         
@@ -422,28 +413,44 @@ public class kingManager : MonoBehaviour
     {
         // Animation buildup
         yield return new WaitForSeconds(1.0f);
-        
+
+        // Radius of the ball ring
+        float ringRadius = 2.0f; // Adjust this value to control the size of the initial ring
+
         // Create ring of balls
         float angleStep = 360f / ballsInRing;
+
         for (int i = 0; i < ballsInRing; i++)
         {
             float angle = i * angleStep;
-            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-            
-            GameObject ball = Instantiate(ballProjectilePrefab, transform.position, Quaternion.identity);
+
+            // Calculate the position on the circle
+            float x = transform.position.x + ringRadius * Mathf.Cos(angle * Mathf.Deg2Rad);
+            float y = transform.position.y + ringRadius * Mathf.Sin(angle * Mathf.Deg2Rad);
+            Vector2 spawnPosition = new Vector2(x, y);
+
+            // Calculate the direction away from the center
+            Vector2 direction = (spawnPosition - (Vector2)transform.position).normalized;
+
+            GameObject ball = Instantiate(ballProjectilePrefab, spawnPosition, Quaternion.identity);
             ProjectileController projectile = ball.GetComponent<ProjectileController>();
             if (projectile != null)
             {
-                projectile.Initialize(direction, ballSpeed, ballDamage, ballLifetime);
+                // Use the special ring initialization
+                projectile.InitializeRingProjectile(direction, ballSpeed, ballDamage, ballLifetime);
             }
         }
-        
+
         // Animation recovery
         yield return new WaitForSeconds(0.8f);
     }
 
+
+
+
     private IEnumerator BeamAttack()
     {
+        // Unchanged - your original beam attack code
         isBeamActive = true;
         
         // Face player
@@ -535,7 +542,7 @@ public class kingManager : MonoBehaviour
         }
     }
 
-    // This is useful for testing and visualizing attack ranges
+    // Visual indicator code kept intact
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
@@ -554,7 +561,7 @@ public class kingManager : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, staffAttackRange);
     }
 
-    // Animation event handlers
+    // Animation event handlers kept intact
     public void AnimEvent_FireTrackingBall()
     {
         if (player != null)
@@ -570,33 +577,28 @@ public class kingManager : MonoBehaviour
 
     public void AnimEvent_GroundSlamImpact()
     {
-        // Create slam effect
+        // Create slam effect with particles
         if (slamEffectPrefab != null)
         {
             GameObject slamEffect = Instantiate(slamEffectPrefab, transform.position, Quaternion.identity);
-            slamEffect.transform.localScale = new Vector3(slamRadius * 2, slamRadius * 2, 1);
-            Destroy(slamEffect, 2f);
+            
+            // Configure the effect if needed
+            GroundSlamEffect effectScript = slamEffect.GetComponent<GroundSlamEffect>();
+            if (effectScript != null)
+            {
+                effectScript.radius = slamRadius;
+                effectScript.damage = slamDamage;
+                effectScript.playerStunDuration = playerStunDuration;
+                effectScript.playerLayer = playerLayer;
+            }
         }
         
-        // Check for player in slam radius and damage them
-        Collider2D hitPlayer = Physics2D.OverlapCircle(transform.position, slamRadius, playerLayer);
-        if (hitPlayer != null)
-        {
-            PlayerHealth playerHealth = hitPlayer.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.ChangeHealth(-slamDamage);
-            }
-            
-            // Stun player
-            PlayerController playerController = hitPlayer.GetComponent<PlayerController>();
-            if (playerController != null)
-            {
-                //playerController.StunPlayer(playerStunDuration);
-            }
-        }
+        // No need to check for player or apply damage here anymore
+        // The effect itself will handle that based on the expanding ring
     }
 
+
+    // Rest of animation event handlers remain unchanged
     public void AnimEvent_StaffStrike()
     {
         // Apply damage in attack arc
