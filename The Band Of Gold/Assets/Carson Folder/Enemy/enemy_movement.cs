@@ -6,6 +6,7 @@ public class enemy_movement : MonoBehaviour
 {
     [Header("Enemy Stats")]
     public bool isRangedEnemy = false;
+    public bool isBoss = false; // Flag to identify boss enemy
     public float speed = 3f;
     public float playerDetectRange = 5f;
     public float attackRange = 2f; // Melee attack range
@@ -31,6 +32,14 @@ public class enemy_movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         enemyCombat = GetComponent<enemy_combat>(); // Get enemy's combat script
+        
+        // Set initial orientation for boss (flipped 180° from normal enemies)
+        if (isBoss)
+        {
+            // Start with boss rotated 180 degrees by default
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        
         ChangeState(EnemyState.Idle);
     }
 
@@ -62,6 +71,7 @@ public class enemy_movement : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        // Check if we need to flip the enemy based on player position
         if (player.position.x > transform.position.x && facingDirection == -1 ||
             player.position.x < transform.position.x && facingDirection == 1)
         {
@@ -110,7 +120,17 @@ public class enemy_movement : MonoBehaviour
     void Flip()
     {
         facingDirection *= -1;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        
+        if (isBoss)
+        {
+            // For boss, use rotation to flip (180 degree rotations)
+            transform.rotation = Quaternion.Euler(0, facingDirection == 1 ? 0 : 180, 0);
+        }
+        else
+        {
+            // For regular enemies, use scale as before
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
     }
 
     private void CheckForPlayer()

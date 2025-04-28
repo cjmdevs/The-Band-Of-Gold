@@ -15745,6 +15745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRangedEnemy: 0
+  isBoss: 1
   speed: 3
   playerDetectRange: 14
   attackRange: 2
@@ -15862,8 +15863,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   detectionRange: 15
-  attackCooldown: 3
-  attackSelectionRange: 10
+  attackCooldown: 2
+  attackSelectionRange: 15
   attackPoint: {fileID: 311516528}
   playerLayer:
     serializedVersion: 2
@@ -15880,15 +15881,15 @@ MonoBehaviour:
   slamEffectPrefab: {fileID: 9143148026179110483, guid: a30934bc061574634a7f59740c311622, type: 3}
   groundSlamAttackChance: 0
   staffAttackRange: 3
-  staffDamage: 1
+  staffDamage: 3
   staffAttackEffectPrefab: {fileID: 0}
-  staffMeleeAttackChance: 0
+  staffMeleeAttackChance: 1
   ballProjectilePrefab: {fileID: 3354229524175011409, guid: d758d9405048c4a4a9431464c567efed, type: 3}
   ballsInRing: 16
   ballSpeed: 5
   ballDamage: 1
   ballLifetime: 4
-  ringOfBallsAttackChance: 1
+  ringOfBallsAttackChance: 0
   beamPrefab: {fileID: 0}
   beamDuration: 2
   beamDamage: 0.5
