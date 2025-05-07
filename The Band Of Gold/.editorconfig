@@ -1,4 +1,0 @@
-[*.cs]
-
-# Default severity for analyzer diagnostics with category 'Domain reload'
-dotnet_analyzer_diagnostic.category-Domain reload.severity = silent
