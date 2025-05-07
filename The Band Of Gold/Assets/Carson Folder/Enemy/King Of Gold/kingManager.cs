@@ -20,20 +20,20 @@ public class kingManager : MonoBehaviour
     public float trackingBallLifetime = 8f;
     public int trackingBallsCount = 3;
     public float trackingBallDelay = 0.5f;
-    public float trackingBallAttackChance = 0.25f;
+    public float trackingBallAttackChance = 0.3f;
 
     [Header("Ground Slam Attack")]
     public float slamRadius = 5f;
     public float slamDamage = 2f;
     public float playerStunDuration = 1.5f;
     public GameObject slamEffectPrefab; // Reference to the GroundSlamEffect prefab
-    public float groundSlamAttackChance = 0.25f;
+    public float groundSlamAttackChance = 0.3f;
 
     [Header("Staff Melee Attack")]
     public float staffAttackRange = 3f;
     public float staffDamage = 1f;
     public GameObject staffAttackEffectPrefab;
-    public float staffMeleeAttackChance = 0.2f;
+    public float staffMeleeAttackChance = 0.25f;
 
     [Header("Ring of Balls Attack")]
     public GameObject ballProjectilePrefab;
@@ -42,24 +42,9 @@ public class kingManager : MonoBehaviour
     public float ballDamage = 1f;
     public float ballLifetime = 5f;
     public float ringOfBallsAttackChance = 0.15f;
-
-    [Header("Beam Attack")]
-    public GameObject beamPrefab;
-    public float beamDuration = 2f;
-    public float beamDamage = 0.5f; // Damage per tick
-    public float beamDamageTickRate = 0.2f;
-    public float beamChargeTime = 1f;
-    public float beamWidth = 2f;
-    public float beamAttackChance = 0.15f;
     
-    [Header("References")]
-    public GameObject beamWarningIndicatorPrefab;
-    private GameObject currentBeamWarning = null;
-    private GameObject currentBeam = null;
-    private Vector2 currentBeamDirection = Vector2.right;
-
     private enum BossState { Idle, Moving, Attacking }
-    private enum AttackType { TrackingBall, GroundSlam, StaffMelee, RingOfBalls, BeamAttack }
+    private enum AttackType { TrackingBall, GroundSlam, StaffMelee, RingOfBalls }
 
     private Animator animator;
     private Rigidbody2D rb;
@@ -69,7 +54,6 @@ public class kingManager : MonoBehaviour
     private float attackCooldownTimer;
     private AttackType nextAttack;
     private int facingDirection = 1;
-    private bool isBeamActive = false;
     private bool playerInRange = false;
     private bool isRangedAttack = false;
     private bool needsMeleeRange = false;
@@ -124,7 +108,7 @@ public class kingManager : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (player == null || currentState == BossState.Attacking || isBeamActive)
+        if (player == null || currentState == BossState.Attacking)
         {
             rb.velocity = Vector2.zero;
             return;
@@ -167,7 +151,7 @@ public class kingManager : MonoBehaviour
 
     private void SelectAttack()
     {
-        // Weight-based attack selection - Same as before
+        // Weight-based attack selection
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         
         // Reset flags
@@ -200,9 +184,6 @@ public class kingManager : MonoBehaviour
         
         attackOptions.Add(AttackType.RingOfBalls);
         attackWeights.Add(ringOfBallsAttackChance);
-        
-        attackOptions.Add(AttackType.BeamAttack);
-        attackWeights.Add(beamAttackChance);
         
         // Select attack based on weights
         float totalWeight = 0f;
@@ -237,7 +218,6 @@ public class kingManager : MonoBehaviour
                 break;
             case AttackType.TrackingBall:
             case AttackType.RingOfBalls:
-            case AttackType.BeamAttack:
                 isRangedAttack = true;
                 needsMeleeRange = false;
                 break;
@@ -275,9 +255,6 @@ public class kingManager : MonoBehaviour
                 break;
             case AttackType.RingOfBalls:
                 yield return StartCoroutine(RingOfBallsAttack());
-                break;
-            case AttackType.BeamAttack:
-                yield return StartCoroutine(BeamAttack());
                 break;
         }
         
@@ -321,7 +298,6 @@ public class kingManager : MonoBehaviour
 
     private IEnumerator TrackingBallAttack()
     {
-        // Unchanged - your original tracking ball attack code
         // Animation buildup
         yield return new WaitForSeconds(0.8f);
         
@@ -344,7 +320,6 @@ public class kingManager : MonoBehaviour
         // Animation recovery
         yield return new WaitForSeconds(0.5f);
     }
-
 
     private IEnumerator GroundSlamAttack()
     {
@@ -373,7 +348,6 @@ public class kingManager : MonoBehaviour
 
     private IEnumerator StaffMeleeAttack()
     {
-        // Unchanged - your original staff melee attack code
         // Animation buildup
         yield return new WaitForSeconds(0.5f);
         
@@ -445,76 +419,6 @@ public class kingManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
     }
 
-
-
-
-    private IEnumerator BeamAttack()
-    {
-        // Unchanged - your original beam attack code
-        isBeamActive = true;
-        
-        // Face player
-        FacePlayer();
-        
-        // Animation buildup and warning indicator
-        GameObject warningIndicator = null;
-        if (beamWarningIndicatorPrefab != null && player != null)
-        {
-            // Calculate direction to player
-            Vector2 directionToPlayer = (player.position - transform.position).normalized;
-            
-            // Create warning indicator
-            warningIndicator = Instantiate(beamWarningIndicatorPrefab, transform.position, Quaternion.identity);
-            warningIndicator.transform.up = directionToPlayer;
-            
-            // Scale the indicator to match beam length
-            float indicatorLength = detectionRange * 2;
-            warningIndicator.transform.localScale = new Vector3(beamWidth, indicatorLength, 1);
-        }
-        
-        // Charge time
-        yield return new WaitForSeconds(beamChargeTime);
-        
-        // Remove warning indicator
-        if (warningIndicator != null)
-        {
-            Destroy(warningIndicator);
-        }
-        
-        // Create beam
-        GameObject beam = null;
-        if (beamPrefab != null && player != null)
-        {
-            // Get direction to player at time of firing
-            Vector2 directionToPlayer = (player.position - transform.position).normalized;
-            
-            // Create the beam
-            beam = Instantiate(beamPrefab, attackPoint.position, Quaternion.identity);
-            beam.transform.up = directionToPlayer;
-            
-            // Set beam properties
-            BeamController beamController = beam.GetComponent<BeamController>();
-            if (beamController != null)
-            {
-                beamController.Initialize(transform, directionToPlayer, beamWidth, beamDuration, beamDamage, beamDamageTickRate, playerLayer);
-            }
-        }
-        
-        // Active beam duration
-        yield return new WaitForSeconds(beamDuration);
-        
-        // Clean up beam if it's still there
-        if (beam != null)
-        {
-            Destroy(beam);
-        }
-        
-        // Animation recovery
-        yield return new WaitForSeconds(0.8f);
-        
-        isBeamActive = false;
-    }
-
     private void SetState(BossState newState)
     {
         if (currentState == newState)
@@ -561,7 +465,7 @@ public class kingManager : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, staffAttackRange);
     }
 
-    // Animation event handlers kept intact
+    // Animation event handlers
     public void AnimEvent_FireTrackingBall()
     {
         if (player != null)
@@ -592,13 +496,8 @@ public class kingManager : MonoBehaviour
                 effectScript.playerLayer = playerLayer;
             }
         }
-        
-        // No need to check for player or apply damage here anymore
-        // The effect itself will handle that based on the expanding ring
     }
 
-
-    // Rest of animation event handlers remain unchanged
     public void AnimEvent_StaffStrike()
     {
         // Apply damage in attack arc
@@ -633,87 +532,26 @@ public class kingManager : MonoBehaviour
     {
         // Create ring of balls
         float angleStep = 360f / ballsInRing;
+        float ringRadius = 2.0f; // Radius of the ring
+
         for (int i = 0; i < ballsInRing; i++)
         {
             float angle = i * angleStep;
-            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             
-            GameObject ball = Instantiate(ballProjectilePrefab, transform.position, Quaternion.identity);
+            // Calculate the position on the circle
+            float x = transform.position.x + ringRadius * Mathf.Cos(angle * Mathf.Deg2Rad);
+            float y = transform.position.y + ringRadius * Mathf.Sin(angle * Mathf.Deg2Rad);
+            Vector2 spawnPosition = new Vector2(x, y);
+            
+            // Calculate the direction from center
+            Vector2 direction = (spawnPosition - (Vector2)transform.position).normalized;
+            
+            GameObject ball = Instantiate(ballProjectilePrefab, spawnPosition, Quaternion.identity);
             ProjectileController projectile = ball.GetComponent<ProjectileController>();
             if (projectile != null)
             {
-                projectile.Initialize(direction, ballSpeed, ballDamage, ballLifetime);
+                projectile.InitializeRingProjectile(direction, ballSpeed, ballDamage, ballLifetime);
             }
         }
-    }
-
-    public void AnimEvent_BeamChargeStart()
-    {
-        // Face player
-        FacePlayer();
-        
-        // Create warning indicator
-        if (beamWarningIndicatorPrefab != null && player != null)
-        {
-            // Calculate direction to player
-            Vector2 directionToPlayer = (player.position - transform.position).normalized;
-            
-            // Store direction for firing
-            currentBeamDirection = directionToPlayer;
-            
-            // Create warning indicator
-            GameObject indicator = Instantiate(beamWarningIndicatorPrefab, transform.position, Quaternion.identity);
-            currentBeamWarning = indicator;
-            indicator.transform.up = directionToPlayer;
-            
-            // Scale the indicator to match beam length
-            float indicatorLength = detectionRange * 2;
-            indicator.transform.localScale = new Vector3(beamWidth, indicatorLength, 1);
-        }
-    }
-
-    public void AnimEvent_BeamFire()
-    {
-        // Clean up warning indicator
-        if (currentBeamWarning != null)
-        {
-            Destroy(currentBeamWarning);
-            currentBeamWarning = null;
-        }
-        
-        // Create beam
-        if (beamPrefab != null)
-        {
-            // Create the beam
-            GameObject beam = Instantiate(beamPrefab, attackPoint.position, Quaternion.identity);
-            currentBeam = beam;
-            beam.transform.up = currentBeamDirection;
-            
-            // Set beam properties
-            BeamController beamController = beam.GetComponent<BeamController>();
-            if (beamController != null)
-            {
-                beamController.Initialize(transform, currentBeamDirection, beamWidth, beamDuration, beamDamage, beamDamageTickRate, playerLayer);
-            }
-        }
-        
-        // Start beam duration timer
-        StartCoroutine(BeamDurationCoroutine());
-    }
-
-    public void AnimEvent_BeamEnd()
-    {
-        // Clean up beam if it's still there
-        if (currentBeam != null)
-        {
-            Destroy(currentBeam);
-            currentBeam = null;
-        }
-    }
-
-    private IEnumerator BeamDurationCoroutine()
-    {
-        yield return new WaitForSeconds(beamDuration);
-        AnimEvent_BeamEnd();
     }
 }
