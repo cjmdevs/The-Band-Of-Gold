@@ -38,7 +38,7 @@ public class CoinManager : MonoBehaviour, IDataPersistence
     {
         coinCount -= amount;
         levelManager.UpdateCoinText(); // Update coin text after spending coins
-        SaveData(GameManagerScript.instance.gameData);
+        //SaveData(GameManagerScript.instance.gameData);
     }
 
     public void LoadData(GameData data)

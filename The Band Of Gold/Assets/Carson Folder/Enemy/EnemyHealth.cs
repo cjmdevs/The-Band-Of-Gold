@@ -7,6 +7,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] public float startingHealth = 3; // health of the enemy
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] FloatingHealthBar healthBar;
+    public GameObject crystalBallPrefab;  // Assign this in the inspector
+    public GameObject bossDefeatTextPrefab;  // Assign this in the inspector
+
 
     private Knockback knockback;
     private Flash flash;
@@ -41,10 +44,19 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0) {
             audioManager.PlaySFX(audioManager.enemyDeath);
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            
+            // Check if this enemy is on the boss layer
+            if (gameObject.layer == LayerMask.NameToLayer("Boss")) {
+                // Display boss defeat text
+                GameObject defeatText = Instantiate(bossDefeatTextPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+                
+                // Spawn crystal ball that player can pick up
+                Instantiate(crystalBallPrefab, transform.position, Quaternion.identity);
+            }
+            
             GetComponent<enemyDrops>().DropItems();
             Destroy(gameObject);
-
-            
         }
     }
+
 }
