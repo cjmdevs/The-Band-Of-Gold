@@ -12,6 +12,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
     private bool isDead;
     public GameManagerScript gameManager;
 
+    public static event Action OnPlayerDeath;
+
     public InputActionAsset playerControls; // Assign your "Player Controls" Input Action Asset in the Inspector
     public string statsActionMapName = "Stats"; // The name of the action map you want to disable
 
@@ -62,6 +64,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
             GetComponent<Animator>().SetTrigger(DEATH_HASH);
             StartCoroutine(DeathLoadSceneRoutine());
             Debug.Log("Player Died");
+            OnPlayerDeath?.Invoke();
         }
     }
 
