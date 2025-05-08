@@ -28,36 +28,63 @@ namespace TMPro
         /// <summary>
         /// Event delegate triggered when pointer is over a character.
         /// </summary>
-        [field: SerializeField]
-        public CharacterSelectionEvent onCharacterSelection { get; set; } = new CharacterSelectionEvent();
+        public CharacterSelectionEvent onCharacterSelection
+        {
+            get { return m_OnCharacterSelection; }
+            set { m_OnCharacterSelection = value; }
+        }
+        [SerializeField]
+        private CharacterSelectionEvent m_OnCharacterSelection = new CharacterSelectionEvent();
 
 
         /// <summary>
         /// Event delegate triggered when pointer is over a sprite.
         /// </summary>
-        [field: SerializeField]
-        public SpriteSelectionEvent onSpriteSelection { get; set; } = new SpriteSelectionEvent();
+        public SpriteSelectionEvent onSpriteSelection
+        {
+            get { return m_OnSpriteSelection; }
+            set { m_OnSpriteSelection = value; }
+        }
+        [SerializeField]
+        private SpriteSelectionEvent m_OnSpriteSelection = new SpriteSelectionEvent();
 
 
         /// <summary>
         /// Event delegate triggered when pointer is over a word.
         /// </summary>
-        [field: SerializeField]
-        public WordSelectionEvent onWordSelection { get; set; } = new WordSelectionEvent();
+        public WordSelectionEvent onWordSelection
+        {
+            get { return m_OnWordSelection; }
+            set { m_OnWordSelection = value; }
+        }
+        [SerializeField]
+        private WordSelectionEvent m_OnWordSelection = new WordSelectionEvent();
 
 
         /// <summary>
         /// Event delegate triggered when pointer is over a line.
         /// </summary>
-        [field: SerializeField]
-        public LineSelectionEvent onLineSelection { get; set; } = new LineSelectionEvent();
+        public LineSelectionEvent onLineSelection
+        {
+            get { return m_OnLineSelection; }
+            set { m_OnLineSelection = value; }
+        }
+        [SerializeField]
+        private LineSelectionEvent m_OnLineSelection = new LineSelectionEvent();
 
 
         /// <summary>
         /// Event delegate triggered when pointer is over a link.
         /// </summary>
-        [field: SerializeField]
-        public LinkSelectionEvent onLinkSelection { get; set; } = new LinkSelectionEvent();
+        public LinkSelectionEvent onLinkSelection
+        {
+            get { return m_OnLinkSelection; }
+            set { m_OnLinkSelection = value; }
+        }
+        [SerializeField]
+        private LinkSelectionEvent m_OnLinkSelection = new LinkSelectionEvent();
+
+
 
         private TMP_Text m_TextComponent;
 
