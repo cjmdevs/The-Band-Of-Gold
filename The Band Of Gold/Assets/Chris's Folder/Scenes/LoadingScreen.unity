@@ -402,6 +402,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 84432671733835298, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1577457283815079912, guid: b543d66e80e10476b88632a227204e70, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -488,6 +492,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2936463427239320916, guid: b543d66e80e10476b88632a227204e70, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142453963615453087, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142453963615453087, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142453963615453087, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
