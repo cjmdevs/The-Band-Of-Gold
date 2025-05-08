@@ -45,17 +45,18 @@ public class levelupManager : MonoBehaviour
     }
 
     void LevelUp()
-{
-    Debug.Log("Attempting to spend: " + coinsNeededForNextLevel + " coins.");
-    coinManager.SpendCoins(coinsNeededForNextLevel);
-    currentLevel++;
-    coinsNeededForNextLevel = CalculateNextLevelCost(currentLevel);
-    UpdateLevelText();
-    UpdateCoinText();
-    skillTreeManager.UpdateAblityPoints(1);
-    Debug.Log("Leveled up to level " + currentLevel + "!");
-}
-
+    {
+        coinManager.SpendCoins(coinsNeededForNextLevel);
+        currentLevel++;
+        coinsNeededForNextLevel = CalculateNextLevelCost(currentLevel);
+        UpdateLevelText();
+        UpdateCoinText(); // Update coins needed text
+        skillTreeManager.UpdateAblityPoints(1);
+        // ***********************************************************************************
+        // Implement level up actions here
+        // ***********************************************************************************
+        Debug.Log("Leveled up to level " + currentLevel + "!");
+    }
 
     int CalculateNextLevelCost(int level)
     {

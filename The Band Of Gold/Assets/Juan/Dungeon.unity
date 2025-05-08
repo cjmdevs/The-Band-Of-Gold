@@ -47759,22 +47759,30 @@ MonoBehaviour:
   trackingBallLifetime: 7
   trackingBallsCount: 2
   trackingBallDelay: 4
-  trackingBallAttackChance: 0.25
+  trackingBallAttackChance: 0
   slamRadius: 5
   slamDamage: 2
   playerStunDuration: 1.5
   slamEffectPrefab: {fileID: 9143148026179110483, guid: a30934bc061574634a7f59740c311622, type: 3}
-  groundSlamAttackChance: 0.25
+  groundSlamAttackChance: 0
   staffAttackRange: 3
   staffDamage: 3
   staffAttackEffectPrefab: {fileID: 0}
-  staffMeleeAttackChance: 0.25
+  staffMeleeAttackChance: 1
   ballProjectilePrefab: {fileID: 3354229524175011409, guid: d758d9405048c4a4a9431464c567efed, type: 3}
   ballsInRing: 16
   ballSpeed: 5
   ballDamage: 1
   ballLifetime: 4
-  ringOfBallsAttackChance: 0.25
+  ringOfBallsAttackChance: 0
+  beamPrefab: {fileID: 0}
+  beamDuration: 2
+  beamDamage: 0.5
+  beamDamageTickRate: 0.2
+  beamChargeTime: 1
+  beamWidth: 2
+  beamAttackChance: 0
+  beamWarningIndicatorPrefab: {fileID: 0}
 --- !u!61 &2053582582
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -48029,11 +48037,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6086638073697774402, guid: d758d9405048c4a4a9431464c567efed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 53.46
+      value: 50.8
       objectReference: {fileID: 0}
     - target: {fileID: 6086638073697774402, guid: d758d9405048c4a4a9431464c567efed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -46.31
+      value: -41.7
       objectReference: {fileID: 0}
     - target: {fileID: 6086638073697774402, guid: d758d9405048c4a4a9431464c567efed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48143,11 +48151,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6683208773707379045, guid: f3e13623120bd4649928ce559495fafa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.39
+      value: 48.77
       objectReference: {fileID: 0}
     - target: {fileID: 6683208773707379045, guid: f3e13623120bd4649928ce559495fafa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -51.21
+      value: -45.41
       objectReference: {fileID: 0}
     - target: {fileID: 6683208773707379045, guid: f3e13623120bd4649928ce559495fafa, type: 3}
       propertyPath: m_LocalPosition.z
