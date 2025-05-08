@@ -366,6 +366,8 @@ MonoBehaviour:
   startingHealth: 100
   deathVFXPrefab: {fileID: 132740611625135121, guid: d3fcdb8bef01742acb2fa0dee25295bf, type: 3}
   healthBar: {fileID: 9129585516936431296}
+  crystalBallPrefab: {fileID: 0}
+  bossDefeatTextPrefab: {fileID: 0}
   currentHealth: 0
 --- !u!114 &1892938310253773529
 MonoBehaviour:
@@ -492,8 +494,8 @@ MonoBehaviour:
   trackingBallsCount: 3
   trackingBallDelay: 4
   trackingBallAttackChance: 0.25
-  slamRadius: 10
-  slamDamage: 3
+  slamRadius: 9
+  slamDamage: 1
   playerStunDuration: 1.5
   slamEffectPrefab: {fileID: 9143148026179110483, guid: a30934bc061574634a7f59740c311622, type: 3}
   groundSlamAttackChance: 0.25

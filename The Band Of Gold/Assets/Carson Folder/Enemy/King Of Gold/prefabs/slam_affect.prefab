@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b258afbf5f54730945fbdea630078f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 9
   expandDuration: 0.8
   lingerDuration: 0.3
   startColor: {r: 1, g: 0.80319375, b: 0, a: 1}
