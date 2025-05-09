@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro; // Added for TextMeshPro support
 
 public class EnemyHealth : MonoBehaviour
 {   
@@ -8,8 +10,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] FloatingHealthBar healthBar;
     public GameObject crystalBallPrefab;  // Assign this in the inspector
-    public GameObject bossDefeatTextPrefab;  // Assign this in the inspector
-
+    public TextMeshProUGUI bossDefeatText;  // Assign this TMP text in the inspector
+    public float textDisplayTime = 3f;  // How long the boss defeat text stays visible
 
     private Knockback knockback;
     private Flash flash;
@@ -22,6 +24,7 @@ public class EnemyHealth : MonoBehaviour
         knockback = GetComponent<Knockback>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
+    
     private void Start() {
         currentHealth = startingHealth;
         healthBar.UpdateHealthBar(currentHealth, startingHealth);
@@ -39,16 +42,26 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(flash.GetRestoreMatTime());
         DetectDeath();
     }
+    
+    private IEnumerator DisableTextAfterDelay(GameObject text) {
+        yield return new WaitForSeconds(textDisplayTime);
+        text.SetActive(false);
+    }
 
     public void DetectDeath() {
         if (currentHealth <= 0) {
             audioManager.PlaySFX(audioManager.enemyDeath);
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
             
-            // Check if this enemy is on the boss layer
-            if (gameObject.layer == LayerMask.NameToLayer("Boss")) {
-                // Display boss defeat text
-                GameObject defeatText = Instantiate(bossDefeatTextPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+            // Check if this enemy has the Boss tag
+            if (gameObject.CompareTag("Boss")) {
+                // Display boss defeat text if assigned
+                if (bossDefeatText != null) {
+                    bossDefeatText.gameObject.SetActive(true);
+                    
+                    // Disable the text after the display time
+                    StartCoroutine(DisableTextAfterDelay(bossDefeatText.gameObject));
+                }
                 
                 // Spawn crystal ball that player can pick up
                 Instantiate(crystalBallPrefab, transform.position, Quaternion.identity);
@@ -58,5 +71,4 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }
