@@ -132,7 +132,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 8
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 6043585251661365050}
   m_Layer: 0
   m_Name: King
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -363,11 +363,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28af3c4cb2f9e4e7a99926ee7a33dc48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 1
   deathVFXPrefab: {fileID: 132740611625135121, guid: d3fcdb8bef01742acb2fa0dee25295bf, type: 3}
   healthBar: {fileID: 9129585516936431296}
-  crystalBallPrefab: {fileID: 0}
-  bossDefeatTextPrefab: {fileID: 0}
+  crystalBallPrefab: {fileID: 2815631959330741485, guid: 7df3b84a5f38a4b4b8a7ef63ef83c23d, type: 3}
+  bossDefeatText: {fileID: 3207174036240851407, guid: 531044d7d8abb4afaa3ed7381a707cec, type: 3}
+  textDisplayTime: 5
   currentHealth: 0
 --- !u!114 &1892938310253773529
 MonoBehaviour:
