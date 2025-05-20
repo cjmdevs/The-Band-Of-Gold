@@ -37,11 +37,26 @@ public class GameManagerScript : MonoBehaviour
     {
         if (gameOverScreen == null)
         {
-            Debug.LogError("GameOverScreen is not assigned!");
+            gameOverScreen = GameObject.Find("GameOver Screen");
+            if (gameOverScreen == null)
+            {
+                Debug.LogWarning("GameOverScreen not found in the scene! Attempting to instantiate a default GameOverScreen.");
+            
+                // Load a default prefab (ensure you have a prefab assigned in the inspector)
+                GameObject defaultGameOverScreenPrefab = Resources.Load<GameObject>("DefaultGameOverScreen");
+                if (defaultGameOverScreenPrefab != null)
+                {
+                    gameOverScreen = Instantiate(defaultGameOverScreenPrefab);
+                    gameOverScreen.name = "GameOver Screen"; // Rename for consistency
+                }
+                else
+                {
+                    Debug.LogError("Default GameOverScreen prefab not found in Resources!");
+                }
+            }
         }
         Cursor.visible = true; // this needs to be true
         // Cursor.lockState = CursorLockMode.Locked; // we do not need this
-
     }
 
     // Update is called once per frame
