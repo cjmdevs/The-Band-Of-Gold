@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28af3c4cb2f9e4e7a99926ee7a33dc48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 1
+  startingHealth: 120
   deathVFXPrefab: {fileID: 132740611625135121, guid: d3fcdb8bef01742acb2fa0dee25295bf, type: 3}
   healthBar: {fileID: 9129585516936431296}
   crystalBallPrefab: {fileID: 2815631959330741485, guid: 7df3b84a5f38a4b4b8a7ef63ef83c23d, type: 3}
