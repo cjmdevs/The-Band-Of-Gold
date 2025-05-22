@@ -251,7 +251,7 @@ MonoBehaviour:
   - {fileID: 5038045397993771161, guid: 37a26cd0535dc404a8eaf35f537bf4d3, type: 3}
   maxEnemiesTotal: 50
   minSpawnTime: 1
-  maxSpawnTime: 25
+  maxSpawnTime: 15
   spawnPoints:
   - transform: {fileID: 5116795442187619902}
     maxEnemiesPerPoint: 2
