@@ -737,6 +737,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2936463427239320916, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936463427239320916, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142453963615453087, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142453963615453087, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142453963615453087, guid: b543d66e80e10476b88632a227204e70, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -819,7 +839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1591608007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,22 +1094,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterClassSelection
       objectReference: {fileID: 0}
-    - target: {fileID: 1843740858414913230, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968179963226637220, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968179963226637220, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 855231682}
-    - target: {fileID: 2968179963226637220, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 2031007717}
     - target: {fileID: 3640951348189808438, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1170,26 +1174,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3874740954498097771, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3874740954498097771, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 1439420825}
-    - target: {fileID: 7832360307150150454, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8542257241903916859, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8542257241903916859, guid: 40c46bd2d1aac444c943a1e48e0d047c, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 1439420825}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
