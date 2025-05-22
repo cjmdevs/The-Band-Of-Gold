@@ -66,7 +66,7 @@ public class SaveSlotsMenu : Menu
         // save the game anytime before loading a new scene
         DataPersistenceManager.instance.SaveGame();
         // load the scene
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync("CharacterSelection");
     }
 
     public void OnClearClicked(SaveSlot saveSlot) 

@@ -15,7 +15,8 @@ public class Sword : MonoBehaviour, IWeapon
 
     AudioManager audioManager;
 
-    private void Awake() {
+    private void Awake()
+    {
         myAnimator = GetComponent<Animator>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
